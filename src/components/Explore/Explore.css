@@ -1,0 +1,36 @@
+div.exploreCard {
+    width: 100px;
+    height: 410px;
+    display: -webkit-inline-box;
+}
+
+img {
+        width: 300px;
+        height: 250px;
+        object-fit: cover;
+        margin-left: -20px;
+        margin-top: -20px;
+        margin-right: -20px;
+}
+
+div {
+    margin: 20px;
+}
+
+button.MuiButtonBase-root MuiCardActionArea-root {
+    height:300px
+}
+
+div.MuiCardContent-root.cardBody {
+    margin-top: -10px;
+    margin-bottom: -30px;
+}
+
+div.MuiCardContent-root {
+    margin-bottom: -100px;
+}
+
+p {
+    margin-top: 20px;
+}
+
