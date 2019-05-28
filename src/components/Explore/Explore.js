@@ -8,7 +8,7 @@ import React from 'react';
 const Explore = () => (
   <div>
     <p>
-      Info Page
+      Explore Page
     </p>
   </div>
 );
