@@ -16,10 +16,23 @@ class Explore extends React.Component{
     this.props.dispatch({type: 'FETCH_EXPLORE'})
   }
   render(){
+
+    // let exploreData = {this.props.explore.map((travel=>{
+    //   return <li> {travel}</li>
+    // }))}
     return(
+      <div>
       <p> Explore</p>
+      <p>{JSON.stringify(this.props.explore)}</p>
+      </div>
     )
   }
 }
 
-export default connect()(Explore);
+const mapReduState = (reduxState) =>{
+  return{
+    explore: reduxState.exploreReducer
+}
+}
+
+export default connect(mapReduState)(Explore);
