@@ -16,8 +16,9 @@ router.get('/', (req, res) => {
 
 
 router.get('/reviews', (req, res) => {
-    const sqlQuery = `SELECT *FROM "travel_page_reviews";
-`;
+    const sqlQuery = `SELECT * FROM "travel_page"
+JOIN "travel_page_reviews" ON "travel_page_reviews".places_id = "travel_page".id;";
+`
     pool.query(sqlQuery).then(result => {
         console.log('Result', result.rows);
         res.send(result.rows)

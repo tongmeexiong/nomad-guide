@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
-// This is one of our simplest components
-// It doesn't have local state, so it can be a function component.
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is, so it doesn't need 'connect()'
 
 class TravelPage extends React.Component {
 
     componentDidMount() {
+        this.getExploreList()
+    }
 
+    getExploreList = () => {
+        this.props.dispatch({ type: 'FETCH_EXPLORE' })
     }
 
 
@@ -17,7 +17,14 @@ class TravelPage extends React.Component {
 
         return (
             <div>
-                <p>Travel Page</p>
+                <h1>Travel Page</h1>
+                {this.props.explore.map((items => {
+                    if (items.id === this.props.exploreId.id){
+                        return (
+                            <img src={items.image} />
+                        )
+                    }
+                }))}
             </div>
         )
     }
@@ -25,7 +32,8 @@ class TravelPage extends React.Component {
 
 const mapReduState = (reduxState) => {
     return {
-        explore: reduxState.exploreReducer
+        explore: reduxState.exploreReducer,
+        exploreId: reduxState.idReducer
 
     }
 }

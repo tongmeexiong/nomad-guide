@@ -17,6 +17,7 @@ import Favorites from '../Favorites/Favorites';
 import UserPage from '../UserPage/UserPage';
 import Explore from '../Explore/Explore';
 import AddReview from '../AddReview/AddReview'
+import TravelPage from '../TravelPage/TravelPage'
 
 import './App.css';
 
@@ -44,6 +45,11 @@ class App extends Component {
               exact
               path="/addreview"
               component={AddReview}
+            />
+            <ProtectedRoute
+              exact
+              path="/travelpage"
+              component={TravelPage}
             />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.

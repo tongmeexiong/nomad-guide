@@ -8,11 +8,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import './Explore.css'
 
-// This is one of our simplest components
-// It doesn't have local state, so it can be a function component.
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is, so it doesn't need 'connect()'
-
 class Explore extends React.Component{
 
   componentDidMount(){
@@ -22,18 +17,24 @@ class Explore extends React.Component{
   getExploreList =()=>{
     this.props.dispatch({type: 'FETCH_EXPLORE'})
   }
+
+  imageClickHandler =(id)=>{
+    console.log('Clicked Image', id);
+    this.props.history.push("/travelpage")
+    this.props.dispatch({type:'EXPLORE_ID_CLICK', payload: {id: id}})
+  }
+  
   render(){
 
     return(
-      <div className="exploreCard">
+      <div className="container">
     {this.props.explore.map((items=>{
       return(
-        
-        <Card key={items.id} className="card">
+        <div className="exploreCards" key={items.id} >
+        <Card onClick={()=> this.imageClickHandler(items.id)}>
           <CardActionArea>
-            
              <CardMedia>
-              <img src={items.image} alt="travel image" />
+              <img src={items.image} alt="travel" />
               <Typography variant="body2" color="textPrimary" component="p" className="cardTitle">
                 {items.city}, {items.country}
               </Typography>
@@ -48,12 +49,12 @@ class Explore extends React.Component{
             </CardContent>
           </CardActionArea>
 
-
           <CardActions className="cardActions">
             Ratings: 
+            <button>More Details</button>
           </CardActions>
         </Card>
-
+        </div>
       )
     }))}
       </div>
