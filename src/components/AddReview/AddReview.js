@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import StarRatings from '../StarRatings/StarRatings'
 import './AddReview.css'
 
 
@@ -40,6 +41,9 @@ class AddReview extends React.Component {
                 </div>
                 <div>
                     <button> Submit</button>
+                </div>
+                <div>
+                    <StarRatings />
                 </div>
             </div>
         )
