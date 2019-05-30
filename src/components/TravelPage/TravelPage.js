@@ -41,7 +41,7 @@ class TravelPage extends React.Component {
                                     <img src={items.image} />
                                 </div>
                                 <div>
-                                    <h2> 📍{items.city}, {items.country} </h2>
+                                    <h2> {items.city}, {items.country} </h2>
                                 </div>
                             </div>
                         )

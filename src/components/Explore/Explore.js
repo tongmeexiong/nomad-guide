@@ -47,9 +47,7 @@ class Explore extends React.Component{
 
               <Typography gutterBottom variant="h5" component="h2">
               </Typography>
-              {/* <Typography variant="body2" color="textPrimary" component="p">
-                {items.city}, {items.country}
-              </Typography> */}
+             
             </CardContent>
           </CardActionArea>
 

@@ -35,7 +35,9 @@ JOIN "travel_page_reviews" ON "travel_page_reviews".travel_page_id = "travel_pag
  * POST route template
  */
 router.post('/', (req, res) => {
+ 
+})
 
-});
+
 
 module.exports = router;

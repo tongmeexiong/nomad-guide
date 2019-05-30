@@ -1,21 +1,40 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import StarRatings from '../StarRatings/StarRatings'
+import SafeStarRatings from '../StarRatings/SafeStarRatings'
+import EnlgishStarRating from '../StarRatings/EnglishStarRating'
+import CostStarRating from '../StarRatings/CostRating'
+import FriendlyStarRatings from'../StarRatings/FriendlyStarRatings'
+import ReconmendStarRatings from '../StarRatings/ReconmendStarRating'
 import './AddReview.css'
 
 
 class AddReview extends React.Component {
+
+    componentDidMount() {
+        this.getExploreListReviews()
+
+    }
+
+    getExploreListReviews = () => {
+        this.props.dispatch({ type: 'FETCH_REVIEW', payload: this.props.exploreId })
+    }
+
     render() {
         return (
             <div>
                 <div>
                     <h1>What's Your Review?</h1>
-                    <h3>Review This Trvel Destination</h3>
+                    <h3>Review This Travel Destination</h3>
                     <select>
-                        <option>Location: City, Country</option>
-                        <option>Minneapolis, Minnesota </option>
-                        <option>Mangilao, Guam </option>
+                        <option>Location: City, Country </option>
+
+                        {this.props.reviews.map((review => {
+                            return (
+                                <option>{review.city}, {review.country}  </option>
+                            )
+                        }))}
                     </select>
+
                 </div>
                 <div>
                     <h3>Or </h3>
@@ -43,7 +62,17 @@ class AddReview extends React.Component {
                     <button> Submit</button>
                 </div>
                 <div>
-                    <StarRatings />
+                    <h2>Safety</h2>
+                    <SafeStarRatings />
+                    <h2>English</h2>
+                    <EnlgishStarRating />
+                    <h2>Cost</h2>
+                    <CostStarRating/>
+                    <h2>Frendly</h2>
+                    <FriendlyStarRatings/>
+
+                    <h2>Reconmendation</h2>
+                    <ReconmendStarRatings/>
                 </div>
             </div>
         )
