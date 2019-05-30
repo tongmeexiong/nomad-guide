@@ -27,6 +27,10 @@ class App extends Component {
   }
 
   render() {
+
+   
+    
+
     return (
       <Router>
         <div>
@@ -46,9 +50,9 @@ class App extends Component {
               path="/addreview"
               component={AddReview}
             />
-            <ProtectedRoute
-              exact
-              path="/travelpage"
+
+            <Route
+              path="/travelpage/:id"
               component={TravelPage}
             />
             {/* For protected routes, the view could show one of several things on the same route.

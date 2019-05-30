@@ -1,18 +1,58 @@
 import React from 'react';
+import { connect } from 'react-redux'
+import './AddReview.css'
 
-// This is one of our simplest components
-// It doesn't have local state, so it can be a function component.
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is, so it doesn't need 'connect()'
 
-const AddReview = () => (
-    <div>
-        <div>
-            <p>
-                Add Review Page!!
-      </p>
-        </div>
-    </div>
-);
+class AddReview extends React.Component {
+    render() {
+        return (
+            <div>
+                <div>
+                    <h1>What's Your Review?</h1>
+                    <h3>Review This Trvel Destination</h3>
+                    <select>
+                        <option>Location: City, Country</option>
+                        <option>Minneapolis, Minnesota </option>
+                        <option>Mangilao, Guam </option>
+                    </select>
+                </div>
+                <div>
+                    <h3>Or </h3>
+                    <h3> Add a New Travel Destination</h3>
+                    <input type="text" placeholder="City" />
+                    <input type="text" placeholder="Country" />
+                    <select>
+                        <option>Continent</option>
+                        <option>North America </option>
+                        <option>Asia </option>
+                    </select>
+                </div>
+                <div>
+                    <h3> Any CoWorking Spaces? </h3>
+                    <input type="text" placeholder="CoWorking Space Name" />
+                    <input type="text" placeholder="CoWorking Space Address" />
+                    <input type="text" placeholder="City" />
+                    <input type="text" placeholder="Country" />
+                    <input type="text" placeholder="Zip Code" />
+                </div>
+                <div>
+                    <input className="experienceBox" type="text" placeholder="Experience" />
+                </div>
+                <div>
+                    <button> Submit</button>
+                </div>
+            </div>
+        )
+    }
+}
 
-export default AddReview;
+
+const mapReduState = (reduxState) => {
+    return {
+        explore: reduxState.exploreReducer,
+        exploreId: reduxState.idReducer,
+        reviews: reduxState.reviewReducer
+    }
+}
+
+export default connect(mapReduState)(AddReview);

@@ -1,47 +1,31 @@
-div.exploreCard {
-    width: 100px;
-    height: 410px;
-    display: -webkit-box;
-    margin-left: -1px;
-        margin-top: 20px;
-    margin: 10px;
+.exploreCards {
+    width: 300px;
+    height: 200px; 
+    display: inline-block;
 }
-
 img {
         width: 300px;
         height: 250px;
         object-fit: cover;
-        margin-left: -20px;
+        /* margin-left: -20px;
         margin-top: -20px;
-        margin-right: -20px;
+        margin-right: -20px; */
 }
 
-/* div {
-    margin: 20px;
-} */
 
-button.MuiButtonBase-root MuiCardActionArea-root {
-    height:300px;
-    margin: 20px;
-}
-
-div.MuiCardContent-root.cardBody {
+.cardBody {
     margin-top: -10px;
     margin-bottom: -30px;
 }
 
-div.MuiCardContent-root {
-    margin-bottom: -100px;
-}
-
-p {
-    margin-top: 20px;
-}
 
 .container {
     margin-right: 10px;
-    max-width: 500px;
-        display: -webkit-box;
+    height: 100px;
+    max-width: 200px;
+    display: contents
+    /* display: inline-block; */
 
 }
+
 
