@@ -14,10 +14,11 @@ import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import Favorites from '../Favorites/Favorites';
-import UserPage from '../DashBoard.js/DashBoard';
+import DashBoard from '../DashBoard/DashBoard'
 import Explore from '../Explore/Explore';
 import AddReview from '../AddReview/AddReview'
 import TravelPage from '../TravelPage/TravelPage'
+import UpdateReview from '../UpdateReview/UpdateReview'
 
 import './App.css';
 
@@ -51,6 +52,12 @@ class App extends Component {
               component={AddReview}
             />
 
+            <ProtectedRoute
+              exact
+              path="/update"
+              component={UpdateReview}
+            />
+
             <Route
               path="/travelpage/:id"
               component={TravelPage}
@@ -62,7 +69,7 @@ class App extends Component {
             <ProtectedRoute
               exact
               path="/home"
-              component={UserPage}
+              component={DashBoard}
             />
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}

@@ -5,6 +5,7 @@ import userSaga from './userSaga';
 import getExploreSaga from './exploreSaga'
 import idSaga from './IdSaga'
 import reviewSaga from './reviewSaga'
+import userReviewSaga from'./userReviewSaga'
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -21,5 +22,6 @@ export default function* rootSaga() {
     getExploreSaga(),
     idSaga(),
     reviewSaga(),
+    userReviewSaga()
   ]);
 }

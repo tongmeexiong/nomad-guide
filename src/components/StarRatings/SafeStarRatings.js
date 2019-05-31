@@ -8,7 +8,7 @@ import Rating from 'react-rating';
 class SafeStarRatings extends React.Component {
 
     state = {
-        english_rating: 0
+        saftey_rating: 0
     }
 
     // this.handleClick = this.handleClick.bind(this);
@@ -21,7 +21,7 @@ class SafeStarRatings extends React.Component {
     clickRatingHandler = (event) => {
         console.log('Click', event);
         this.setState({
-            SafteyRating: event
+            saftey_rating: event
         })
         this.props.dispatch({ type: 'SET_SAFTEY_RATING', payload: event})
         }
@@ -42,7 +42,7 @@ class SafeStarRatings extends React.Component {
                     <h3>{rating.safety_rating}</h3> */}
                 {/* <div> */}
                 <Rating
-                    initialRating={this.state.SafteyRating}
+                    initialRating={this.state.saftey_rating}
                     onChange={this.clickRatingHandler}
                     // emptySymbol={<StarBorder />}
                     // fullSymbol={<Star />}
