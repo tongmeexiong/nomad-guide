@@ -7,34 +7,9 @@ import Rating from 'react-rating';
 
 class SafeStarRatings extends React.Component {
 
-    state = {
-        english_rating: 0
-    }
-
-    // this.handleClick = this.handleClick.bind(this);
-    //   }
-
-    // handleClick(event) {
-    //     this.setState({ value: undefined });
-    // }
-
-    clickRatingHandler = (event) => {
-        console.log('Click', event);
-        this.setState({
-            SafteyRating: event
-        })
-        this.props.dispatch({ type: 'SET_SAFTEY_RATING', payload: event})
-        }
-    
-// sendToReducer =() =>{
-//         this.props.dispatch({ type: 'SET_RATING', payload: this.state })
-//     }
-
-
-
 
     render() {
-        console.log('Rating', this.state);
+        console.log('Travel Page Rating', this.props.rating.safety_rating);
 
         return (
             <div>
@@ -42,16 +17,15 @@ class SafeStarRatings extends React.Component {
                     <h3>{rating.safety_rating}</h3> */}
                 {/* <div> */}
                 <Rating
-                    initialRating={this.state.SafteyRating}
-                    onChange={this.clickRatingHandler}
+                    initialRating={this.props.rating.safety_rating}
+                    // onChange={this.clickRatingHandler}
                     // emptySymbol={<StarBorder />}
                     // fullSymbol={<Star />}
                     start={0}
                     stop={5}
-
+                    readonly
                 />
-                {/* </div> */}
-                {/* }))} */}
+                
 
             </div>
         )

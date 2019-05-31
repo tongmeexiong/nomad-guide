@@ -10,7 +10,7 @@ const UserPage = (props) => (
     <h1 id="welcome">
       Welcome to the Dashboard, { props.user.username }!
     </h1>
-   
+   <h2> Your reiviews:</h2>
     {/* <LogOutButton className="log-in" /> */}
   </div>
 );

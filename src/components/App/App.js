@@ -14,7 +14,7 @@ import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import Favorites from '../Favorites/Favorites';
-import UserPage from '../UserPage/UserPage';
+import UserPage from '../DashBoard.js/DashBoard';
 import Explore from '../Explore/Explore';
 import AddReview from '../AddReview/AddReview'
 import TravelPage from '../TravelPage/TravelPage'
