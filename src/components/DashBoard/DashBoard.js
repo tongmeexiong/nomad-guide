@@ -22,10 +22,9 @@ componentDidMount(){
     
   }
 
-  updateHandler =(items) =>{
-    console.log('Update Click');
-    this.props.history.push("/update")
-    this.props.dispatch({type: 'UPDATE_REVIEW', payload: items})
+  updateHandler =(id) =>{
+    console.log('Update Click', id);
+    this.props.history.push(`/update/${id}`)
     
   }
 
@@ -60,7 +59,7 @@ componentDidMount(){
                     </Typography>               
   </CardActions>
                   <button onClick = {()=>this.deleteHandler}>Delete</button>
-                  <button onClick={()=>this.updateHandler(items)}>Update</button>
+                  <button onClick={()=>this.updateHandler(items.id)}>Update</button>
 
                 </Card>
               </div>

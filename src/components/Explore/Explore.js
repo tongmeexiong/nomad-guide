@@ -10,9 +10,7 @@ import './Explore.css'
 
 class Explore extends React.Component{
 
-  state ={
-    id: 0
-  }
+ 
 
   componentDidMount(){
     this.getExploreList()
@@ -25,7 +23,6 @@ class Explore extends React.Component{
   imageClickHandler =(id)=>{
     console.log('Clicked Image', id);
     this.props.history.push(`/travelpage/${id}`)
-    this.props.dispatch({type:'EXPLORE_ID_CLICK', payload: {id: id}})
   }
   
   render(){
@@ -73,5 +70,4 @@ const mapReduState = (reduxState) =>{
 
 export default connect(mapReduState)(Explore);
 
-// export default withStyles(styles)(HigherOrderComponent);
 

@@ -71,7 +71,7 @@ class TravelPage extends React.Component {
                                 </Grid>
                                 <div className="images">
                                     <div>
-                                        <img src={items.image} />
+                                        <img src={items.image} alt="travel location" />
                                     </div>
                                     <div>
                                         <h2> {items.city}, {items.country} </h2>
@@ -91,7 +91,6 @@ class TravelPage extends React.Component {
 const mapReduState = (reduxState) => {
     return {
         explore: reduxState.exploreReducer,
-        exploreId: reduxState.idReducer,
         reviews: reduxState.reviewReducer,
         travelReview: reduxState.travelPageReducer
     }
