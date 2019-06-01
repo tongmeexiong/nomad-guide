@@ -21,6 +21,7 @@ class TravelPage extends React.Component {
 
     getExploreListReviews = () => {
         this.props.dispatch({ type: 'FETCH_REVIEW' })
+        this.props.dispatch({ type: 'FETCH_TRAVEL_PAGE', payload: this.props.match.params.id})
     }
 
 
@@ -32,13 +33,13 @@ class TravelPage extends React.Component {
 
     render() {
         // console.log('Travel Page State', this.state.id);
-        // console.log('Match', match.params.id);
+        console.log('Match', this.props.match.params.id);
+
 
         return (
             <div>
                 <h1>Travel Page</h1>
-                {this.props.reviews.map((items => {
-                    if (items.id === this.props.exploreId.id) {
+                {this.props.travelReview.map((items => {
                         return (
                             <div>
                                 <Grid
@@ -79,7 +80,7 @@ class TravelPage extends React.Component {
                                 </div>
                             </div>
                         )
-                    }
+                    
 
                 }))}
             </div>
@@ -91,7 +92,8 @@ const mapReduState = (reduxState) => {
     return {
         explore: reduxState.exploreReducer,
         exploreId: reduxState.idReducer,
-        reviews: reduxState.reviewReducer
+        reviews: reduxState.reviewReducer,
+        travelReview: reduxState.travelPageReducer
     }
 }
 

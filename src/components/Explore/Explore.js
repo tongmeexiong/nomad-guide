@@ -24,7 +24,7 @@ class Explore extends React.Component{
 
   imageClickHandler =(id)=>{
     console.log('Clicked Image', id);
-    this.props.history.push("/travelpage/:id")
+    this.props.history.push(`/travelpage/${id}`)
     this.props.dispatch({type:'EXPLORE_ID_CLICK', payload: {id: id}})
   }
   

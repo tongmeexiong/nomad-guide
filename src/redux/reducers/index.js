@@ -7,7 +7,8 @@ import idReducer from './IdReducer'
 import reviewReducer from './reviewReducer'
 import ratingeReducer from './ratingReducer'
 import userReviewReducer from'./userReviewReducer'
-import updateReviewReducer from'./updateReducer'
+import updateReviewReducer from './updateReducer'
+import travelPageReducer from './travelPageReducer'
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -23,7 +24,8 @@ const rootReducer = combineReducers({
   reviewReducer,
   ratingeReducer,
   userReviewReducer,
-  updateReviewReducer
+  updateReviewReducer,
+  travelPageReducer
 });
 
 export default rootReducer;

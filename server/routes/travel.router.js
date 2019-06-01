@@ -15,6 +15,20 @@ router.get('/', (req, res) => {
     })
 });
 
+router.get("/traveldetails/:id", (req, res) => {
+    let travelPageId = req.params.id
+    const sqlQuery = `SELECT * FROM "travel_page"
+JOIN "travel_page_reviews" ON "travel_page_reviews".travel_page_id = "travel_page".id
+WHERE "travel_page".id = $1;`;
+    pool.query(sqlQuery, [travelPageId]).then(result => {
+        console.log('Result', result.rows);
+        res.send(result.rows)
+    }).catch(err => {
+        console.log('Error in GET', err);
+        res.SendStatus(500)
+    })
+});
+
 
 router.get('/reviews', (req, res) => {
     let placeID = req.query.id
@@ -59,8 +73,26 @@ WHERE "user".id = $1;
  * POST route template
  */
 router.post('/', (req, res) => {
-
-})
+    if (req.isAuthenticated()) {
+        console.log('is authenticated?', req.isAuthenticated());
+        console.log('user', req.user);
+        console.log('req.user:', req.user);
+        let destination = req.body
+        let sqlText = `INSERT INTO "travel_page"("city", "country", "continent")
+    VALUES($1, $2, $3);`
+        pool.query(sqlText, [destination.city, destination.country, destination.continent])
+            .then(() => {
+                res.sendStatus(201);
+            })
+            .catch((err) => {
+                console.log('Error POST', err);
+                res.sendStatus(500);
+            });
+    }
+    else {
+        res.sendStatus(403)
+    }
+});
 
 
 

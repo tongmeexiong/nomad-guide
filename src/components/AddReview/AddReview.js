@@ -13,7 +13,10 @@ import './AddReview.css'
 class AddReview extends React.Component {
 
     state = {
-        inputEditable: true
+        inputEditable: true,
+        city:'',
+        country: '',
+        continent: ''
     }
     componentDidMount() {
         this.getExploreListReviews()
@@ -35,8 +38,44 @@ class AddReview extends React.Component {
     }
 
     travelPickHandler =(id)=>{
-        console.log('Option ID', id);
+        // console.log('Option ID', id);
         
+    }
+
+    addTravelLocation = () =>{
+        console.log('Clicked Add Location');
+        this.props.dispatch({type:'POST_TRAVEL',
+        payload: {
+            city: this.state.city,
+            country: this.state.country,
+            continent: this.state.continent
+        }
+    })
+        
+    }
+
+    cityChangeHandler =(event) =>{
+        console.log('City', event.target.value);
+        this.setState({
+            city: event.target.value
+        })
+        
+    }
+
+    countryChangeHandler = (event) => {
+        console.log('country', event.target.value);
+        this.setState({
+            country: event.target.value
+        })
+
+    }
+
+    continentChangeHandler = (event) => {
+        console.log('continent', event.target.value);
+        this.setState({
+            continent: event.target.value
+        })
+
     }
 
     render() {
@@ -59,13 +98,14 @@ class AddReview extends React.Component {
                 <div>
                     <h3>Or </h3>
                     <h3> Add a New Travel Destination</h3>
-                        <input type="text" placeholder="City" disabled={!this.state.inputEditable} />
-                        <input type="text" placeholder="Country" disabled={!this.state.inputEditable} />
-                    <select disabled={!this.state.inputEditable}>
+                        <input onChange ={this.cityChangeHandler} type="text" placeholder="City" disabled={!this.state.inputEditable} />
+                    <input onChange={this.countryChangeHandler} type="text" placeholder="Country" disabled={!this.state.inputEditable} />
+                    <select onChange={this.continentChangeHandler} disabled={!this.state.inputEditable}>
                         <option>Continent</option>
                         <option>North America </option>
                         <option>Asia </option>
                     </select>
+                    <button onClick={this.addTravelLocation} disabled={!this.state.inputEditable}>Add Travel</button>
                     </div> 
                 <div>
                     <h3> Any CoWorking Spaces? </h3>
