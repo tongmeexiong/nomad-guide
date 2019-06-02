@@ -5,35 +5,31 @@ import { Button } from '@material-ui/core'
 import Rating from 'react-rating';
 
 
-// import './AddReview.css'
 
 
-class AddReview extends React.Component {
+class UpdateReview extends React.Component {
 
-    state = {
-        inputEditable: true,
-        city: this.props.userReview.city,
-        country: this.props.userReview.country,
-        saftey_rating: this.props.userReview.safety_rating,
-        english_rating: this.props.userReview.english_rating,
-        cost_rating: this.props.userReview.cost_rating,
-        friendly_rating: this.props.userReview.friendly_rating,
-        reconmend_rating: this.props.userReview.reconmend_rating
+   
+
+    state ={
+        comment: "hello",
+        saftey_rating: this.props.updateReview.safety_rating,
+        english_rating: this.props.updateReview.english_rating,
+        cost_rating: 0,
+        friendly_rating: 0,
+        reconmend_rating: 0
     }
+
     componentDidMount() {
         this.getExploreListReviews()
-
+        this.props.dispatch({ type: 'GET_UPDATE_TRAVEL_REVIEW', payload: this.props.match.params.id })
     }
 
     getExploreListReviews = () => {
         this.props.dispatch({ type: 'FETCH_REVIEW', payload: this.props.exploreId })
     }
 
-    selectHandler = () => {
-        this.setState({
-            inputEditable: !this.state.inputEditable
-        })
-    }
+   
 
     submitPageHandler = () => {
         alert('Thank you for the review!')
@@ -44,62 +40,114 @@ class AddReview extends React.Component {
 
     }
 
+    clickSafeRatingHandler =(event) =>{
+        console.log('Safe Clickerrrrr', event);
+        this.setState({
+            saftey_rating: event
+        })
+    }
+
+     clickEnglishRatingHandler =(event) =>{
+        console.log('Safe Clickerrrrr', event);
+        this.setState({
+            english_rating: event
+        })
+    }
+
+    clickCostRatingHandler = (event) => {
+        console.log('Safe Clickerrrrr', event);
+        this.setState({
+            cost_rating: event
+        })
+    }
+
+     clickFriendlyRatingHandler =(event) =>{
+        console.log('Safe Clickerrrrr', event);
+        this.setState({
+            friendly_rating: event
+        })
+    }
+
+    clickReconmendRatingHandler = (event) => {
+        console.log('Safe Clickerrrrr', event);
+        this.setState({
+            reconmend_rating: event
+        })
+    }
+
     render() {
-        console.log('Update Review Page', this.state);
+        console.log('ID Update', this.props.match.params.id);
+        console.log('State', this.state);
+        console.log('tester', this.props.updateReview);
+        
+        
+
 
         return (
             <div>
-                <h1>Edit Your Review </h1>
-                <h3>Review This Travel Destination</h3>
-                <select onChange={this.selectHandler}>
-                    {/* <option>Location: City, Country </option> */}
-
-                            <option>{this.state.city},{this.state.country}</option>
-                </select>
-
-                {/* <div>
-                    <h3>Or </h3>
-                    <h3> Add a New Travel Destination</h3>
-                    <input type="text" placeholder="City" disabled={!this.state.inputEditable} />
-                    <input type="text" placeholder="Country" disabled={!this.state.inputEditable} />
-                    <select disabled={!this.state.inputEditable}>
-                        <option>Continent</option>
-                        <option>North America </option>
-                        <option>Asia </option>
-                    </select>
-                </div> */}
-                <div>
-                    <h3> ADD CoWorking Spaces? </h3>
-                    <input type="text" placeholder="CoWorking Space Name" />
-                    <input type="text" placeholder="CoWorking Space Address" />
-                    <input type="text" placeholder="City" />
-                    <input type="text" placeholder="Country" />
-                    <input type="text" placeholder="Zip Code" />
-                </div>
-                <div>
-                    <input className="experienceBox" type="text" placeholder="Experience" />
-                </div>
-
-                <div>
-                    <h2>Safety</h2>
-                    <Rating
-                        initialRating={this.state.saftey_rating}                       
-                        start={0}
-                        stop={5}
-                    />   
-                    {/* <h2>English</h2>
-                    <EnlgishStarRating />
-                    <h2>Cost</h2>
-                    <CostStarRating />
-                    <h2>Frendly</h2>
-                    <FriendlyStarRatings />
-
-                    <h2>Recommend</h2>
-                    <ReconmendStarRatings /> */}
-                </div>
-                <div>
-                    <Button variant="contained" color="secondary" onClick={this.submitPageHandler}>Submit</Button>
-                </div>
+                {this.props.updateReview.map((items => {
+                    return (
+                        <div key={items.id}>
+                            <h1>Edit Your Review </h1>
+                            <h2>{items.city}, {items.country}</h2>
+                            {/* <select onChange={this.selectHandler}>
+                                <option>{items.city},{items.country}</option>
+                            </select> */}
+                            <div>
+                                <h3> ADD CoWorking Spaces? </h3>
+                                <input type="text" placeholder="CoWorking Space Name" />
+                                <input type="text" placeholder="CoWorking Space Address" />
+                                <input type="text" placeholder="City" />
+                                <input type="text" placeholder="Country" />
+                                <input type="text" placeholder="Zip Code" />
+                            </div>
+                            <div>
+                                <input className="experienceBox" type="text" placeholder="Experience" 
+                                   />
+                            </div>
+                            <div>
+                                <h2>Safety</h2>
+                                <Rating
+                                    initialRating={this.state.saftey_rating}
+                                    onChange={this.clickSafeRatingHandler}
+                                    start={0}
+                                    stop={5}
+                                />
+                                <h2>English</h2>
+                                <Rating
+                                    initialRating={items.english_rating}
+                                    onChange={this.clickEnglishRatingHandler}
+                                    start={0}
+                                    stop={5}
+                                />
+                                <h2>Cost</h2>
+                                <Rating
+                                    initialRating={items.cost_rating}
+                                    onChange={this.clickCostRatingHandler}
+                                    start={0}
+                                    stop={5}
+                                />
+                                <h2>Friendliness</h2>
+                                <Rating
+                                    initialRating={items.friendly_rating}
+                                    onChange={this.clickFriendlyRatingHandler}
+                                    start={0}
+                                    stop={5}
+                                />
+                                <h2>Reconmend</h2>
+                                <Rating
+                                    initialRating={items.reconmend_rating}
+                                    onChange={this.clickReconmendRatingHandler}
+                                    start={0}
+                                    stop={5}
+                                />
+                            </div>
+                            <div>
+                                <Button variant="contained" color="secondary" onClick={this.submitPageHandler}>Submit</Button>
+                            </div>
+                        </div>
+                    )
+                }))}
             </div>
         )
     }
@@ -109,10 +157,10 @@ class AddReview extends React.Component {
 const mapReduState = (reduxState) => {
     return {
         explore: reduxState.exploreReducer,
-        exploreId: reduxState.idReducer,
         reviews: reduxState.reviewReducer,
-        userReview: reduxState.updateReviewReducer
+        userReview: reduxState.updateReviewReducer,
+        updateReview: reduxState.updateReviewGetReducer
     }
 }
 
-export default connect(mapReduState)(AddReview);
+export default connect(mapReduState)(UpdateReview);

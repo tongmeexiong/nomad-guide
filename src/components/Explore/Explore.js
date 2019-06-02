@@ -10,9 +10,7 @@ import './Explore.css'
 
 class Explore extends React.Component{
 
-  state ={
-    id: 0
-  }
+ 
 
   componentDidMount(){
     this.getExploreList()
@@ -25,7 +23,6 @@ class Explore extends React.Component{
   imageClickHandler =(id)=>{
     console.log('Clicked Image', id);
     this.props.history.push(`/travelpage/${id}`)
-    this.props.dispatch({type:'EXPLORE_ID_CLICK', payload: {id: id}})
   }
   
   render(){
@@ -35,9 +32,9 @@ class Explore extends React.Component{
     {this.props.explore.map((items=>{
       return(
         <div className="exploreCards" key={items.id} >
-        <Card onClick={()=> this.imageClickHandler(items.id)}>
+        <Card >
           <CardActionArea>
-             <CardMedia>
+              <CardMedia onClick={() => this.imageClickHandler(items.id)}>
               <img src={items.image} alt="travel" />
               <Typography variant="body2" color="textPrimary" component="p" className="cardTitle">
                 {items.city}, {items.country}
@@ -53,7 +50,6 @@ class Explore extends React.Component{
 
           <CardActions className="cardActions">
             Ratings: 
-            <button>More Details</button>
           </CardActions>
         </Card>
         </div>
@@ -73,5 +69,4 @@ const mapReduState = (reduxState) =>{
 
 export default connect(mapReduState)(Explore);
 
-// export default withStyles(styles)(HigherOrderComponent);
 

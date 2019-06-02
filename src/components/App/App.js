@@ -19,6 +19,7 @@ import Explore from '../Explore/Explore';
 import AddReview from '../AddReview/AddReview'
 import TravelPage from '../TravelPage/TravelPage'
 import UpdateReview from '../UpdateReview/UpdateReview'
+import AddTravel from '../AddTravel/AddTravel'
 
 import './App.css';
 
@@ -48,14 +49,19 @@ class App extends Component {
             />
             <ProtectedRoute
               exact
-              path="/addreview"
-              component={AddReview}
+              path="/addtravelreview"
+              component={AddTravel}
             />
 
             <ProtectedRoute
               exact
-              path="/update"
+              path="/update/:id"
               component={UpdateReview}
+            />
+            <ProtectedRoute
+              exact
+              path="/addreview"
+              component={AddReview}
             />
 
             <Route
