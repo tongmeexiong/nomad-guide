@@ -37,26 +37,31 @@ class AddReview extends React.Component {
 
     workSpaceName =(event)=>{
         console.log('Name', event.target.value);
-        
+        this.props.dispatch({ type: 'SET_COWORKING_SPACE_NAME', payload: event.target.value })
     }
     workSpaceAddress = (event) => {
         console.log('Address', event.target.value);
+        this.props.dispatch({ type: 'SET_COWORKING_SPACE_ADDRESS', payload: event.target.value })
 
     }
      workSpaceCity =(event)=>{
         console.log('City', event.target.value);
-        
+         this.props.dispatch({ type: 'SET_COWORKING_SPACE_CITY', payload: event.target.value })
+
     }
      workSpaceCountry =(event)=>{
         console.log('Country', event.target.value);
-        
+         this.props.dispatch({ type: 'SET_COWORKING_SPACE_COUNTRY', payload: event.target.value })
+
     }
     workSpaceZip = (event) => {
         console.log('Zip ', event.target.value);
+        this.props.dispatch({ type: 'SET_COWORKING_SPACE_ZIP', payload: event.target.value })
 
     }
     workSpaceComment = (event) => {
         console.log('Comment', event.target.value);
+        this.props.dispatch({ type: 'SET_EXPERIENCE_COMMENT', payload: event.target.value })
 
     }
 
