@@ -5,24 +5,19 @@ import { Button } from '@material-ui/core'
 import Rating from 'react-rating';
 
 
-// import './AddReview.css'
 
 
-class AddReview extends React.Component {
+class UpdateReview extends React.Component {
 
-    // state = {
-    //     inputEditable: true,
-    //     city: this.props.userReview.city,
-    //     country: this.props.userReview.country,
-    //     saftey_rating: this.props.userReview.safety_rating,
-    //     english_rating: this.props.userReview.english_rating,
-    //     cost_rating: this.props.userReview.cost_rating,
-    //     friendly_rating: this.props.userReview.friendly_rating,
-    //     reconmend_rating: this.props.userReview.reconmend_rating
-    // }
+   
 
     state ={
-        comment: "hello"
+        comment: "hello",
+        saftey_rating: this.props.updateReview.safety_rating,
+        english_rating: this.props.updateReview.english_rating,
+        cost_rating: 0,
+        friendly_rating: 0,
+        reconmend_rating: 0
     }
 
     componentDidMount() {
@@ -45,9 +40,46 @@ class AddReview extends React.Component {
 
     }
 
+    clickSafeRatingHandler =(event) =>{
+        console.log('Safe Clickerrrrr', event);
+        this.setState({
+            saftey_rating: event
+        })
+    }
+
+     clickEnglishRatingHandler =(event) =>{
+        console.log('Safe Clickerrrrr', event);
+        this.setState({
+            english_rating: event
+        })
+    }
+
+    clickCostRatingHandler = (event) => {
+        console.log('Safe Clickerrrrr', event);
+        this.setState({
+            cost_rating: event
+        })
+    }
+
+     clickFriendlyRatingHandler =(event) =>{
+        console.log('Safe Clickerrrrr', event);
+        this.setState({
+            friendly_rating: event
+        })
+    }
+
+    clickReconmendRatingHandler = (event) => {
+        console.log('Safe Clickerrrrr', event);
+        this.setState({
+            reconmend_rating: event
+        })
+    }
+
     render() {
         console.log('ID Update', this.props.match.params.id);
         console.log('State', this.state);
+        console.log('tester', this.props.updateReview);
+        
         
 
 
@@ -76,31 +108,36 @@ class AddReview extends React.Component {
                             <div>
                                 <h2>Safety</h2>
                                 <Rating
-                                    initialRating={items.safety_rating}
+                                    initialRating={this.state.saftey_rating}
+                                    onChange={this.clickSafeRatingHandler}
                                     start={0}
                                     stop={5}
                                 />
                                 <h2>English</h2>
                                 <Rating
                                     initialRating={items.english_rating}
+                                    onChange={this.clickEnglishRatingHandler}
                                     start={0}
                                     stop={5}
                                 />
                                 <h2>Cost</h2>
                                 <Rating
                                     initialRating={items.cost_rating}
+                                    onChange={this.clickCostRatingHandler}
                                     start={0}
                                     stop={5}
                                 />
                                 <h2>Friendliness</h2>
                                 <Rating
                                     initialRating={items.friendly_rating}
+                                    onChange={this.clickFriendlyRatingHandler}
                                     start={0}
                                     stop={5}
                                 />
                                 <h2>Reconmend</h2>
                                 <Rating
                                     initialRating={items.reconmend_rating}
+                                    onChange={this.clickReconmendRatingHandler}
                                     start={0}
                                     stop={5}
                                 />
@@ -126,4 +163,4 @@ const mapReduState = (reduxState) => {
     }
 }
 
-export default connect(mapReduState)(AddReview);
+export default connect(mapReduState)(UpdateReview);

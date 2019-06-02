@@ -36,19 +36,19 @@ router.get("/updatetraveldetails/:id", (req, res) => {
         console.log('is authenticated?', req.isAuthenticated());
         console.log('user', req.user);
         console.log('req.user:', req.user);
-    let travelPageId = req.params.id
-    const sqlQuery = `SELECT * FROM "travel_page"
+        let travelPageId = req.params.id
+        const sqlQuery = `SELECT * FROM "travel_page"
 JOIN "travel_page_reviews" ON "travel_page_reviews".travel_page_id = "travel_page".id
 JOIN "user" ON "user".id = "travel_page_reviews".user_id
 WHERE "travel_page".id = $1
 AND "user".id = $2;`;
-    pool.query(sqlQuery, [travelPageId, req.user.id]).then(result => {
-        console.log('Result', result.rows);
-        res.send(result.rows)
-    }).catch(err => {
-        console.log('Error in GET', err);
-        res.SendStatus(500)
-    });
+        pool.query(sqlQuery, [travelPageId, req.user.id]).then(result => {
+            console.log('Result', result.rows);
+            res.send(result.rows)
+        }).catch(err => {
+            console.log('Error in GET', err);
+            res.SendStatus(500)
+        });
     }
     else {
         res.sendStatus(403)
@@ -105,8 +105,22 @@ router.post('/', (req, res) => {
         console.log('user', req.user);
         console.log('req.user:', req.user);
         let destination = req.body
-        let sqlText = `INSERT INTO "travel_page"("city", "country", "continent")
-    VALUES($1, $2, $3);`
+        let sqlText = `INSERT INTO "travel_page_reviews" (
+                        "experience_comment",
+                        "safety_rating",
+                        "english_rating",
+                        "cost_rating",
+                        "friendly_rating" ,
+                        "reconmend_rating" ,
+                        "travel_page_id" ,
+                        "user_id" ,
+                        "coworking_space_name" ,
+                        "coworking_space_address" ,
+                        "coworking_space_city" ,
+                        "coworking_space_country",
+                        "coworking_space_zip" 
+)
+VALUES ();`
         pool.query(sqlText, [destination.city, destination.country, destination.continent])
             .then(() => {
                 res.sendStatus(201);

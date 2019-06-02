@@ -28,6 +28,11 @@ componentDidMount(){
     
   }
 
+  imageClickHandler = (id) => {
+    console.log('Clicked Image', id);
+    this.props.history.push(`/travelpage/${id}`)
+  }
+
   render (){
     return(
       <div>
@@ -39,9 +44,9 @@ componentDidMount(){
           {this.props.userReview.map((items => {
             return (
               <div className="exploreCards" key={items.id} >
-                <Card>
+                <Card >
                   <CardActionArea>
-                    <CardMedia>
+                    <CardMedia onClick={() => this.imageClickHandler(items.travel_page_id)}>
                       <img src={items.image} alt="travel" />
                     
                     </CardMedia>

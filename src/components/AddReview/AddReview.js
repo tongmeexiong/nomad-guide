@@ -13,10 +13,11 @@ import './AddReview.css'
 class AddReview extends React.Component {
 
     state = {
-        inputEditable: true,
-        city:'',
-        country: '',
-        continent: ''
+        coworking_space_name: '' ,
+        coworking_space_address: '',
+        coworking_space_city: '',
+        coworking_space_country: '',
+        coworking_space_zip: 0,
     }
     componentDidMount() {
         this.getExploreListReviews()
@@ -27,75 +28,92 @@ class AddReview extends React.Component {
         this.props.dispatch({ type: 'FETCH_REVIEW', payload: this.props.exploreId })
     }
 
-    selectHandler = () => {
-        this.setState({
-            inputEditable: !this.state.inputEditable
-        })
-    }
+
 
     submitPageHandler =()=>{
         alert('Thank you for the review!')
+        // this.props.dispatch({type: 'POST_REVIEW', payload: })
     }
 
-    travelPickHandler =(id)=>{
-        // console.log('Option ID', id);
+    workSpaceName =(event)=>{
+        console.log('Name', event.target.value);
         
     }
+    workSpaceAddress = (event) => {
+        console.log('Address', event.target.value);
 
-    addTravelLocation = () =>{
-        console.log('Clicked Add Location');
-        this.props.dispatch({type:'POST_TRAVEL',
-        payload: {
-            city: this.state.city,
-            country: this.state.country,
-            continent: this.state.continent
-        }
-    })
-        
     }
-
-    cityChangeHandler =(event) =>{
+     workSpaceCity =(event)=>{
         console.log('City', event.target.value);
-        this.setState({
-            city: event.target.value
-        })
         
     }
+     workSpaceCountry =(event)=>{
+        console.log('Country', event.target.value);
+        
+    }
+    workSpaceZip = (event) => {
+        console.log('Zip ', event.target.value);
 
-    countryChangeHandler = (event) => {
-        console.log('country', event.target.value);
-        this.setState({
-            country: event.target.value
-        })
+    }
+    workSpaceComment = (event) => {
+        console.log('Comment', event.target.value);
 
     }
 
-    continentChangeHandler = (event) => {
-        console.log('continent', event.target.value);
-        this.setState({
-            continent: event.target.value
-        })
+    // addTravelLocation = () =>{
+    //     console.log('Clicked Add Location');
+    //     this.props.dispatch({type:'POST_TRAVEL',
+    //     payload: {
+    //         city: this.state.city,
+    //         country: this.state.country,
+    //         continent: this.state.continent
+    //     }
+    // })
+        
+    // }
 
-    }
+    // cityChangeHandler =(event) =>{
+    //     console.log('City', event.target.value);
+    //     this.setState({
+    //         city: event.target.value
+    //     })
+        
+    // }
+
+    // countryChangeHandler = (event) => {
+    //     console.log('country', event.target.value);
+    //     this.setState({
+    //         country: event.target.value
+    //     })
+
+    // }
+
+    // continentChangeHandler = (event) => {
+    //     console.log('continent', event.target.value);
+    //     this.setState({
+    //         continent: event.target.value
+    //     })
+
+    // }
 
     render() {
         console.log('Review Page', this.state);
         
         return (
             <div>
-                    <h1>What's Your Review?</h1>
-                    <h3>Review This Travel Destination</h3>
-                    <select onChange={this.selectHandler}>
-                        <option>Location: City, Country </option>
+                    <h1>Review This Travel Destination</h1>
+                    {/* <select onChange={this.selectHandler}>
+                        <option>Location: City, Country </option> */}
 
-                        {this.props.reviews.map((review => {
+                    {this.props.travelPage.map((review => {
                             return (
-                                <option onClick={this.travelPickHandler(review.travel_page_id)} >{review.city}, {review.country}  </option>
+                                // <option onClick={this.travelPickHandler(review.travel_page_id)} >{review.city}, {review.country}  </option>
+                                <h2>{review.city}, {review.country}</h2>
                             )
                         }))}
-                    </select> 
+                    {/* </select>  */}
 
-                <div>
+                {/* <div>
                     <h3>Or </h3>
                     <h3> Add a New Travel Destination</h3>
                         <input onChange ={this.cityChangeHandler} type="text" placeholder="City" disabled={!this.state.inputEditable} />
@@ -106,17 +124,17 @@ class AddReview extends React.Component {
                         <option>Asia </option>
                     </select>
                     <button onClick={this.addTravelLocation} disabled={!this.state.inputEditable}>Add Travel</button>
-                    </div> 
+                    </div>  */}
                 <div>
                     <h3> Any CoWorking Spaces? </h3>
-                    <input type="text" placeholder="CoWorking Space Name" />
-                    <input type="text" placeholder="CoWorking Space Address" />
-                    <input type="text" placeholder="City" />
-                    <input type="text" placeholder="Country" />
-                    <input type="text" placeholder="Zip Code" />
+                    <input onChange={this.workSpaceName} type="text" placeholder="CoWorking Space Name" />
+                    <input onChange={this.workSpaceAddress} type="text" placeholder="CoWorking Space Address" />
+                    <input onChange={this.workSpaceCity} type="text" placeholder="City" />
+                    <input onChange={this.workSpaceCountry} type="text" placeholder="Country" />
+                    <input onChange={this.workSpaceZip} type="text" placeholder="Zip Code" />
                 </div>
                 <div>
-                    <input className="experienceBox" type="text" placeholder="Experience" />
+                    <input onChange={this.workSpaceComment} className="experienceBox" type="text" placeholder="Experience" />
                 </div>
               
                 <div>
@@ -128,7 +146,6 @@ class AddReview extends React.Component {
                     <CostStarRating />
                     <h2>Frendly</h2>
                     <FriendlyStarRatings />
-
                     <h2>Recommend</h2>
                     <ReconmendStarRatings />
                 </div>
@@ -145,7 +162,8 @@ const mapReduState = (reduxState) => {
     return {
         explore: reduxState.exploreReducer,
         exploreId: reduxState.idReducer,
-        reviews: reduxState.reviewReducer
+        reviews: reduxState.reviewReducer,
+        travelPage: reduxState.travelPageReducer
     }
 }
 
