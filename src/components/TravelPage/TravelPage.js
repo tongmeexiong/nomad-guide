@@ -20,7 +20,7 @@ class TravelPage extends React.Component {
     }
 
     getExploreListReviews = () => {
-        this.props.dispatch({ type: 'FETCH_REVIEW' })
+        // this.props.dispatch({ type: 'FETCH_REVIEW' })
         this.props.dispatch({ type: 'FETCH_TRAVEL_PAGE', payload: this.props.match.params.id})
     }
 

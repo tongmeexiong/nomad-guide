@@ -13,11 +13,18 @@ import './AddReview.css'
 class AddReview extends React.Component {
 
     state = {
-        coworking_space_name: '' ,
+        saftey_rating: 0,
+        english_rating: 0,
+        cost_rating: 0,
+        friendly_rating: 0,
+        reconmend_rating: 0,
+        coworking_space_name: '',
         coworking_space_address: '',
         coworking_space_city: '',
         coworking_space_country: '',
         coworking_space_zip: 0,
+        experience_zip: '',
+        travel_page_id: 0
     }
     componentDidMount() {
         this.getExploreListReviews()
@@ -30,10 +37,10 @@ class AddReview extends React.Component {
 
 
 
-    submitPageHandler =()=>{
-        alert('Thank you for the review!')
-        // this.props.dispatch({type: 'POST_REVIEW', payload: })
-    }
+    submitPageHandler =(event)=>{
+        this.props.dispatch({ type: 'SET_TRAVEL_ID', payload: event.target.value })
+
+}
 
     workSpaceName =(event)=>{
         console.log('Name', event.target.value);
@@ -113,24 +120,39 @@ class AddReview extends React.Component {
                     {this.props.travelPage.map((review => {
                             return (
                                 // <option onClick={this.travelPickHandler(review.travel_page_id)} >{review.city}, {review.country}  </option>
-                                <h2>{review.city}, {review.country}</h2>
-                            )
-                        }))}
-                    {/* </select>  */}
+                            <div>
+                                    <h2>{review.city}, {review.country}</h2>
 
+                                <h3> Any CoWorking Spaces? </h3>
+                                <input onChange={this.workSpaceName} type="text" placeholder="CoWorking Space Name" />
+                                <input onChange={this.workSpaceAddress} type="text" placeholder="CoWorking Space Address" />
+                                <input onChange={this.workSpaceCity} type="text" placeholder="City" />
+                                <input onChange={this.workSpaceCountry} type="text" placeholder="Country" />
+                                <input onChange={this.workSpaceZip} type="text" placeholder="Zip Code" />
+                            <div>
+                                <input onChange={this.workSpaceComment} className="experienceBox" type="text" placeholder="Experience" />
+                            </div>
+
+                            <div>
+                                <h2>Safety</h2>
+                                <SafeStarRatings />
+                                <h2>English</h2>
+                                <EnlgishStarRating />
+                                <h2>Cost</h2>
+                                <CostStarRating />
+                                <h2>Frendly</h2>
+                                <FriendlyStarRatings />
+                                <h2>Recommend</h2>
+                                <ReconmendStarRatings />
+                            </div>
+                            <div>
+                                        <Button variant="contained" color="secondary" onClick={()=>this.submitPageHandler(review.travel_page_id)}>Submit</Button>
+                            </div>
+            </div>
+                                )
+                            }))}
+         
                 {/* <div>
-                    <h3>Or </h3>
-                    <h3> Add a New Travel Destination</h3>
-                        <input onChange ={this.cityChangeHandler} type="text" placeholder="City" disabled={!this.state.inputEditable} />
-                    <input onChange={this.countryChangeHandler} type="text" placeholder="Country" disabled={!this.state.inputEditable} />
-                    <select onChange={this.continentChangeHandler} disabled={!this.state.inputEditable}>
-                        <option>Continent</option>
-                        <option>North America </option>
-                        <option>Asia </option>
-                    </select>
-                    <button onClick={this.addTravelLocation} disabled={!this.state.inputEditable}>Add Travel</button>
-                    </div>  */}
-                <div>
                     <h3> Any CoWorking Spaces? </h3>
                     <input onChange={this.workSpaceName} type="text" placeholder="CoWorking Space Name" />
                     <input onChange={this.workSpaceAddress} type="text" placeholder="CoWorking Space Address" />
@@ -156,7 +178,7 @@ class AddReview extends React.Component {
                 </div>
                 <div>
                     <Button variant="contained" color="secondary" onClick={this.submitPageHandler}>Submit</Button>
-                </div>
+                </div> */}
             </div>
         )
     }

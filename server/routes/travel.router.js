@@ -120,8 +120,23 @@ router.post('/', (req, res) => {
                         "coworking_space_country",
                         "coworking_space_zip" 
 )
-VALUES ();`
-        pool.query(sqlText, [destination.city, destination.country, destination.continent])
+VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13);`
+
+        pool.query(sqlText, [
+            destination.experience_comment,
+            destination.safety_rating,
+            destination.english_rating,
+            destination.cost_rating,
+            destination.friendly_rating,
+            destination.reconmend_rating,
+            destination.travel_page_id,
+            req.user.id,
+            destination.coworking_space_name,
+            destination.coworking_space_address,
+            destination.coworking_space_city,
+            destination.coworking_space_country,
+            destination.coworking_space_zip,
+         ])
             .then(() => {
                 res.sendStatus(201);
             })

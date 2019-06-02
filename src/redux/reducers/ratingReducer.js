@@ -10,6 +10,8 @@ const ratings = {
         coworking_space_country: '',
         coworking_space_zip: 0,
         experience_zip: '',
+        travel_page_id: 0
+
 }
 
 const ratingeReducer = (state = ratings, action) => {
@@ -36,6 +38,8 @@ const ratingeReducer = (state = ratings, action) => {
             return { ...state, coworking_space_zip: action.payload };
         case 'SET_EXPERIENCE_COMMENT':
             return { ...state, experience_zip: action.payload };
+        case 'SET_TRAVEL_ID':
+            return { ...state, travel_page_id: action.payload };
         default:
             return state;
     }
