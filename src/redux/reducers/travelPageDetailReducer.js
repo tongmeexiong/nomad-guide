@@ -1,6 +1,7 @@
-const travelPageReducer = (state = [], action) => {
+
+const travelPageDetailReducer = (state = [], action) => {
     switch (action.type) {
-        case 'SET_TRAVEL_PAGE':
+        case 'SET_TRAVEL_REVIEW_PAGE':
             return action.payload;
         // case 'UNSET_SECRETS':
         //     return [];
@@ -11,4 +12,4 @@ const travelPageReducer = (state = [], action) => {
 
 // user will be on the redux state at:
 // state.user
-export default travelPageReducer;
+export default travelPageDetailReducer;

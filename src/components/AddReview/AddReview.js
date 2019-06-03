@@ -111,20 +111,19 @@ class AddReview extends React.Component {
     // }
 
     render() {
-        console.log('Review Page', this.props.travelPage.travel_page_id);
         
         return (
             <div>
                     <h1>Review This Travel Destination</h1>
-                    {/* <select onChange={this.selectHandler}>
-                        <option>Location: City, Country </option> */}
-
+                    {this.props.travelDetail.map((detail=>{
+                        return(
+                            <h2>{detail.city}, {detail.country}</h2>
+                        )
+                    }))}
                     {this.props.travelPage.map((review => {
                             return (
                                 // <option onClick={this.travelPickHandler(review.travel_page_id)} >{review.city}, {review.country}  </option>
-                            <div>
-                                    <h2>{review.city}, {review.country}</h2>
-
+                            <div key={review.id}>
                                 <h3> Any CoWorking Spaces? </h3>
                                 <input onChange={this.workSpaceName} type="text" placeholder="CoWorking Space Name" />
                                 <input onChange={this.workSpaceAddress} type="text" placeholder="CoWorking Space Address" />
@@ -193,7 +192,8 @@ const mapReduState = (reduxState) => {
         exploreId: reduxState.idReducer,
         ratingReview: reduxState.ratingeReducer,
         reviews: reduxState.reviewReducer,
-        travelPage: reduxState.travelPageReducer
+        travelPage: reduxState.travelPageReviewReducer,
+        travelDetail: reduxState.travelPageDetailReducer
     }
 }
 

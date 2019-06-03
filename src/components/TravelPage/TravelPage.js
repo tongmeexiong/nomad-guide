@@ -44,7 +44,7 @@ class TravelPage extends React.Component {
                 <h1>Travel Page</h1>
                 {this.props.travelReview.map((items => {
                         return (
-                            <div>
+                            <div key={items.id}>
                                 <Grid
                                     container
                                     direction="column-reverse"
@@ -72,30 +72,34 @@ class TravelPage extends React.Component {
                                         <ReconmendStarRatings rating={items} />
                                     </Grid>
                                 </Grid>
-                                <div className="images">
-                                    <div>
-                                        <img src={items.image} alt="travel location" />
-                                    </div>
-                                    <div>
-                                        <h2> {items.city}, {items.country} </h2>
-                                        <Button variant="contained" color="secondary" onClick={this.reviewPageHandler}>Review</Button>
-                                    </div>
                                 </div>
-                            </div>
+                                )
+                                                }))}
+                                {this.props.travelDetail.map((detail=>{
+                                    return(
+                                        <div className="images">
+                                            <div>
+                                                <img src={detail.image} alt="travel location" />
+                                            </div>
+                                            <div>
+                                                <h2> {detail.city}, {detail.country} </h2>
+                                                <Button variant="contained" color="secondary" onClick={this.reviewPageHandler}>Review</Button>
+                                            </div>
+                                        </div>
                         )
+                    }))}          
+                    </div>      
                     
-
-                }))}
-            </div>
-        )
-    }
+)
+}
 }
 
 const mapReduState = (reduxState) => {
     return {
         explore: reduxState.exploreReducer,
         reviews: reduxState.reviewReducer,
-        travelReview: reduxState.travelPageReducer
+        travelReview: reduxState.travelPageReviewReducer,
+        travelDetail: reduxState.travelPageDetailReducer
     }
 }
 
