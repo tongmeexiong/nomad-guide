@@ -120,7 +120,7 @@ class AddReview extends React.Component {
                             <h2 key= {detail.id}>{detail.city}, {detail.country}</h2>
                         )
                     }))}
-                    {this.props.travelPage.map((review => {
+                {this.props.travelDetail.map((review => {
                             return (
                                 // <option onClick={this.travelPickHandler(review.travel_page_id)} >{review.city}, {review.country}  </option>
                             <div key={review.id}>

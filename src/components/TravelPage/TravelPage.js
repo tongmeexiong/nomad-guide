@@ -12,19 +12,16 @@ import '../TravelPageRating/TravelReview.css'
 
 
 class TravelPage extends React.Component {
-
    
-
     componentDidMount() {
-        this.getExploreListReviews()
-
-    }
-
-    getExploreListReviews = () => {
-        // this.props.dispatch({ type: 'FETCH_REVIEW' })
-        this.props.dispatch({ type: 'FETCH_TRAVEL_PAGE', payload: this.props.match.params.id})
+        this.props.dispatch({ type: 'FETCH_TRAVEL_PAGE_REVIEWS', payload: this.props.match.params.id})
         this.props.dispatch({ type: 'FETCH_TRAVEL_PAGE_DETAILS', payload: this.props.match.params.id })
     }
+
+    // getExploreListReviews = () => {
+    //     this.props.dispatch({ type: 'FETCH_TRAVEL_PAGE_REVIEWS', payload: this.props.match.params.id})
+    //     this.props.dispatch({ type: 'FETCH_TRAVEL_PAGE_DETAILS', payload: this.props.match.params.id })
+    // }
 
 
 
@@ -37,13 +34,13 @@ class TravelPage extends React.Component {
 
     render() {
         // console.log('Travel Page State', this.state.id);
-        console.log('Match', this.props.match.params.id);
+        console.log('travel details', this.props.travelDetail);
 
 
         return (
             <div>
                 <h1>Travel Page</h1>
-                {this.props.travelReview.map((items => {
+                {this.props.travelDetail.map((items => {
                         return (
                             <div key={items.id}>
                                 <Grid
@@ -78,10 +75,9 @@ class TravelPage extends React.Component {
                                                 }))}
                                 {this.props.travelDetail.map((detail=>{
                                     return(
-                                        <div className="images">
+                                        <div className="images" key ={detail.id}>
                                             <div>
                                                 <img src={detail.image} alt="travel location" />
-                                                {}
                                             </div>
                                             <div>
                                                 <h2> {detail.city}, {detail.country} </h2>
@@ -100,7 +96,7 @@ const mapReduState = (reduxState) => {
     return {
         explore: reduxState.exploreReducer,
         reviews: reduxState.reviewReducer,
-        travelReview: reduxState.travelPageReviewReducer,
+        ratings: reduxState.ratingeReducer,
         travelDetail: reduxState.travelPageDetailReducer
     }
 }

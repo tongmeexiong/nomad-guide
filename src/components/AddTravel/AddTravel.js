@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import SafeStarRatings from '../StarRatings/SafeStarRatings'
-import EnlgishStarRating from '../StarRatings/EnglishStarRating'
-import CostStarRating from '../StarRatings/CostRating'
-import FriendlyStarRatings from '../StarRatings/FriendlyStarRatings'
-import ReconmendStarRatings from '../StarRatings/ReconmendStarRating'
-import { Button } from '@material-ui/core'
+// import SafeStarRatings from '../StarRatings/SafeStarRatings'
+// import EnlgishStarRating from '../StarRatings/EnglishStarRating'
+// import CostStarRating from '../StarRatings/CostRating'
+// import FriendlyStarRatings from '../StarRatings/FriendlyStarRatings'
+// import ReconmendStarRatings from '../StarRatings/ReconmendStarRating'
+// import { Button } from '@material-ui/core'
 
 
 
