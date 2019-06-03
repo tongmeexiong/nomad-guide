@@ -9,9 +9,9 @@ import Rating from 'react-rating';
 
 class UpdateReview extends React.Component {
 
-   
 
-    state ={
+
+    state = {
         comment: "hello",
         saftey_rating: this.props.updateReview.safety_rating,
         english_rating: this.props.updateReview.english_rating,
@@ -29,7 +29,7 @@ class UpdateReview extends React.Component {
         this.props.dispatch({ type: 'FETCH_REVIEW', payload: this.props.exploreId })
     }
 
-   
+
 
     submitPageHandler = () => {
         alert('Thank you for the review!')
@@ -40,47 +40,41 @@ class UpdateReview extends React.Component {
 
     }
 
-    clickSafeRatingHandler =(event) =>{
+    clickSafeRatingHandler = (event) => {
         console.log('Safe Clickerrrrr', event);
-        this.setState({
-            saftey_rating: event
-        })
+        this.props.dispatch({ type: 'SET_SAFTEY_RATING', payload: event })
+
     }
 
-     clickEnglishRatingHandler =(event) =>{
-        console.log('Safe Clickerrrrr', event);
-        this.setState({
-            english_rating: event
-        })
+    clickEnglishRatingHandler = (event) => {
+        console.log('English Clickerrrrr', event);
+        this.props.dispatch({ type: 'SET_ENGLISH_RATING', payload: event })
     }
 
     clickCostRatingHandler = (event) => {
-        console.log('Safe Clickerrrrr', event);
-        this.setState({
-            cost_rating: event
-        })
+        console.log('Cost Clickerrrrr', event);
+        this.props.dispatch({type: 'SET_COST_RATING', payload: event })
+
     }
 
-     clickFriendlyRatingHandler =(event) =>{
-        console.log('Safe Clickerrrrr', event);
-        this.setState({
-            friendly_rating: event
-        })
+    clickFriendlyRatingHandler = (event) => {
+        console.log('Friendly Clickerrrrr', event);
+        this.props.dispatch({ type: 'SET_FRIENDLY_RATING', payload: event })
+
     }
 
     clickReconmendRatingHandler = (event) => {
-        console.log('Safe Clickerrrrr', event);
-        this.setState({
-            reconmend_rating: event
-        })
+        console.log('Reconmend Clickerrrrr', event);
+        this.props.dispatch({ type: 'SET_RECONMEND_RATING', payload: event })
+
     }
 
     render() {
         console.log('ID Update', this.props.match.params.id);
         console.log('State', this.state);
-        console.log('tester', this.props.updateReview);
-        
-        
+        console.log('tester', this.props.updateReview.safety_rating);
+
+
 
 
         return (
@@ -102,13 +96,13 @@ class UpdateReview extends React.Component {
                                 <input type="text" placeholder="Zip Code" />
                             </div>
                             <div>
-                                <input className="experienceBox" type="text" placeholder="Experience" 
-                                   />
+                                <input className="experienceBox" type="text" placeholder="Experience"
+                                />
                             </div>
                             <div>
                                 <h2>Safety</h2>
                                 <Rating
-                                    initialRating={this.state.saftey_rating}
+                                    initialRating={items.safety_rating}
                                     onChange={this.clickSafeRatingHandler}
                                     start={0}
                                     stop={5}

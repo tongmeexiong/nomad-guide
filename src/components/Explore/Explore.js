@@ -10,8 +10,6 @@ import './Explore.css'
 
 class Explore extends React.Component{
 
- 
-
   componentDidMount(){
     this.getExploreList()
   }

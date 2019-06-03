@@ -17,9 +17,11 @@ componentDidMount(){
     this.props.dispatch({type: 'FETCH_USER_REVIEWS'})
   }
 
-  deleteHandler =()=>{
-    console.log('Delete Click');
-    
+  deleteHandler =(id)=>{
+    console.log('Delete Click', id);
+    this.props.dispatch({type: 'DELETE_REVIEW', payload: id })
+    this.props.dispatch({ type: 'FETCH_USER_REVIEWS' })
+
   }
 
   updateHandler =(id) =>{
@@ -60,10 +62,16 @@ componentDidMount(){
 
                   <CardActions className="cardActions">
                     <Typography variant="body2" color="textPrimary" component="p" className="cardTitle">
+                      <div>
                       {items.city}, {items.country}
-                    </Typography>               
+                      </div>
+                      Review Comment: {items.experience_comment}
+                    </Typography>    
+                    {/* <Typography variant="body2" color="textPrimary" component="p" className="cardTitle">
+                      Review Comment: {items.experience_comment}
+                    </Typography>               */}
   </CardActions>
-                  <button onClick = {()=>this.deleteHandler}>Delete</button>
+                  <button onClick = {()=>this.deleteHandler(items.travel_page_id)}>Delete</button>
                   <button onClick={()=>this.updateHandler(items.id)}>Update</button>
 
                 </Card>

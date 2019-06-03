@@ -5,7 +5,7 @@ import EnlgishStarRating from '../StarRatings/EnglishStarRating'
 import CostStarRating from '../StarRatings/CostRating'
 import FriendlyStarRatings from '../StarRatings/FriendlyStarRatings'
 import ReconmendStarRatings from '../StarRatings/ReconmendStarRating'
-import {  Button } from '@material-ui/core'
+import { Button } from '@material-ui/core'
 
 import './AddReview.css'
 
@@ -38,13 +38,13 @@ class AddReview extends React.Component {
 
 
 
-    submitPageHandler =()=>{
+    submitPageHandler = () => {
         alert('Thank you for your review!')
-        this.props.dispatch({ type: 'POST_CURRENT_REVIEW', payload: this.props.ratingReview})
+        this.props.dispatch({ type: 'POST_CURRENT_REVIEW', payload: this.props.ratingReview })
 
-}
+    }
 
-    workSpaceName =(event)=>{
+    workSpaceName = (event) => {
         console.log('Name', event.target.value);
         this.props.dispatch({ type: 'SET_COWORKING_SPACE_NAME', payload: event.target.value })
     }
@@ -53,14 +53,14 @@ class AddReview extends React.Component {
         this.props.dispatch({ type: 'SET_COWORKING_SPACE_ADDRESS', payload: event.target.value })
 
     }
-     workSpaceCity =(event)=>{
+    workSpaceCity = (event) => {
         console.log('City', event.target.value);
-         this.props.dispatch({ type: 'SET_COWORKING_SPACE_CITY', payload: event.target.value })
+        this.props.dispatch({ type: 'SET_COWORKING_SPACE_CITY', payload: event.target.value })
 
     }
-     workSpaceCountry =(event)=>{
+    workSpaceCountry = (event) => {
         console.log('Country', event.target.value);
-         this.props.dispatch({ type: 'SET_COWORKING_SPACE_COUNTRY', payload: event.target.value })
+        this.props.dispatch({ type: 'SET_COWORKING_SPACE_COUNTRY', payload: event.target.value })
 
     }
     workSpaceZip = (event) => {
@@ -83,7 +83,7 @@ class AddReview extends React.Component {
     //         continent: this.state.continent
     //     }
     // })
-        
+
     // }
 
     // cityChangeHandler =(event) =>{
@@ -91,7 +91,7 @@ class AddReview extends React.Component {
     //     this.setState({
     //         city: event.target.value
     //     })
-        
+
     // }
 
     // countryChangeHandler = (event) => {
@@ -111,25 +111,25 @@ class AddReview extends React.Component {
     // }
 
     render() {
-        
+
         return (
             <div>
-                    <h1>Review This Travel Destination</h1>
-                    {this.props.travelDetail.map((detail=>{
-                        return(
-                            <h2 key= {detail.id}>{detail.city}, {detail.country}</h2>
-                        )
-                    }))}
-                {this.props.travelDetail.map((review => {
-                            return (
-                                // <option onClick={this.travelPickHandler(review.travel_page_id)} >{review.city}, {review.country}  </option>
-                            <div key={review.id}>
-                                <h3> Any CoWorking Spaces? </h3>
-                                <input onChange={this.workSpaceName} type="text" placeholder="CoWorking Space Name" />
-                                <input onChange={this.workSpaceAddress} type="text" placeholder="CoWorking Space Address" />
-                                <input onChange={this.workSpaceCity} type="text" placeholder="City" />
-                                <input onChange={this.workSpaceCountry} type="text" placeholder="Country" />
-                                <input onChange={this.workSpaceZip} type="text" placeholder="Zip Code" />
+                <h1>Review This Travel Destination</h1>
+                {this.props.travelDetail.map((detail => {
+                    return (
+                        <h2>{detail.city}, {detail.country}</h2>
+                    )
+                }))}
+                {this.props.travelPage.map((review => {
+                    return (
+                        // <option onClick={this.travelPickHandler(review.travel_page_id)} >{review.city}, {review.country}  </option>
+                        <div key={review.id}>
+                            <h3> Any CoWorking Spaces? </h3>
+                            <input onChange={this.workSpaceName} type="text" placeholder="CoWorking Space Name" />
+                            <input onChange={this.workSpaceAddress} type="text" placeholder="CoWorking Space Address" />
+                            <input onChange={this.workSpaceCity} type="text" placeholder="City" />
+                            <input onChange={this.workSpaceCountry} type="text" placeholder="Country" />
+                            <input onChange={this.workSpaceZip} type="text" placeholder="Zip Code" />
                             <div>
                                 <input onChange={this.workSpaceComment} className="experienceBox" type="text" placeholder="Experience" />
                             </div>
@@ -147,12 +147,12 @@ class AddReview extends React.Component {
                                 <ReconmendStarRatings />
                             </div>
                             <div>
-                                        <Button variant="contained" color="secondary" onClick={()=>this.submitPageHandler(review.travel_page_id)}>Submit</Button>
+                                <Button variant="contained" color="secondary" onClick={() => this.submitPageHandler(review.travel_page_id)}>Submit</Button>
                             </div>
-            </div>
-                                )
-                            }))}
-         
+                        </div>
+                    )
+                }))}
+
                 {/* <div>
                     <h3> Any CoWorking Spaces? </h3>
                     <input onChange={this.workSpaceName} type="text" placeholder="CoWorking Space Name" />
