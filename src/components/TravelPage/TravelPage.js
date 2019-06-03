@@ -23,6 +23,7 @@ class TravelPage extends React.Component {
     getExploreListReviews = () => {
         // this.props.dispatch({ type: 'FETCH_REVIEW' })
         this.props.dispatch({ type: 'FETCH_TRAVEL_PAGE', payload: this.props.match.params.id})
+        this.props.dispatch({ type: 'FETCH_TRAVEL_PAGE_DETAILS', payload: this.props.match.params.id })
     }
 
 
@@ -80,6 +81,7 @@ class TravelPage extends React.Component {
                                         <div className="images">
                                             <div>
                                                 <img src={detail.image} alt="travel location" />
+                                                {}
                                             </div>
                                             <div>
                                                 <h2> {detail.city}, {detail.country} </h2>

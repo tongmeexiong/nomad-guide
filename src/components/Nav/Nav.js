@@ -7,7 +7,7 @@ import './Nav.css';
 
 const Nav = (props) => (
   <div className="nav">
-    <Link to="/home">
+    <Link to="/explore">
       <h2 className="nav-title">NomadGuide</h2>
     </Link>
     <input type="text" placeholder="search"/>

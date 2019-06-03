@@ -33,6 +33,8 @@ WHERE "travel_page".id = $1;`;
 
 router.get("/traveldetails/:id", (req, res) => {
     let travelPageId = req.params.id
+    console.log('travelPageId', travelPageId);
+    
     const sqlQuery = `SELECT * FROM "travel_page"
 WHERE id = $1;`;
     pool.query(sqlQuery, [travelPageId]).then(result => {
@@ -171,10 +173,10 @@ router.post('/addtravel', (req, res) => {
         console.log('user', req.user);
         console.log('req.user:', req.user);
         let destination = req.body
-        let sqlText = `INSERT INTO "travel_page" ("city", "country","continent") 
-VALUES ($1, $2, $3);`
+        let sqlText = `INSERT INTO "travel_page" ("city", "country","continent", "image", "user_id" ) 
+VALUES ($1, $2, $3, $4, $5);`
 
-        pool.query(sqlText, [destination.city, destination.country, destination.continent])
+        pool.query(sqlText, [destination.city, destination.country, destination.continent, destination.image, req.user.id])
             .then(() => {
                 res.sendStatus(201);
             })
@@ -187,5 +189,26 @@ VALUES ($1, $2, $3);`
         res.sendStatus(403)
     }
 });
+
+
+
+
+router.delete('/:id', (req, res) => {
+
+    let deleteId = req.params.id
+    const sqlQuery = `
+         DELETE FROM "travel_page_reviews"
+WHERE "travel_page_reviews".travel_page_id = $1
+AND "travel_page_reviews".user_id = $2;
+    `;
+    pool.query(sqlQuery, [deleteId, req.user.id]).then(result => {
+        console.log('Result', result.rows);
+        res.send(result.rows)
+    }).catch(err => {
+        console.log('Error in GET', err);
+        res.SendStatus(500)
+    })
+});
+
 
 module.exports = router;

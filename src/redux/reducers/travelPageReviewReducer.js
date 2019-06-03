@@ -1,7 +1,7 @@
 const travelPageReviewReducer = (state = [], action) => {
     switch (action.type) {
         case 'SET_TRAVEL_PAGE_DETAILS':
-            return action.payload;
+            return  action.payload;
         // case 'UNSET_SECRETS':
         //     return [];
         default:
