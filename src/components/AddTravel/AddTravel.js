@@ -33,12 +33,6 @@ class AddTravel extends React.Component {
     }
 
     submitPageHandler = () => {
-        alert('Thank you for the review!')
-    }
-
-
-    addTravelLocation = () => {
-        console.log('Clicked Add Location');
         this.props.dispatch({
             type: 'POST_TRAVEL',
             payload: {
@@ -47,6 +41,23 @@ class AddTravel extends React.Component {
                 continent: this.state.continent
             }
         })
+        this.props.dispatch({ type: 'POST_CURRENT_REVIEW', payload: this.props.ratingReview })
+        alert('Thank you for the review!')
+
+    }
+
+
+    addTravelLocation = () => {
+        console.log('Clicked Add Location');
+        // this.props.dispatch({
+        //     type: 'POST_TRAVEL',
+        //     payload: {
+        //         city: this.state.city,
+        //         country: this.state.country,
+        //         continent: this.state.continent
+        //     }
+        // })
+        // this.props.dispatch({ type: 'POST_CURRENT_REVIEW', payload: this.props.ratingReview })
 
     }
 
@@ -129,7 +140,9 @@ const mapReduState = (reduxState) => {
     return {
         explore: reduxState.exploreReducer,
         exploreId: reduxState.idReducer,
-        reviews: reduxState.reviewReducer
+        reviews: reduxState.reviewReducer,
+        ratingReview: reduxState.ratingeReducer,
+
     }
 }
 

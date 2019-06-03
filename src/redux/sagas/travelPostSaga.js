@@ -9,7 +9,7 @@ function* travelPostSaga() {
 function* postTravelData(action) {
     try {
 
-        yield axios.post(`/api/travelpage`, action.payload);
+        yield axios.post(`/api/travelpage/addtravel`, action.payload);
 
     } catch (error) {
         console.log('User Review Saga POST request failed', error);

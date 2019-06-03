@@ -10,6 +10,7 @@ import '../TravelPageRating/TravelReview.css'
 
 
 
+
 class TravelPage extends React.Component {
 
    
@@ -27,7 +28,9 @@ class TravelPage extends React.Component {
 
 
     reviewPageHandler =()=>{
+        this.props.dispatch({ type: 'SET_TRAVEL_ID', payload: this.props.match.params.id })
         this.props.history.push("/addreview")
+
 
     }
 

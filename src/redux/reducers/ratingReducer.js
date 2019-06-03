@@ -1,23 +1,23 @@
 const ratings = {
-        saftey_rating: 0,
-        english_rating:0,
-        cost_rating: 0,
-        friendly_rating: 0,
-        reconmend_rating: 0,
-        coworking_space_name: '',
-        coworking_space_address: '',
-        coworking_space_city: '',
-        coworking_space_country: '',
-        coworking_space_zip: 0,
-        experience_zip: '',
-        travel_page_id: 0
+    experience_comment:'',
+    safety_rating: 0,
+    english_rating: 0 ,
+    cost_rating: 0,
+    friendly_rating: 0 ,
+    reconmend_rating: 0 ,
+    travel_page_id: 0 ,
+    coworking_space_name: '',
+    coworking_space_address: '',
+    coworking_space_city: '' ,
+    coworking_space_country: '',
+    coworking_space_zip: 0, 
 
 }
 
 const ratingeReducer = (state = ratings, action) => {
     switch (action.type) {
         case 'SET_SAFTEY_RATING':
-            return { ...state, saftey_rating: action.payload};
+            return { ...state, safety_rating: action.payload};
         case 'SET_ENGLISH_RATING':
             return { ...state, english_rating: action.payload };
         case 'SET_COST_RATING':
@@ -37,7 +37,7 @@ const ratingeReducer = (state = ratings, action) => {
         case 'SET_COWORKING_SPACE_ZIP':
             return { ...state, coworking_space_zip: action.payload };
         case 'SET_EXPERIENCE_COMMENT':
-            return { ...state, experience_zip: action.payload };
+            return { ...state, experience_comment: action.payload };
         case 'SET_TRAVEL_ID':
             return { ...state, travel_page_id: action.payload };
         default:

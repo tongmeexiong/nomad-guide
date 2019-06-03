@@ -8,6 +8,7 @@ import userReviewSaga from'./userReviewSaga'
 import travelPostSaga from './travelPostSaga'
 import travelPageGetSaga from './travelPageGetSaga'
 import updateReviewGetSaga from './updateReviewGetSaga'
+import currentReviewPostSaga from './currentReviewPost'
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -26,6 +27,7 @@ export default function* rootSaga() {
     userReviewSaga(),
     travelPostSaga(),
     travelPageGetSaga(),
-    updateReviewGetSaga()
+    updateReviewGetSaga(),
+    currentReviewPostSaga()
   ]);
 }

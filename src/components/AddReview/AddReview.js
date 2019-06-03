@@ -33,12 +33,14 @@ class AddReview extends React.Component {
 
     getExploreListReviews = () => {
         this.props.dispatch({ type: 'FETCH_REVIEW', payload: this.props.exploreId })
+
     }
 
 
 
-    submitPageHandler =(event)=>{
-        this.props.dispatch({ type: 'SET_TRAVEL_ID', payload: event.target.value })
+    submitPageHandler =()=>{
+        alert('Thank you for your review!')
+        this.props.dispatch({ type: 'POST_CURRENT_REVIEW', payload: this.props.ratingReview})
 
 }
 
@@ -109,7 +111,7 @@ class AddReview extends React.Component {
     // }
 
     render() {
-        console.log('Review Page', this.state);
+        console.log('Review Page', this.props.travelPage.travel_page_id);
         
         return (
             <div>
@@ -189,6 +191,7 @@ const mapReduState = (reduxState) => {
     return {
         explore: reduxState.exploreReducer,
         exploreId: reduxState.idReducer,
+        ratingReview: reduxState.ratingeReducer,
         reviews: reduxState.reviewReducer,
         travelPage: reduxState.travelPageReducer
     }

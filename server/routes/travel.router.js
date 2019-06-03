@@ -99,6 +99,7 @@ WHERE "user".id = $1;
 /**
  * POST route template
  */
+
 router.post('/', (req, res) => {
     if (req.isAuthenticated()) {
         console.log('is authenticated?', req.isAuthenticated());
@@ -151,5 +152,27 @@ VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13);`
 });
 
 
+router.post('/addtravel', (req, res) => {
+    if (req.isAuthenticated()) {
+        console.log('is authenticated?', req.isAuthenticated());
+        console.log('user', req.user);
+        console.log('req.user:', req.user);
+        let destination = req.body
+        let sqlText = `INSERT INTO "travel_page" ("city", "country","continent") 
+VALUES ($1, $2, $3);`
+
+        pool.query(sqlText, [destination.city, destination.country, destination.continent])
+            .then(() => {
+                res.sendStatus(201);
+            })
+            .catch((err) => {
+                console.log('Error POST AddTravel', err);
+                res.sendStatus(500);
+            });
+    }
+    else {
+        res.sendStatus(403)
+    }
+});
 
 module.exports = router;
