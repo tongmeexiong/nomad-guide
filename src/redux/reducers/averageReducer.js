@@ -1,6 +1,6 @@
-const updateReviewGetReducer = (state = [], action) => {
+const averageReducer = (state = [], action) => {
     switch (action.type) {
-        case 'SET_UPDATE_TRAVEL_REVIEW':
+        case 'SET_AVERAGE':
             return action.payload;
 
         default:
@@ -10,4 +10,4 @@ const updateReviewGetReducer = (state = [], action) => {
 
 // user will be on the redux state at:
 // state.user
-export default updateReviewGetReducer;
+export default averageReducer;

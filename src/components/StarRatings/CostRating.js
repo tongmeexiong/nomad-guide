@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import Rating from 'react-rating';
-// import { Star, StarBorder } from '@material-ui/icons'
 
 
 
@@ -11,12 +10,9 @@ class CostStarRatings extends React.Component {
         cost_rating: 0
     }
 
-
+    // Send Captured Rating Value to Rating Reducer 
     clickRatingHandler = (event) => {
-        console.log('Click', event);
-        this.setState({
-            cost_rating: event
-        })
+        console.log('Click Cost', event);
         this.props.dispatch({ type: 'SET_COST_RATING', payload: event })
     }
 
@@ -25,30 +21,15 @@ class CostStarRatings extends React.Component {
 
         return (
             <div>
-
                 <Rating
                     initialRating={this.state.cost_rating}
                     onChange={this.clickRatingHandler}
-                    // emptySymbol={<StarBorder />}
-                    // fullSymbol={<Star />}
                     start={0}
                     stop={5}
                 />
-
-
             </div>
         )
     }
 }
 
-const mapReduState = (reduxState) => {
-    return {
-        explore: reduxState.exploreReducer,
-        exploreId: reduxState.idReducer,
-        reviews: reduxState.reviewReducer,
-        user: reduxState.user
-
-    }
-}
-
-export default connect(mapReduState)(CostStarRatings);
+export default connect()(CostStarRatings);

@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { Button } from '@material-ui/core'
-import Rating from 'react-rating';
 import UpdateSafeStarRatings from './UpdateSafeRating'
 import UpdateEnglishStarRatings from './UpdateEnglishRating'
 import UpdateCostStarRatings from './UpdateCostRating'
@@ -36,39 +35,6 @@ class UpdateReview extends React.Component {
         this.props.history.push("/home")
     }
 
-  
-
-    // clickSafeRatingHandler = (event) => {
-    //     console.log('Safe Clickerrrrr', event);
-    //     // this.props.dispatch({ type: 'SET_SAFTEY_RATING', payload: event })
-    //     this.setState({
-    //         saftey_rating: event
-    //     })
-
-    // }
-
-    // clickEnglishRatingHandler = (event) => {
-    //     console.log('English Clickerrrrr', event);
-    //     this.props.dispatch({ type: 'SET_ENGLISH_RATING', payload: event })
-    // }
-
-    // clickCostRatingHandler = (event) => {
-    //     console.log('Cost Clickerrrrr', event);
-    //     this.props.dispatch({ type: 'SET_COST_RATING', payload: event })
-
-    // }
-
-    // clickFriendlyRatingHandler = (event) => {
-    //     console.log('Friendly Clickerrrrr', event);
-    //     this.props.dispatch({ type: 'SET_FRIENDLY_RATING', payload: event })
-
-    // }
-
-    // clickReconmendRatingHandler = (event) => {
-    //     console.log('Reconmend Clickerrrrr', event);
-    //     this.props.dispatch({ type: 'SET_RECONMEND_RATING', payload: event })
-
-    // }
 
 
     experienceHandler = (event) => {
@@ -80,7 +46,6 @@ class UpdateReview extends React.Component {
 
     render() {
         console.log('ID Update', this.props.match.params.id);
-        // console.log('tester', this.props.reduxState.ratingeReducer);
         
 
 

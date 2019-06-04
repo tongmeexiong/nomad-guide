@@ -11,60 +11,28 @@ class SafeStarRatings extends React.Component {
         saftey_rating: 0
     }
 
-    // this.handleClick = this.handleClick.bind(this);
-    //   }
-
-    // handleClick(event) {
-    //     this.setState({ value: undefined });
-    // }
-
+        // Send Captured Rating Value to Rating Reducer 
     clickRatingHandler = (event) => {
-        console.log('Click', event);
-        this.setState({
-            saftey_rating: event
-        })
+        console.log('Click Safe', event);
         this.props.dispatch({ type: 'SET_SAFTEY_RATING', payload: event})
         }
-    
-// sendToReducer =() =>{
-//         this.props.dispatch({ type: 'SET_RATING', payload: this.state })
-//     }
-
-
-
 
     render() {
         console.log('Rating', this.state);
 
         return (
             <div>
-                {/* {this.props.reviews.map((rating=>{
-                    <h3>{rating.safety_rating}</h3> */}
-                {/* <div> */}
+
                 <Rating
                     initialRating={this.state.saftey_rating}
                     onChange={this.clickRatingHandler}
-                    // emptySymbol={<StarBorder />}
-                    // fullSymbol={<Star />}
                     start={0}
                     stop={5}
-
                 />
-                {/* </div> */}
-                {/* }))} */}
-
             </div>
         )
     }
 }
 
-const mapReduState = (reduxState) => {
-    return {
-        explore: reduxState.exploreReducer,
-        exploreId: reduxState.idReducer,
-        reviews: reduxState.reviewReducer,
-        user: reduxState.user
-    }
-}
 
-export default connect(mapReduState)(SafeStarRatings);
+export default connect()(SafeStarRatings);

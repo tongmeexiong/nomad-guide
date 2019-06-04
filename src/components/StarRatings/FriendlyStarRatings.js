@@ -11,12 +11,9 @@ class FriendlyStarRatings extends React.Component {
         friendly_rating: 0
     }
 
-
+    // Send Captured Rating Value to Rating Reducer 
     clickRatingHandler = (event) => {
-        console.log('Click', event);
-        this.setState({
-            friendly_rating: event
-        })
+        console.log('Click Friendly', event);
         this.props.dispatch({ type: 'SET_FRIENDLY_RATING', payload: event })
     }
 
@@ -25,30 +22,18 @@ class FriendlyStarRatings extends React.Component {
 
         return (
             <div>
-
                 <Rating
                     initialRating={this.state.friendly_rating}
                     onChange={this.clickRatingHandler}
-                    // emptySymbol={<StarBorder />}
-                    // fullSymbol={<Star />}
+
                     start={0}
                     stop={5}
                 />
-
-
             </div>
         )
     }
 }
 
-const mapReduState = (reduxState) => {
-    return {
-        explore: reduxState.exploreReducer,
-        exploreId: reduxState.idReducer,
-        reviews: reduxState.reviewReducer,
-        user: reduxState.user
 
-    }
-}
 
-export default connect(mapReduState)(FriendlyStarRatings);
+export default connect()(FriendlyStarRatings);

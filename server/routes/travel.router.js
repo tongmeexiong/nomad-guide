@@ -15,9 +15,21 @@ router.get('/', (req, res) => {
     })
 });
 
+router.get('/average', (req, res) => {
+    const sqlQuery = `SELECT AVG("reconmend_rating") FROM "travel_page_reviews"
+`;
+    pool.query(sqlQuery).then(result => {
+        console.log('Result', result.rows);
+        res.send(result.rows)
+    }).catch(err => {
+        console.log('Error in GET', err);
+        res.SendStatus(500)
+    })
+});
+
 router.get("/travelreviewdetails/:id", (req, res) => {
     let travelPageId = req.params.id
-    const sqlQuery = `SELECT "travel_page_reviews".cost_rating, "travel_page_reviews".english_rating, "travel_page_reviews".safety_rating, "travel_page_reviews".friendly_rating,"travel_page_reviews".reconmend_rating
+    const sqlQuery = `SELECT "travel_page_reviews".cost_rating, "travel_page_reviews".english_rating, "travel_page_reviews".safety_rating, "travel_page_reviews".friendly_rating,"travel_page_reviews".reconmend_rating, "travel_page_reviews".experience_comment
 FROM "travel_page"
 JOIN "travel_page_reviews" ON "travel_page_reviews".travel_page_id = "travel_page".id
 WHERE "travel_page".id = $1;`;
