@@ -34,7 +34,7 @@ WHERE "travel_page".id = $1;`;
 router.get("/traveldetails/:id", (req, res) => {
     let travelPageId = req.params.id
     console.log('travelPageId', travelPageId);
-    
+
     const sqlQuery = `SELECT * FROM "travel_page"
 WHERE id = $1;`;
     pool.query(sqlQuery, [travelPageId]).then(result => {
@@ -93,10 +93,10 @@ router.get('/userreview', (req, res) => {
         console.log('is authenticated?', req.isAuthenticated());
         console.log('user', req.user);
         console.log('req.user:', req.user);
-        const sqlQuery = `SELECT * FROM "travel_page"
-JOIN "travel_page_reviews" ON "travel_page_reviews".travel_page_id = "travel_page".id
+        const sqlQuery = `SELECT "travel_page_reviews".* , "travel_page".image, "travel_page".city, "travel_page".country FROM "travel_page_reviews"
+JOIN "travel_page" ON "travel_page".id = "travel_page_reviews".travel_page_id
 JOIN "user" ON "user".id = "travel_page_reviews".user_id
-WHERE "user".id = $1;
+WHERE "user".id = $1 ; ;
 `;
         pool.query(sqlQuery, [req.user.id]).then(result => {
             console.log('Result', result.rows);
@@ -152,7 +152,7 @@ VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13);`
             destination.coworking_space_city,
             destination.coworking_space_country,
             destination.coworking_space_zip,
-         ])
+        ])
             .then(() => {
                 res.sendStatus(201);
             })
@@ -198,7 +198,7 @@ router.delete('/:id', (req, res) => {
     let deleteId = req.params.id
     const sqlQuery = `
          DELETE FROM "travel_page_reviews"
-WHERE "travel_page_reviews".travel_page_id = $1
+WHERE "travel_page_reviews".id = $1
 AND "travel_page_reviews".user_id = $2;
     `;
     pool.query(sqlQuery, [deleteId, req.user.id]).then(result => {
@@ -206,6 +206,55 @@ AND "travel_page_reviews".user_id = $2;
         res.send(result.rows)
     }).catch(err => {
         console.log('Error in GET', err);
+        res.SendStatus(500)
+    })
+});
+
+router.put('/:id', (req, res) => {
+
+    let putId = req.params.id
+    console.log('putId', putId);
+    
+    let putBodyId = req.body
+    console.log('putBodyId', putBodyId);
+    
+    const sqlQuery = `
+         UPDATE "travel_page_reviews"
+            SET "experience_comment"= $1,
+            "safety_rating" = $2,
+            "english_rating"= $3,
+            "cost_rating"= $4,
+            "friendly_rating"= $5 ,
+            "reconmend_rating"= $6 ,
+            "coworking_space_name"= $7,
+            "coworking_space_address"= $8,
+            "coworking_space_city"= $9 ,
+            "coworking_space_country"= $10,
+            "coworking_space_zip"= $11
+        WHERE  "travel_page_id"= $12
+        AND "user_id"= $13;
+    `;
+    pool.query(sqlQuery,
+        [
+            putBodyId.experience_comment,
+            putBodyId.safety_rating,
+            putBodyId.english_rating,
+            putBodyId.cost_rating,
+            putBodyId.friendly_rating,
+            putBodyId.reconmend_rating,
+            putBodyId.coworking_space_name,
+            putBodyId.coworking_space_address,
+            putBodyId.coworking_space_city,
+            putBodyId.coworking_space_country,
+            putBodyId.coworking_space_zip,
+            putId,
+            req.user.id
+        ])
+        .then(result => {
+        console.log('Result', result.rows);
+        res.sendStatus(200)
+    }).catch(err => {
+        console.log('Error in PUT', err);
         res.SendStatus(500)
     })
 });

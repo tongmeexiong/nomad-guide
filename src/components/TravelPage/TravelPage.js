@@ -40,7 +40,7 @@ class TravelPage extends React.Component {
         return (
             <div>
                 <h1>Travel Page</h1>
-                {this.props.travelDetail.map((items => {
+                {this.props.travelReviews.map((items => {
                         return (
                             <div key={items.id}>
                                 <Grid
@@ -73,6 +73,7 @@ class TravelPage extends React.Component {
                                 </div>
                                 )
                                                 }))}
+
                                 {this.props.travelDetail.map((detail=>{
                                     return(
                                         <div className="images" key ={detail.id}>
@@ -95,9 +96,10 @@ class TravelPage extends React.Component {
 const mapReduState = (reduxState) => {
     return {
         explore: reduxState.exploreReducer,
-        reviews: reduxState.reviewReducer,
+        travelReviews: reduxState.travelPageReviewReducer,
         ratings: reduxState.ratingeReducer,
-        travelDetail: reduxState.travelPageDetailReducer
+        travelDetail: reduxState.travelPageDetailReducer,
+
     }
 }
 

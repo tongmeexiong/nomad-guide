@@ -1,8 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux'
-
 import { Button } from '@material-ui/core'
 import Rating from 'react-rating';
+import UpdateSafeStarRatings from './UpdateSafeRating'
+import UpdateEnglishStarRatings from './UpdateEnglishRating'
+import UpdateCostStarRatings from './UpdateCostRating'
+import UpdateFriendlyStarRatings from './UpdateFriendlyRating'
+import UpdateReconmmendStarRatings from './UpdateReconmmendRating'
 
 
 
@@ -11,18 +15,12 @@ class UpdateReview extends React.Component {
 
 
 
-    state = {
-        comment: "hello",
-        saftey_rating: this.props.updateReview.safety_rating,
-        english_rating: this.props.updateReview.english_rating,
-        cost_rating: 0,
-        friendly_rating: 0,
-        reconmend_rating: 0
-    }
+ 
 
     componentDidMount() {
         this.getExploreListReviews()
         this.props.dispatch({ type: 'GET_UPDATE_TRAVEL_REVIEW', payload: this.props.match.params.id })
+        this.props.dispatch({ type: 'SET_TRAVEL_ID', payload: this.props.match.params.id })
     }
 
     getExploreListReviews = () => {
@@ -31,50 +29,59 @@ class UpdateReview extends React.Component {
 
 
 
-    submitPageHandler = () => {
-        alert('Thank you for the review!')
+    submitPageHandler = (id) => {
+        console.log('Submit');
+        this.props.dispatch({ type: 'PUT_REVIEW', payload: {id: id, rating: this.props.rating }})
+        alert(' Thank you for the edit!')
+        this.props.history.push("/home")
     }
 
-    travelPickHandler = (id) => {
-        console.log('Option ID', id);
+  
 
-    }
+    // clickSafeRatingHandler = (event) => {
+    //     console.log('Safe Clickerrrrr', event);
+    //     // this.props.dispatch({ type: 'SET_SAFTEY_RATING', payload: event })
+    //     this.setState({
+    //         saftey_rating: event
+    //     })
 
-    clickSafeRatingHandler = (event) => {
-        console.log('Safe Clickerrrrr', event);
-        this.props.dispatch({ type: 'SET_SAFTEY_RATING', payload: event })
+    // }
 
-    }
+    // clickEnglishRatingHandler = (event) => {
+    //     console.log('English Clickerrrrr', event);
+    //     this.props.dispatch({ type: 'SET_ENGLISH_RATING', payload: event })
+    // }
 
-    clickEnglishRatingHandler = (event) => {
-        console.log('English Clickerrrrr', event);
-        this.props.dispatch({ type: 'SET_ENGLISH_RATING', payload: event })
-    }
+    // clickCostRatingHandler = (event) => {
+    //     console.log('Cost Clickerrrrr', event);
+    //     this.props.dispatch({ type: 'SET_COST_RATING', payload: event })
 
-    clickCostRatingHandler = (event) => {
-        console.log('Cost Clickerrrrr', event);
-        this.props.dispatch({type: 'SET_COST_RATING', payload: event })
+    // }
 
-    }
+    // clickFriendlyRatingHandler = (event) => {
+    //     console.log('Friendly Clickerrrrr', event);
+    //     this.props.dispatch({ type: 'SET_FRIENDLY_RATING', payload: event })
 
-    clickFriendlyRatingHandler = (event) => {
-        console.log('Friendly Clickerrrrr', event);
-        this.props.dispatch({ type: 'SET_FRIENDLY_RATING', payload: event })
+    // }
 
-    }
+    // clickReconmendRatingHandler = (event) => {
+    //     console.log('Reconmend Clickerrrrr', event);
+    //     this.props.dispatch({ type: 'SET_RECONMEND_RATING', payload: event })
 
-    clickReconmendRatingHandler = (event) => {
-        console.log('Reconmend Clickerrrrr', event);
-        this.props.dispatch({ type: 'SET_RECONMEND_RATING', payload: event })
+    // }
 
+
+    experienceHandler = (event) => {
+        console.log('experience', event.target.value);
+        this.props.dispatch({ type: 'SET_EXPERIENCE_COMMENT', payload: event.target.value })
+
+        
     }
 
     render() {
         console.log('ID Update', this.props.match.params.id);
-        console.log('State', this.state);
-        console.log('tester', this.props.updateReview.safety_rating);
-
-
+        // console.log('tester', this.props.reduxState.ratingeReducer);
+        
 
 
         return (
@@ -84,9 +91,7 @@ class UpdateReview extends React.Component {
                         <div key={items.id}>
                             <h1>Edit Your Review </h1>
                             <h2>{items.city}, {items.country}</h2>
-                            {/* <select onChange={this.selectHandler}>
-                                <option>{items.city},{items.country}</option>
-                            </select> */}
+
                             <div>
                                 <h3> ADD CoWorking Spaces? </h3>
                                 <input type="text" placeholder="CoWorking Space Name" />
@@ -96,48 +101,24 @@ class UpdateReview extends React.Component {
                                 <input type="text" placeholder="Zip Code" />
                             </div>
                             <div>
-                                <input className="experienceBox" type="text" placeholder="Experience"
+                                <input onChange ={this.experienceHandler} className="experienceBox" type="text" placeholder="Experience"
                                 />
                             </div>
                             <div>
                                 <h2>Safety</h2>
-                                <Rating
-                                    initialRating={items.safety_rating}
-                                    onChange={this.clickSafeRatingHandler}
-                                    start={0}
-                                    stop={5}
-                                />
+                                <UpdateSafeStarRatings rating={items} />
+                                    
                                 <h2>English</h2>
-                                <Rating
-                                    initialRating={items.english_rating}
-                                    onChange={this.clickEnglishRatingHandler}
-                                    start={0}
-                                    stop={5}
-                                />
+                                <UpdateEnglishStarRatings rating={items}/>
                                 <h2>Cost</h2>
-                                <Rating
-                                    initialRating={items.cost_rating}
-                                    onChange={this.clickCostRatingHandler}
-                                    start={0}
-                                    stop={5}
-                                />
+                                <UpdateCostStarRatings rating={items}/>
                                 <h2>Friendliness</h2>
-                                <Rating
-                                    initialRating={items.friendly_rating}
-                                    onChange={this.clickFriendlyRatingHandler}
-                                    start={0}
-                                    stop={5}
-                                />
-                                <h2>Reconmend</h2>
-                                <Rating
-                                    initialRating={items.reconmend_rating}
-                                    onChange={this.clickReconmendRatingHandler}
-                                    start={0}
-                                    stop={5}
-                                />
+                                <UpdateFriendlyStarRatings rating={items}/>
+                                <h2>Reconmmend</h2>
+                                <UpdateReconmmendStarRatings rating={items}/>
                             </div>
                             <div>
-                                <Button variant="contained" color="secondary" onClick={this.submitPageHandler}>Submit</Button>
+                                <Button variant="contained" color="secondary" onClick={() => this.submitPageHandler(items.travel_page_id)}>Submit</Button>
                             </div>
                         </div>
                     )
@@ -153,7 +134,8 @@ const mapReduState = (reduxState) => {
         explore: reduxState.exploreReducer,
         reviews: reduxState.reviewReducer,
         userReview: reduxState.updateReviewReducer,
-        updateReview: reduxState.updateReviewGetReducer
+        updateReview: reduxState.updateReviewGetReducer,
+        rating: reduxState.ratingeReducer,
     }
 }
 
