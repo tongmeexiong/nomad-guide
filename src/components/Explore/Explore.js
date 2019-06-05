@@ -6,7 +6,31 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import './Explore.css'
+import { Grid } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
+
+// import './Explore.css'
+
+const styles = {
+    img: {
+      height: '200px',
+      width: '300px'
+    },
+    card: {
+      margin: '20px',
+      // height: '400px',
+      width: '300px'
+    },
+    locationName: {
+      fontSize: '20px',
+      textAlign: 'center',
+      marginTop: '7px',
+      marginBottom: '-40px'
+
+    }
+
+  
+}
 
 class Explore extends React.Component {
 
@@ -28,37 +52,49 @@ class Explore extends React.Component {
 
   render() {
 
-    console.log('explore', this.props.explore.id);
-
+const style = this.props.classes
     return (
-      <div className="container">
-        {this.props.explore.map((items => {
-          return (
-            <div className="exploreCards" key={items.id} >
-              <Card >
-                <CardActionArea>
-                  <CardMedia onClick={() => this.imageClickHandler(items.id)}>
-                    <img src={items.image} alt="travel" />
-                    <Typography variant="body2" color="textPrimary" component="p" className="cardTitle">
-                      {items.city}, {items.country}
-                    </Typography>
-                  </CardMedia>
-                  <CardContent className="cardBody">
+      <Grid
+        container
+        direction="row"
+        alignItems="center"
+      >
+        {/* <div className="container"> */}
 
-                    <Typography gutterBottom variant="h5" component="h2">
-                    </Typography>
+            {this.props.explore.map((items => {
+              return (
+                <Grid item xs={3}>
 
-                  </CardContent>
-                </CardActionArea>
+                <div className="exploreCards" key={items.id} >
+                  <Card className={style.card}>
+                    <CardActionArea>
+                      <CardMedia onClick={() => this.imageClickHandler(items.id)}>
+                        <img src={items.image} alt="travel" className={style.img} />
+                        <Typography variant="body2" color="textPrimary" component="p" className={style.locationName}>
+                          {items.city}, {items.country}
+                        </Typography>
+                      </CardMedia>
+                      <CardContent className="cardBody">
 
-                <CardActions className="cardActions">
-                  Reconmmend Ratings:
+                        <Typography gutterBottom variant="h5" component="h2">
+                        </Typography>
+
+                      </CardContent>
+                    </CardActionArea>
+
+                    <CardActions className="cardActions">
+                      Reconmmend Ratings:
           </CardActions>
-              </Card>
-            </div>
-          )
-        }))}
-      </div>
+                  </Card>
+                </div>
+                </Grid>
+
+              )
+
+            }))}
+
+        {/* </div> */}
+      </Grid>
     )
   }
 }
@@ -71,6 +107,6 @@ const mapReduState = (reduxState) => {
   }
 }
 
-export default connect(mapReduState)(Explore);
+export default withStyles(styles)(connect(mapReduState)(Explore));
 
 
