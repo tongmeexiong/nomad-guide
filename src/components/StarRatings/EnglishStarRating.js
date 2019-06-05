@@ -11,12 +11,9 @@ class EnglishStarRatings extends React.Component {
         english_rating: 0
     }
 
-
+    // Send Captured Rating Value to Rating Reducer 
     clickRatingHandler = (event) => {
-        console.log('Click', event);
-        this.setState({
-            english_rating: event
-        })
+        console.log('Click English', event);
         this.props.dispatch({ type: 'SET_ENGLISH_RATING', payload: event  })
     }
 
@@ -29,8 +26,7 @@ class EnglishStarRatings extends React.Component {
                 <Rating
                     initialRating={this.state.english_rating}
                     onChange={this.clickRatingHandler}
-                    // emptySymbol={<StarBorder />}
-                    // fullSymbol={<Star />}
+
                     start={0}
                     stop={5}
                 />
@@ -41,14 +37,5 @@ class EnglishStarRatings extends React.Component {
     }
 }
 
-const mapReduState = (reduxState) => {
-    return {
-        explore: reduxState.exploreReducer,
-        exploreId: reduxState.idReducer,
-        reviews: reduxState.reviewReducer,
-        user: reduxState.user
 
-    }
-}
-
-export default connect(mapReduState)(EnglishStarRatings);
+export default connect()(EnglishStarRatings);

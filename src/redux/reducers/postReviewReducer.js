@@ -1,8 +1,8 @@
-const updateReviewGetReducer = (state = [], action) => {
+const postReviewReducer = (state = [], action) => {
     switch (action.type) {
-        case 'SET_UPDATE_TRAVEL_REVIEW':
+        case 'SET_NEW_POST':
             return action.payload;
-
+        
         default:
             return state;
     }
@@ -10,4 +10,4 @@ const updateReviewGetReducer = (state = [], action) => {
 
 // user will be on the redux state at:
 // state.user
-export default updateReviewGetReducer;
+export default postReviewReducer;

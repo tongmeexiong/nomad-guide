@@ -1,70 +1,112 @@
 import React from 'react';
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import './Explore.css'
+import { Grid } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
 
-class Explore extends React.Component{
+// import './Explore.css'
 
-  componentDidMount(){
+const styles = {
+    img: {
+      height: '200px',
+      width: '300px'
+    },
+    card: {
+      margin: '20px',
+      // height: '400px',
+      width: '300px'
+    },
+    locationName: {
+      fontSize: '20px',
+      textAlign: 'center',
+      marginTop: '7px',
+      marginBottom: '-40px'
+
+    }
+
+  
+}
+
+class Explore extends React.Component {
+
+  // GET info from Database 
+  componentDidMount() {
     this.getExploreList()
   }
 
-  getExploreList =()=>{
-    this.props.dispatch({type: 'FETCH_EXPLORE'})
+  getExploreList = () => {
+    this.props.dispatch({ type: 'FETCH_EXPLORE' })
+    // this.props.dispatch({ type: 'AVERAGE_RATING', payload: id })
   }
 
-  imageClickHandler =(id)=>{
+  // Click image and send to Travel Page
+  imageClickHandler = (id) => {
     console.log('Clicked Image', id);
     this.props.history.push(`/travelpage/${id}`)
   }
-  
-  render(){
 
-    return(
-      <div className="container">
-    {this.props.explore.map((items=>{
-      return(
-        <div className="exploreCards" key={items.id} >
-        <Card >
-          <CardActionArea>
-              <CardMedia onClick={() => this.imageClickHandler(items.id)}>
-              <img src={items.image} alt="travel" />
-              <Typography variant="body2" color="textPrimary" component="p" className="cardTitle">
-                {items.city}, {items.country}
-              </Typography>
-            </CardMedia>
-            <CardContent className="cardBody">
+  render() {
 
-              <Typography gutterBottom variant="h5" component="h2">
-              </Typography>
-             
-            </CardContent>
-          </CardActionArea>
+const style = this.props.classes
+    return (
+      <Grid
+        container
+        direction="row"
+        alignItems="center"
+      >
+        {/* <div className="container"> */}
 
-          <CardActions className="cardActions">
-            Ratings: 
+            {this.props.explore.map((items => {
+              return (
+                <Grid item xs={3}>
+
+                <div className="exploreCards" key={items.id} >
+                  <Card className={style.card}>
+                    <CardActionArea>
+                      <CardMedia onClick={() => this.imageClickHandler(items.id)}>
+                        <img src={items.image} alt="travel" className={style.img} />
+                        <Typography variant="body2" color="textPrimary" component="p" className={style.locationName}>
+                          {items.city}, {items.country}
+                        </Typography>
+                      </CardMedia>
+                      <CardContent className="cardBody">
+
+                        <Typography gutterBottom variant="h5" component="h2">
+                        </Typography>
+
+                      </CardContent>
+                    </CardActionArea>
+
+                    <CardActions className="cardActions">
+                      Reconmmend Ratings:
           </CardActions>
-        </Card>
-        </div>
-      )
-    }))}
-      </div>
+                  </Card>
+                </div>
+                </Grid>
+
+              )
+
+            }))}
+
+        {/* </div> */}
+      </Grid>
     )
   }
 }
 
 
-const mapReduState = (reduxState) =>{
-  return{
+const mapReduState = (reduxState) => {
+  return {
     explore: reduxState.exploreReducer
-}
+
+  }
 }
 
-export default connect(mapReduState)(Explore);
+export default withStyles(styles)(connect(mapReduState)(Explore));
 
 
