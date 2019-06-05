@@ -5,7 +5,10 @@ const router = express.Router();
 
 
 router.get('/', (req, res) => {
-    const sqlQuery = `SELECT * FROM "travel_page"`;
+    const sqlQuery = `SELECT "travel_page".image,"travel_page".city,"travel_page".id,"travel_page".country,  AVG("travel_page_reviews".reconmend_rating) FROM "travel_page"
+JOIN "travel_page_reviews" ON "travel_page_reviews".travel_page_id = "travel_page".id
+GROUP BY "travel_page".image, "travel_page".city,"travel_page".country, "travel_page".id
+;`;
     pool.query(sqlQuery).then(result => {
         console.log('Result', result.rows);
         res.send(result.rows)
@@ -29,10 +32,10 @@ router.get('/average', (req, res) => {
 
 router.get("/travelreviewdetails/:id", (req, res) => {
     let travelPageId = req.params.id
-    const sqlQuery = `SELECT "travel_page_reviews".cost_rating, "travel_page_reviews".english_rating, "travel_page_reviews".safety_rating, "travel_page_reviews".friendly_rating,"travel_page_reviews".reconmend_rating, "travel_page_reviews".experience_comment
-FROM "travel_page"
+    const sqlQuery = `SELECT AVG("travel_page_reviews".english_rating) AS "english_rating", AVG("travel_page_reviews".safety_rating) AS "safety_rating", AVG("travel_page_reviews".friendly_rating) AS "friendly_rating", AVG("travel_page_reviews".reconmend_rating) AS "reconmend_rating" ,AVG("travel_page_reviews".cost_rating) AS "cost_rating" FROM "travel_page"
 JOIN "travel_page_reviews" ON "travel_page_reviews".travel_page_id = "travel_page".id
-WHERE "travel_page".id = $1;`;
+WHERE "travel_page".id = $1
+;`
     pool.query(sqlQuery, [travelPageId]).then(result => {
         console.log('Result', result.rows);
         res.send(result.rows)
@@ -44,6 +47,21 @@ WHERE "travel_page".id = $1;`;
 
 
 router.get("/traveldetails/:id", (req, res) => {
+    let travelPageId = req.params.id
+    console.log('travelPageId', travelPageId);
+
+    const sqlQuery = `SELECT * FROM "travel_page"
+WHERE id = $1;`;
+    pool.query(sqlQuery, [travelPageId]).then(result => {
+        console.log('Result', result.rows);
+        res.send(result.rows)
+    }).catch(err => {
+        console.log('Error in GET', err);
+        res.SendStatus(500)
+    })
+});
+
+router.get("/addreviewpage/:id", (req, res) => {
     let travelPageId = req.params.id
     console.log('travelPageId', travelPageId);
 

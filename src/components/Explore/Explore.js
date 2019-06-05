@@ -8,6 +8,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { Grid } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
+import Rating from 'react-rating';
+
 
 // import './Explore.css'
 
@@ -83,7 +85,10 @@ const style = this.props.classes
                     </CardActionArea>
 
                     <CardActions className="cardActions">
-                      Reconmmend Ratings:
+                        Reconmmend Ratings:<Rating initialRating={items.avg}
+                          start={0}
+                          stop={5}
+                          readonly/ >
           </CardActions>
                   </Card>
                 </div>

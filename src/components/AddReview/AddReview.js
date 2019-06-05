@@ -9,13 +9,27 @@ import FriendlyStarRatings from '../StarRatings/FriendlyStarRatings'
 import ReconmendStarRatings from '../StarRatings/ReconmendStarRating'
 
 //Material-UI
-import { Button } from '@material-ui/core'
+import { Grid, Button } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
 
 //CSS
 import './AddReview.css'
 
+const styles = {
+    rating: {
+        height: '30px',
+        width: '300px',
+        marginRight: '100px',
+        marginTop: '-630px',
+        fontSize: '14.7px'
+    }
+}
 
 class AddReview extends React.Component {
+
+    componentDidMount() {
+        this.props.dispatch({ type: 'FETCH_ADD_REVIEW', payload: this.props.match.params.id })
+    }
 
     state = {
         saftey_rating: 0,
@@ -76,6 +90,7 @@ class AddReview extends React.Component {
     }
 
     render() {
+        const style = this.props.classes
 
         return (
             <div>
@@ -136,4 +151,4 @@ const mapReduState = (reduxState) => {
     }
 }
 
-export default connect(mapReduState)(AddReview);
+export default withStyles(styles)(connect(mapReduState)(AddReview));

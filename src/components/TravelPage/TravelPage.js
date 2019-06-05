@@ -6,7 +6,24 @@ import CostStarRatings from '../TravelPageRating/CostTravelRating'
 import FriendStarRatings from '../TravelPageRating/FriendlyTravelRating'
 import ReconmendStarRatings from '../TravelPageRating/ReconmendTravelPage'
 import { Grid, Button } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
 
+const styles = {
+    rating: {
+        height: '30px',
+        width: '300px',
+        marginRight: '100px',
+        marginTop: '-630px',
+        fontSize: '14.7px'
+    },
+    image: {
+        marginLeft: '50px',
+        height: '500px',
+        width: '900px',
+        marginTop: '-10px'
+    },
+  
+}
 
 
 
@@ -19,65 +36,75 @@ class TravelPage extends React.Component {
     }
 
     // Set Travel ID into Reducer and go to Review Page 
-    reviewPageHandler = () => {
+    reviewPageHandler = (id) => {
         this.props.dispatch({ type: 'SET_TRAVEL_ID', payload: this.props.match.params.id })
-        this.props.history.push("/addreview:id")
+        this.props.history.push(`/addreview${id}`)
     }
 
     render() {
-
+        const style = this.props.classes
         return (
             <div>
-                <h1>Travel Page</h1>
-                {this.props.travelReviews.map((items => {
-                    return (
-                        <div key={items.id}>
+                <Grid
+                    container
+                    direction="column"
+                    justify="flex-start"
+                    alignItems="flex-start"
+                    
+                >
+                    <h1>Travel Page</h1>
 
-                            <Grid
-                                container
-                                direction="column-reverse"
-                                justify="center"
-                                alignItems="center"
-                            >
-                                <Grid item xs={6}>
+                    {this.props.travelDetail.map((detail => {
+                        return (
+                            <div className="images" key={detail.id}>
+                                <div>
+                                    <img src={detail.image} alt="travel location" className={style.image} />
+                                </div>
+                                <div>
+                                    <h2> {detail.city}, {detail.country} </h2>
+                                    <Button variant="contained" color="secondary" onClick={()=>this.reviewPageHandler(detail.id)}>Review</Button>
+                                </div>
+                            </div>
+                        )
+                    }))}
+                </Grid>
+                <Grid
+                    container
+                    direction="column"
+                    justify="flex-start"
+                    alignItems="flex-end"
+                >
+                    {this.props.travelReviews.map((items => {
+                        return (
+                            <div key={items.id}>
+
+                                <Grid item xs={6} className={style.rating}>
                                     <h2>Saftey</h2>
                                     <TravelSafeRating rating={items} />
-                                </Grid>
-                                <Grid item xs={6}>
+                                    {/* </Grid>
+                                <Grid item xs={6}> */}
                                     <h2>English</h2>
                                     <EnglishStarRatings rating={items} />
-                                </Grid>
-                                <Grid item xs={6}>
+                                    {/* </Grid>
+                                <Grid item xs={6}> */}
                                     <h2>Cost</h2>
                                     <CostStarRatings rating={items} />
-                                </Grid>
-                                <Grid item xs={6}>
+                                    {/* </Grid>
+                                <Grid item xs={6}> */}
                                     <h2>Friendliness</h2>
                                     <FriendStarRatings rating={items} />
-                                </Grid>
-                                <Grid item xs={6}>
+                                    {/* </Grid>
+                                <Grid item xs={6}> */}
                                     <h2>Recommend</h2>
                                     <ReconmendStarRatings rating={items} />
                                 </Grid>
-                            </Grid>
-                        </div>
-
-                    )
-                }))}
-
-                {this.props.travelDetail.map((detail => {
-                    return (
-                        <div className="images" key={detail.id}>
-                            <div>
-                                <img src={detail.image} alt="travel location" />
                             </div>
-                            <div>
-                                <h2> {detail.city}, {detail.country} </h2>
-                                <Button variant="contained" color="secondary" onClick={this.reviewPageHandler}>Review</Button>
-                            </div>
-                        </div>
-                    )
-                }))}
+
+                        )
+                    }))}
+                </Grid>
+
+
             </div>
 
         )
@@ -91,4 +118,4 @@ const mapReduState = (reduxState) => {
     }
 }
 
-export default connect(mapReduState)(TravelPage);
+export default withStyles(styles)(connect(mapReduState)(TravelPage));

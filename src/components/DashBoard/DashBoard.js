@@ -8,9 +8,30 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Collapse from '@material-ui/core/Collapse';
+import { Grid } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
 
-import './DashBoard.css'
+// import './DashBoard.css'
 
+
+const styles = {
+  img: {
+    height: '200px',
+    width: '300px'
+  },
+  card: {
+    margin: '20px',
+    // height: '400px',
+    width: '300px'
+  },
+  locationName: {
+    fontSize: '20px',
+    textAlign: 'center',
+    marginTop: '7px',
+    marginBottom: '-40px'
+
+  }
+}
 
 class Dashboard extends React.Component {
 
@@ -42,6 +63,8 @@ class Dashboard extends React.Component {
 
 
   render() {
+    const style = this.props.classes
+
     return (
       <div>
         <h1 id="welcome">
@@ -49,13 +72,20 @@ class Dashboard extends React.Component {
     </h1>
         <h2> Your reviews:</h2>
         <div>
+          <Grid
+            container
+            direction="row"
+            alignItems="center"
+          >
           {this.props.userReview.map((items => {
             return (
-              <div className="exploreCards" key={items.id} >
-                <Card >
+              <Grid item xs={3} key={items.id} >
+
+              <div>
+                  <Card className={style.card}>
                   <CardActionArea>
                     <CardMedia onClick={() => this.imageClickHandler(items.travel_page_id)}>
-                      <img src={items.image} alt="travel" />
+                        <img src={items.image} alt="travel" className={style.img}/>
 
                     </CardMedia>
                     <CardContent className="cardBody">
@@ -89,8 +119,10 @@ class Dashboard extends React.Component {
 
                 </Card>
               </div>
+              </Grid>
             )
           }))}
+          </Grid>
         </div>
       </div>
     )
@@ -103,4 +135,5 @@ const mapStateToProps = state => ({
   userReview: state.userReviewReducer
 });
 
-export default connect(mapStateToProps)(Dashboard);
+
+export default withStyles(styles)(connect(mapStateToProps)(Dashboard));

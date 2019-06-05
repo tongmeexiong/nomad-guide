@@ -1,10 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
-// worker Saga: will be fired on "FETCH_SECRETS" actions
-function* exploreSaga() {
-    yield takeLatest('FETCH_EXPLORE', fetchExploreData);
-}
+
 
 function* fetchExploreData() {
     try {
@@ -15,6 +12,10 @@ function* fetchExploreData() {
     } catch (error) {
         console.log('EXPLORE Saga GET request failed', error);
     }
+}
+
+function* exploreSaga() {
+    yield takeLatest('FETCH_EXPLORE', fetchExploreData);
 }
 
 
