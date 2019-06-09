@@ -5,11 +5,25 @@ const router = express.Router();
 
 
 router.get('/', (req, res) => {
-    const sqlQuery = `SELECT "travel_page".image,"travel_page".city,"travel_page".id,"travel_page".country,  AVG("travel_page_reviews".reconmend_rating) FROM "travel_page"
+    const sqlQuery = `SELECT "travel_page".image,"travel_page".city,"travel_page".id,"travel_page".country,  AVG("travel_page_reviews".reconmend_rating), COUNT("travel_page_reviews".reconmend_rating) AS "count" FROM "travel_page"
 JOIN "travel_page_reviews" ON "travel_page_reviews".travel_page_id = "travel_page".id
-GROUP BY "travel_page".image, "travel_page".city,"travel_page".country, "travel_page".id
+GROUP BY "travel_page".image, "travel_page".city,"travel_page".country, "travel_page".id, "travel_page"
 ;`;
     pool.query(sqlQuery).then(result => {
+        console.log('Result', result.rows);
+        res.send(result.rows)
+    }).catch(err => {
+        console.log('Error in GET', err);
+        res.SendStatus(500)
+    })
+});
+
+router.get('/favorites', (req, res) => {
+    const sqlQuery = `SELECT * FROM "favorites"
+JOIN "travel_page" ON "travel_page".id = "favorites".travel_page_id
+JOIN "user" ON "user".id = "favorites".user_id
+AND "user".id= $1;`;
+    pool.query(sqlQuery, [req.user.id]).then(result => {
         console.log('Result', result.rows);
         res.send(result.rows)
     }).catch(err => {
@@ -203,12 +217,48 @@ router.post('/addtravel', (req, res) => {
         console.log('user', req.user);
         console.log('req.user:', req.user);
         let destination = req.body
-        let sqlText = `INSERT INTO "travel_page" ("city", "country","continent", "image", "user_id" ) 
-VALUES ($1, $2, $3, $4, $5);`
+        let addTravelSqlText = `INSERT INTO "travel_page" ("city", "country","continent", "image", "user_id" ) 
+VALUES ($1, $2, $3, $4, $5)
+RETURNING "travel_page".id;
+`
+        let addReviewSqlText = `INSERT INTO "travel_page_reviews" (
+                        "experience_comment",
+                        "safety_rating",
+                        "english_rating",
+                        "cost_rating",
+                        "friendly_rating" ,
+                        "reconmend_rating" ,
+                        "travel_page_id" ,
+                        "user_id" ,
+                        "coworking_space_name" ,
+                        "coworking_space_address" ,
+                        "coworking_space_city" ,
+                        "coworking_space_country",
+                        "coworking_space_zip" 
+)
+VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13);`
 
-        pool.query(sqlText, [destination.city, destination.country, destination.continent, destination.image, req.user.id])
-            .then(() => {
-                res.sendStatus(201);
+        pool.query(addTravelSqlText, [destination.city, destination.country, destination.continent, destination.image, req.user.id])
+            .then((result) => {
+                console.log('result POST', result.rows[0].id);
+                pool.query(addReviewSqlText, [
+                    destination.experience_comment,
+                    destination.safety_rating,
+                    destination.english_rating,
+                    destination.cost_rating,
+                    destination.friendly_rating,
+                    destination.reconmend_rating,
+                    result.rows[0].id,
+                    req.user.id,
+                    destination.coworking_space_name,
+                    destination.coworking_space_address,
+                    destination.coworking_space_city,
+                    destination.coworking_space_country,
+                    destination.coworking_space_zip,
+                ])
+                    .then(() => {
+                        res.sendStatus(201);
+                    })
             })
             .catch((err) => {
                 console.log('Error POST AddTravel', err);
@@ -220,8 +270,49 @@ VALUES ($1, $2, $3, $4, $5);`
     }
 });
 
+router.post('/favorite', (req, res) => {
+    if (req.isAuthenticated()) {
+        console.log('is authenticated?', req.isAuthenticated());
+        console.log('user', req.user);
+        console.log('req.user:', req.user);
+        let favoriteId = req.body
+        console.log('POST HEART', favoriteId, req.user.id );
+        const sqlQuery = `
+         INSERT INTO "favorites" ("travel_page_id", "user_id") 
+VALUES ($1, $2);
+    `;
+        pool.query(sqlQuery, [favoriteId.travel_page_id, req.user.id])
+            .then(() => {
+                res.sendStatus(201);
+            })
+            .catch((err) => {
+                console.log('Error POST', err);
+                res.sendStatus(500);
+            });
+    }
+    else {
+        res.sendStatus(403)
+    }
+});
 
 
+router.delete ('/favorite/:id', (req, res) => {
+    let deleteId = req.params.id
+    console.log('DELETE', deleteId);
+    const sqlQuery = `
+         DELETE FROM "favorites"
+WHERE "favorites".travel_page_id = $1
+AND "favorites".user_id = $2;`
+    pool.query(sqlQuery, [deleteId, req.user.id]).then(result => {
+        console.log('Result', result.rows);
+        res.sendStatus(201)
+    }).catch(err => {
+        console.log('Error in GET', err);
+        res.SendStatus(500)
+    })
+});
+
+            
 
 router.delete('/:id', (req, res) => {
 
@@ -244,10 +335,10 @@ router.put('/:id', (req, res) => {
 
     let putId = req.params.id
     console.log('putId', putId);
-    
+
     let putBodyId = req.body
     console.log('putBodyId', putBodyId);
-    
+
     const sqlQuery = `
          UPDATE "travel_page_reviews"
             SET "experience_comment"= $1,
@@ -281,12 +372,12 @@ router.put('/:id', (req, res) => {
             req.user.id
         ])
         .then(result => {
-        console.log('Result', result.rows);
-        res.sendStatus(200)
-    }).catch(err => {
-        console.log('Error in PUT', err);
-        res.SendStatus(500)
-    })
+            console.log('Result', result.rows);
+            res.sendStatus(200)
+        }).catch(err => {
+            console.log('Error in PUT', err);
+            res.SendStatus(500)
+        })
 });
 
 

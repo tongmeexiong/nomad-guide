@@ -8,6 +8,13 @@ import ReconmendStarRatings from '../TravelPageRating/ReconmendTravelPage'
 import { Grid, Button } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 
+
+import IconButton from "@material-ui/core/IconButton";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import { Star, StarBorder } from '@material-ui/icons';
+
+
+
 const styles = {
     rating: {
         height: '30px',
@@ -20,7 +27,7 @@ const styles = {
         marginLeft: '50px',
         height: '500px',
         width: '900px',
-        marginTop: '-10px'
+        marginTop: '10px'
     },
   
 }
@@ -29,45 +36,103 @@ const styles = {
 
 class TravelPage extends React.Component {
 
+    state={
+        heartToggle: false
+    }
     // Send Match ID to GET Route for specific information. Reviews and Travel Destinations.  
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_TRAVEL_PAGE_REVIEWS', payload: this.props.match.params.id })
         this.props.dispatch({ type: 'FETCH_TRAVEL_PAGE_DETAILS', payload: this.props.match.params.id })
+        this.props.dispatch({ type: 'FETCH_FAVORITE' })
+
     }
 
+    toggleHeart = (id) =>{
+        console.log('Heart', id);
+        
+        if(!this.state.heartToggle){
+            this.setState({
+                heartToggle: true
+            })
+            this.props.dispatch({ type: 'POST_FAVORITE', payload: {travel_page_id: id}})
+        } else {
+            this.setState({
+                heartToggle: false
+            })
+            this.props.dispatch({ type: 'DELETE_FAVORITE', payload: id })
+
+        }
+    }
+
+    displayHeart =(id)=>{
+        if (this.state.heartToggle) {
+            return <FavoriteIcon style={{ color: "#d50000" }} />;
+        } else {
+            return <FavoriteIcon />;
+        }
+    };
+   
+// checkHeart =(id)=>{
+//     if (this.props.match.params.id === id){
+//         this.setState({
+//             heartToggle: true
+//         })
+//     } else {
+//         this.setState({
+//             heartToggle: false
+//         })
+//     }
+// }
     // Set Travel ID into Reducer and go to Review Page 
     reviewPageHandler = (id) => {
         this.props.dispatch({ type: 'SET_TRAVEL_ID', payload: this.props.match.params.id })
-        this.props.history.push(`/addreview${id}`)
+        this.props.history.push(`/addreview/${id}`)
     }
 
     render() {
         const style = this.props.classes
+        console.log('Checking', this.props.favorite.travel_page_id);
+
         return (
             <div>
+                
+                <div>
                 <Grid
                     container
                     direction="column"
                     justify="flex-start"
                     alignItems="flex-start"
-                    
                 >
-                    <h1>Travel Page</h1>
 
                     {this.props.travelDetail.map((detail => {
                         return (
-                            <div className="images" key={detail.id}>
+                            <div  key={detail.id}>
                                 <div>
                                     <img src={detail.image} alt="travel location" className={style.image} />
                                 </div>
                                 <div>
-                                    <h2> {detail.city}, {detail.country} </h2>
+                                    <div>
+                                        <h2> {detail.city}, {detail.country} <IconButton
+                                            aria-label="Add to favorites"
+                                            onClick={() => this.toggleHeart(detail.id)}
+                                        >
+                                            {this.displayHeart()}
+                                        </IconButton> </h2>
+                                    </div>
+                                    <div>
+                                    
+                                    </div>
+                                    </div>
+                                    <div>
                                     <Button variant="contained" color="secondary" onClick={()=>this.reviewPageHandler(detail.id)}>Review</Button>
+                               
                                 </div>
                             </div>
                         )
                     }))}
+                 
                 </Grid>
+
                 <Grid
                     container
                     direction="column"
@@ -102,11 +167,9 @@ class TravelPage extends React.Component {
 
                         )
                     }))}
-                </Grid>
-
-
+                    </Grid>
+                </div>
             </div>
-
         )
     }
 }
@@ -115,6 +178,7 @@ const mapReduState = (reduxState) => {
     return {
         travelReviews: reduxState.travelPageReviewReducer,
         travelDetail: reduxState.travelPageDetailReducer,
+        favorite: reduxState.getFavoriteReducer
     }
 }
 

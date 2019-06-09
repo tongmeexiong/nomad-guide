@@ -9,7 +9,6 @@ function* travelPageGetDetailsSaga() {
 
 function* travelPageDataDetails(action) {
     try {
-
         const travelPageDataResponse = yield axios.get(`/api/travelpage/traveldetails/${action.payload}`);
 
         yield put({ type: 'SET_TRAVEL_REVIEW_PAGE', payload: travelPageDataResponse.data });

@@ -12,6 +12,9 @@ import currentReviewPostSaga from './currentReviewPost'
 import deleteReviewSaga from './deleteReviewSaga'
 import putReviewSaga from './putReviewSaga'
 import travelPageGetDetailsSaga from './travelPageDataDetails'
+import addReviewDetailsGetSaga from './addReviewDetailsGetSaga'
+import travelFavoritePostSaga from './favoriteSaga'
+import getFavoriteSaga from './getFavoriteSaga'
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -35,5 +38,8 @@ export default function* rootSaga() {
     deleteReviewSaga(),
     putReviewSaga(),
     travelPageGetDetailsSaga(),
+    addReviewDetailsGetSaga(),
+    travelFavoritePostSaga(),
+    getFavoriteSaga()
   ]);
 }

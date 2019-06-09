@@ -20,8 +20,21 @@ const styles = {
         height: '30px',
         width: '300px',
         marginRight: '100px',
-        marginTop: '-630px',
+        marginLeft: '-800px',
+        marginTop: '-780px',
         fontSize: '14.7px'
+    },
+    inputs: {
+        marginLeft: '50px',
+        height: '500px',
+        width: '900px',
+        marginTop: '-10px'
+    },
+    inputBox: {
+        marginLeft: '50px',
+        height: '500px',
+        width: '900px',
+        marginTop: '-220px'
     }
 }
 
@@ -29,6 +42,8 @@ class AddReview extends React.Component {
 
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_ADD_REVIEW', payload: this.props.match.params.id })
+        this.props.dispatch({ type: 'SET_TRAVEL_ID', payload: this.props.match.params.id })
+window.scrollTo(0,0)
     }
 
     state = {
@@ -49,8 +64,11 @@ class AddReview extends React.Component {
 
     // POST reviews from Rating Reducer 
     submitPageHandler = () => {
+        console.log('Clicked');
+        
         alert('Thank you for your review!')
         this.props.dispatch({ type: 'POST_CURRENT_REVIEW', payload: this.props.ratingReview })
+        this.props.history.push("/home")
     }
 
     // Sends value of WorkSpace Name to Rating Reducer
@@ -94,49 +112,68 @@ class AddReview extends React.Component {
 
         return (
             <div>
-                <h1>Review This Travel Destination</h1>
-                {/* Display location being reviewed */}
-                {this.props.travelDetail.map((detail => {
-                    return (
-                        <h2 key={detail.id}>{detail.city}, {detail.country}</h2>
-                    )
-                }))}
+                <Grid
+                    container
+                    direction="column"
+                    justify="flex-start"
+                    alignItems="flex-start"
+                    className={style.inputs}
+                >
 
-                {this.props.travelDetail.map((review => {
-                    return (
-                        // <option onClick={this.travelPickHandler(review.travel_page_id)} >{review.city}, {review.country}  </option>
-                        <div key={review.id}>
-                            <h3> Any CoWorking Spaces? </h3>
-                            <input onChange={this.workSpaceName} type="text" placeholder="CoWorking Space Name" />
-                            <input onChange={this.workSpaceAddress} type="text" placeholder="CoWorking Space Address" />
-                            <input onChange={this.workSpaceCity} type="text" placeholder="City" />
-                            <input onChange={this.workSpaceCountry} type="text" placeholder="Country" />
-                            <input onChange={this.workSpaceZip} type="text" placeholder="Zip Code" />
-                            <div>
-                                <input onChange={this.workSpaceComment} className="experienceBox" type="text" placeholder="Experience" />
-                            </div>
+                    <h1>Review This Travel Destination</h1>
+                    {/* Display location being reviewed */}
+                    {this.props.reviewDetail.map((detail => {
+                        return (
+                            <h2 key={detail.id}>{detail.city}, {detail.country}</h2>
+                        )
+                    }))}
+              
+                <div>
+                    <h3> Any CoWorking Spaces? </h3>
+                    <input onChange={this.workSpaceName} type="text" placeholder="CoWorking Space Name" />
+                    <input onChange={this.workSpaceAddress} type="text" placeholder="CoWorking Space Address" />
+                    <input onChange={this.workSpaceCity} type="text" placeholder="City" />
+                    <input onChange={this.workSpaceCountry} type="text" placeholder="Country" />
+                    <input onChange={this.workSpaceZip} type="text" placeholder="Zip Code" />
+                </div>
+                </Grid>
+                <Grid
+                    container
+                    direction="column"
+                    justify="flex-start"
+                    alignItems="flex-start"
+                    className={style.inputBox}
+                >
+                <div>
+                    <h3>Experience</h3>
+                    <input onChange={this.workSpaceComment} className="experienceBox" type="text" />
+                    </div>
+                    <div>
+                        {/* Button will capture id for POSTING */}
+                        <Button variant="contained" color="secondary" onClick={this.submitPageHandler}>Submit</Button>
+                    </div>
+                </Grid>
 
-                            {/* Component of Review Ratings */}
-                            <div>
-                                <h2>Safety</h2>
-                                <SafeStarRatings />
-                                <h2>English</h2>
-                                <EnlgishStarRating />
-                                <h2>Cost</h2>
-                                <CostStarRating />
-                                <h2>Frendly</h2>
-                                <FriendlyStarRatings />
-                                <h2>Recommend</h2>
-                                <ReconmendStarRatings />
-                            </div>
-                            <div>
-                                {/* Button will capture id for POSTING */}
-                                <Button variant="contained" color="secondary" onClick={() => this.submitPageHandler(review.travel_page_id)}>Submit</Button>
-                            </div>
-                        </div>
-                    )
-                }))}
-
+                    {/* Component of Review Ratings */}
+                    <Grid
+                        container
+                        direction="column"
+                        justify="flex-start"
+                        alignItems="flex-end"
+                    >
+                        <Grid item xs={6} className={style.rating}>
+                            <h2>Safety</h2>
+                            <SafeStarRatings />
+                            <h2>English</h2>
+                            <EnlgishStarRating />
+                            <h2>Cost</h2>
+                            <CostStarRating />
+                            <h2>Frendly</h2>
+                            <FriendlyStarRatings />
+                            <h2>Recommend</h2>
+                            <ReconmendStarRatings />
+                        </Grid>
+                    </Grid>
             </div>
         )
     }
@@ -146,8 +183,8 @@ class AddReview extends React.Component {
 const mapReduState = (reduxState) => {
     return {
 
-        travelDetail: reduxState.travelPageDetailReducer,
-        ratingReview: reduxState.ratingeReducer
+        reviewDetail: reduxState.addReviewDetailReducer,
+        ratingReview: reduxState.ratingReducer
     }
 }
 

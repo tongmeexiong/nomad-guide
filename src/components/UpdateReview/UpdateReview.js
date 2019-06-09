@@ -1,20 +1,39 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { Button } from '@material-ui/core'
 import UpdateSafeStarRatings from './UpdateSafeRating'
 import UpdateEnglishStarRatings from './UpdateEnglishRating'
 import UpdateCostStarRatings from './UpdateCostRating'
 import UpdateFriendlyStarRatings from './UpdateFriendlyRating'
 import UpdateReconmmendStarRatings from './UpdateReconmmendRating'
+import { Grid, Button } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
 
-
-
+const styles = {
+    rating: {
+        height: '30px',
+        width: '300px',
+        marginRight: '100px',
+        marginLeft: '-900px',
+        marginTop: '-360px',
+        fontSize: '14.7px'
+    },
+    inputs: {
+        marginLeft: '100px',
+        // height: '500px',
+        // width: '900px',
+        marginTop: '-10px'
+    },
+    // inputBox: {
+    //     marginLeft: '50px',
+    //     height: '500px',
+    //     width: '900px',
+    //     marginTop: '-220px'
+    // }
+}
 
 class UpdateReview extends React.Component {
 
-
-
- 
+    
 
     componentDidMount() {
         this.getExploreListReviews()
@@ -46,11 +65,20 @@ class UpdateReview extends React.Component {
 
     render() {
         console.log('ID Update', this.props.match.params.id);
-        
+        const style = this.props.classes
+        console.log('hello', this.props.updateReview.experience_comment);
 
 
         return (
+            
             <div>
+                <Grid
+                    container
+                    direction="column"
+                    justify="flex-start"
+                    alignItems="flex-start"
+                    className={style.inputs}
+                ></Grid>
                 {this.props.updateReview.map((items => {
                     return (
                         <div key={items.id}>
@@ -59,20 +87,31 @@ class UpdateReview extends React.Component {
 
                             <div>
                                 <h3> ADD CoWorking Spaces? </h3>
-                                <input type="text" placeholder="CoWorking Space Name" />
-                                <input type="text" placeholder="CoWorking Space Address" />
+                                <input type="text" placeholder="Name" />
+                                <input type="text" placeholder="Address" />
                                 <input type="text" placeholder="City" />
                                 <input type="text" placeholder="Country" />
                                 <input type="text" placeholder="Zip Code" />
                             </div>
+                            <h3>Experience</h3>
                             <div>
-                                <input onChange ={this.experienceHandler} className="experienceBox" type="text" placeholder="Experience"
+                                <input  onChange ={this.experienceHandler} className="experienceBox" type="text"
                                 />
                             </div>
                             <div>
+                                <Button variant="contained" color="secondary" onClick={() => this.submitPageHandler(items.travel_page_id)}>Submit</Button>
+                                </div>
+                            <div>
+                                <Grid
+                                    container
+                                    direction="column"
+                                    justify="flex-start"
+                                    alignItems="flex-end"
+                                >
+                                    <Grid item xs={6} className={style.rating}>
+
                                 <h2>Safety</h2>
                                 <UpdateSafeStarRatings rating={items} />
-                                    
                                 <h2>English</h2>
                                 <UpdateEnglishStarRatings rating={items}/>
                                 <h2>Cost</h2>
@@ -81,9 +120,9 @@ class UpdateReview extends React.Component {
                                 <UpdateFriendlyStarRatings rating={items}/>
                                 <h2>Reconmmend</h2>
                                 <UpdateReconmmendStarRatings rating={items}/>
-                            </div>
-                            <div>
-                                <Button variant="contained" color="secondary" onClick={() => this.submitPageHandler(items.travel_page_id)}>Submit</Button>
+                           </Grid>
+                                </Grid>
+
                             </div>
                         </div>
                     )
@@ -104,4 +143,5 @@ const mapReduState = (reduxState) => {
     }
 }
 
-export default connect(mapReduState)(UpdateReview);
+export default withStyles(styles)(connect(mapReduState)(UpdateReview));
+

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import Rating from 'react-rating';
-// import { Star, StarBorder } from '@material-ui/icons'
+import { Star, StarBorder } from '@material-ui/icons'
 
 
 
@@ -25,6 +25,8 @@ class ReconmendStarRatings extends React.Component {
                 <Rating
                     initialRating={this.state.reconmend_rating}
                     onChange={this.clickRatingHandler}
+                    emptySymbol={<StarBorder />}
+                    fullSymbol={<Star />}
                     start={0}
                     stop={5}
                 />

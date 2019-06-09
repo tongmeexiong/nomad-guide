@@ -14,7 +14,7 @@ const ratings = {
 
 }
 
-const ratingeReducer = (state = ratings, action) => {
+const ratingReducer = (state = ratings, action) => {
     switch (action.type) {
         case 'SET_SAFTEY_RATING':
             return { ...state, safety_rating: action.payload};
@@ -47,4 +47,4 @@ const ratingeReducer = (state = ratings, action) => {
 
 // user will be on the redux state at:
 // state.user
-export default ratingeReducer;
+export default ratingReducer;

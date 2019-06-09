@@ -21,7 +21,6 @@ import AddReview from '../AddReview/AddReview'
 import TravelPage from '../TravelPage/TravelPage'
 import UpdateReview from '../UpdateReview/UpdateReview'
 import AddTravel from '../AddTravel/AddTravel'
-import AddTravelReview from '../AddTravel/AddTravelReview'
 
 import './App.css';
 
@@ -66,16 +65,12 @@ class App extends Component {
             {/* Add Review Page from Travel Page */}
             <ProtectedRoute
               exact
-              path="/addreview:id"
+              path="/addreview/:id"
               component={AddReview}
             />
 
             {/* Adding New Travel Review from Adding New Location  */}
-            <ProtectedRoute
-              exact
-              path="/addnewreview"
-              component={AddTravelReview}
-            />
+            
 
             {/*  Travel Page Route with Match Id */}
             <Route
