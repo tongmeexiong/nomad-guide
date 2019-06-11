@@ -4,11 +4,42 @@ const router = express.Router();
 
 
 
-router.get('/', (req, res) => {
-    const sqlQuery = `SELECT "travel_page".image,"travel_page".city,"travel_page".id,"travel_page".country,  AVG("travel_page_reviews".reconmend_rating), COUNT("travel_page_reviews".reconmend_rating) AS "count" FROM "travel_page"
+router.get('/asia', (req, res) => {
+    const sqlQuery = `SELECT "travel_page".image,"travel_page".city,"travel_page".id,"travel_page".country,"travel_page".continent,  AVG("travel_page_reviews".reconmend_rating), COUNT("travel_page_reviews".reconmend_rating) AS "count" FROM "travel_page"
 JOIN "travel_page_reviews" ON "travel_page_reviews".travel_page_id = "travel_page".id
-GROUP BY "travel_page".image, "travel_page".city,"travel_page".country, "travel_page".id, "travel_page"
-;`;
+WHERE "travel_page".continent LIKE 'Asia'
+GROUP BY "travel_page".image, "travel_page".city,"travel_page".country, "travel_page".id, "travel_page";`
+
+    pool.query(sqlQuery).then(result => {
+        console.log('Result', result.rows);
+        res.send(result.rows)
+    }).catch(err => {
+        console.log('Error in GET', err);
+        res.SendStatus(500)
+    })
+});
+
+router.get('/europe', (req, res) => {
+    const sqlQuery = `SELECT "travel_page".image,"travel_page".city,"travel_page".id,"travel_page".country,"travel_page".continent,  AVG("travel_page_reviews".reconmend_rating), COUNT("travel_page_reviews".reconmend_rating) AS "count" FROM "travel_page"
+JOIN "travel_page_reviews" ON "travel_page_reviews".travel_page_id = "travel_page".id
+WHERE "travel_page".continent LIKE 'Europe'
+GROUP BY "travel_page".image, "travel_page".city,"travel_page".country, "travel_page".id, "travel_page";`
+
+    pool.query(sqlQuery).then(result => {
+        console.log('Result', result.rows);
+        res.send(result.rows)
+    }).catch(err => {
+        console.log('Error in GET', err);
+        res.SendStatus(500)
+    })
+});
+
+router.get('/central', (req, res) => {
+    const sqlQuery = `SELECT "travel_page".image,"travel_page".city,"travel_page".id,"travel_page".country,"travel_page".continent,  AVG("travel_page_reviews".reconmend_rating), COUNT("travel_page_reviews".reconmend_rating) AS "count" FROM "travel_page"
+JOIN "travel_page_reviews" ON "travel_page_reviews".travel_page_id = "travel_page".id
+WHERE "travel_page".continent LIKE 'Central America'
+GROUP BY "travel_page".image, "travel_page".city,"travel_page".country, "travel_page".id, "travel_page";`
+
     pool.query(sqlQuery).then(result => {
         console.log('Result', result.rows);
         res.send(result.rows)
@@ -19,6 +50,10 @@ GROUP BY "travel_page".image, "travel_page".city,"travel_page".country, "travel_
 });
 
 router.get('/favorites', (req, res) => {
+    if (req.isAuthenticated()) {
+        console.log('is authenticated?', req.isAuthenticated());
+        console.log('user', req.user);
+        console.log('req.user:', req.user);
     const sqlQuery = `SELECT * FROM "favorites"
 JOIN "travel_page" ON "travel_page".id = "favorites".travel_page_id
 JOIN "user" ON "user".id = "favorites".user_id
@@ -29,8 +64,13 @@ AND "user".id= $1;`;
     }).catch(err => {
         console.log('Error in GET', err);
         res.SendStatus(500)
-    })
+    });
+    }
+    else {
+        res.sendStatus(403)
+    }
 });
+
 
 router.get('/average', (req, res) => {
     const sqlQuery = `SELECT AVG("reconmend_rating") FROM "travel_page_reviews"
@@ -64,8 +104,8 @@ router.get("/traveldetails/:id", (req, res) => {
     let travelPageId = req.params.id
     console.log('travelPageId', travelPageId);
 
-    const sqlQuery = `SELECT * FROM "travel_page"
-WHERE id = $1;`;
+    const sqlQuery = `SELECT *FROM "travel_page"
+WHERE "travel_page".id = $1`;
     pool.query(sqlQuery, [travelPageId]).then(result => {
         console.log('Result', result.rows);
         res.send(result.rows)
@@ -74,6 +114,29 @@ WHERE id = $1;`;
         res.SendStatus(500)
     })
 });
+
+
+router.get("/comment/:id", (req, res) => {
+    let travelPageId = req.params.id
+    console.log('travelPageId', travelPageId);
+
+    const sqlQuery = `SELECT "travel_page_reviews".experience_comment, "user".username, "travel_page_reviews".coworking_space_address, "travel_page_reviews".coworking_space_country,
+"travel_page_reviews".coworking_space_city, "travel_page_reviews".coworking_space_zip, "travel_page_reviews".coworking_space_name
+FROM "travel_page"
+JOIN "travel_page_reviews" ON "travel_page_reviews".travel_page_id = "travel_page".id
+JOIN "user" ON "user".id = "travel_page".user_id
+WHERE "travel_page".id = $1`;
+
+    pool.query(sqlQuery, [travelPageId]).then(result => {
+        console.log('Result', result.rows);
+        res.send(result.rows)
+    }).catch(err => {
+        console.log('Error in GET', err);
+        res.SendStatus(500)
+    })
+});
+
+
 
 router.get("/addreviewpage/:id", (req, res) => {
     let travelPageId = req.params.id

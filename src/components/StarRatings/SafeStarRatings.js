@@ -43,7 +43,7 @@ let style = this.props.classes
                     initialRating={this.state.saftey_rating}
                     onChange={this.clickRatingHandler}
                     emptySymbol={<StarBorder />}
-                    fullSymbol={<Star color="primary"/>}
+                    fullSymbol={<Star />}
                     start={0}
                     stop={5}
                 />

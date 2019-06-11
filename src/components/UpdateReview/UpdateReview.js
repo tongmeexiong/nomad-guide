@@ -7,6 +7,10 @@ import UpdateFriendlyStarRatings from './UpdateFriendlyRating'
 import UpdateReconmmendStarRatings from './UpdateReconmmendRating'
 import { Grid, Button } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField';
+import Swal from 'sweetalert2';
+
+
 
 const styles = {
     rating: {
@@ -14,7 +18,7 @@ const styles = {
         width: '300px',
         marginRight: '100px',
         marginLeft: '-900px',
-        marginTop: '-360px',
+        marginTop: '-400px',
         fontSize: '14.7px'
     },
     inputs: {
@@ -23,12 +27,9 @@ const styles = {
         // width: '900px',
         marginTop: '-10px'
     },
-    // inputBox: {
-    //     marginLeft: '50px',
-    //     height: '500px',
-    //     width: '900px',
-    //     marginTop: '-220px'
-    // }
+    inputFields: {
+        marginLeft: '20px'
+    },
 }
 
 class UpdateReview extends React.Component {
@@ -50,7 +51,9 @@ class UpdateReview extends React.Component {
     submitPageHandler = (id) => {
         console.log('Submit');
         this.props.dispatch({ type: 'PUT_REVIEW', payload: {id: id, rating: this.props.rating }})
-        alert(' Thank you for the edit!')
+        Swal.fire(
+            'Thank you for the Edit!'
+        )
         this.props.history.push("/home")
     }
 
@@ -71,7 +74,7 @@ class UpdateReview extends React.Component {
 
         return (
             
-            <div>
+            <div className={style.inputFields}>
                 <Grid
                     container
                     direction="column"
@@ -87,15 +90,23 @@ class UpdateReview extends React.Component {
 
                             <div>
                                 <h3> ADD CoWorking Spaces? </h3>
-                                <input type="text" placeholder="Name" />
-                                <input type="text" placeholder="Address" />
-                                <input type="text" placeholder="City" />
-                                <input type="text" placeholder="Country" />
-                                <input type="text" placeholder="Zip Code" />
+                                <TextField type="text" placeholder="Name" />
+                                <TextField type="text" placeholder="Address" />
+                                <TextField type="text" placeholder="City" />
+                                <TextField type="text" placeholder="Country" />
+                                <TextField type="text" placeholder="Zip Code" />
                             </div>
                             <h3>Experience</h3>
                             <div>
-                                <input  onChange ={this.experienceHandler} className="experienceBox" type="text"
+                                <TextField id="filled-multiline-flexible"
+                                    label="Review"
+                                    multiline
+                                    onChange={this.experienceHandler}
+                                    // value={items.experience_comment}
+                                    rowsMax="4"
+                                    margin="normal"
+                                    helperText="Experience"
+                                    variant="filled"
                                 />
                             </div>
                             <div>
@@ -118,7 +129,7 @@ class UpdateReview extends React.Component {
                                 <UpdateCostStarRatings rating={items}/>
                                 <h2>Friendliness</h2>
                                 <UpdateFriendlyStarRatings rating={items}/>
-                                <h2>Reconmmend</h2>
+                                        <h2>Recommend</h2>
                                 <UpdateReconmmendStarRatings rating={items}/>
                            </Grid>
                                 </Grid>
@@ -139,7 +150,7 @@ const mapReduState = (reduxState) => {
         reviews: reduxState.reviewReducer,
         userReview: reduxState.updateReviewReducer,
         updateReview: reduxState.updateReviewGetReducer,
-        rating: reduxState.ratingeReducer,
+        rating: reduxState.ratingReducer,
     }
 }
 

@@ -1,6 +1,6 @@
-const exploreReducer = (state = [], action) => {
+const exploreCentralReducer = (state = [], action) => {
     switch (action.type) {
-        case 'SET_EXPLORE':
+        case 'SET_EXPLORE_CENTRAL':
             return action.payload;
         // case 'UNSET_SECRETS':
         //     return [];
@@ -13,4 +13,4 @@ const exploreReducer = (state = [], action) => {
 
 // user will be on the redux state at:
 // state.user
-export default exploreReducer;
+export default exploreCentralReducer;

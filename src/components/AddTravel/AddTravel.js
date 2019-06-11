@@ -9,15 +9,21 @@ import FriendlyStarRatings from '../StarRatings/FriendlyStarRatings'
 import ReconmendStarRatings from '../StarRatings/ReconmendStarRating'
 import { Grid, Button } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField';
+import NativeSelect from '@material-ui/core/NativeSelect';
+import Swal from 'sweetalert2';
+
+
+
 
 
 const styles = {
     rating: {
         height: '30px',
         width: '300px',
-        marginRight: '100px',
-        marginLeft: '-800px',
-        marginTop: '-300px',
+        marginRight: '200px',
+        marginLeft: '-500px',
+        marginTop: '-350px',
         fontSize: '14.7px'
     },
     inputs: {
@@ -31,6 +37,13 @@ const styles = {
         height: '500px',
         width: '900px',
         marginTop: '-220px'
+    },
+    inputFields: {
+        marginLeft: '20px'
+    },
+    button: {
+        marginLeft: '20px',
+        marginTop: '-190px'
     }
 }
 
@@ -48,7 +61,7 @@ class AddTravel extends React.Component {
         coworking_space_country: '',
         coworking_space_zip: 0,
         experience_zip: '',
-        experience_comment:''
+        experience_comment: ''
 
     }
 
@@ -57,7 +70,7 @@ class AddTravel extends React.Component {
         console.log('Clicked Add Location');
         // Send Post Information to Database
         this.props.dispatch({
-            type: 'POST_TRAVEL',payload: { 
+            type: 'POST_TRAVEL', payload: {
                 city: this.state.city,
                 country: this.state.country,
                 continent: this.state.continent,
@@ -68,10 +81,12 @@ class AddTravel extends React.Component {
                 cost_rating: this.props.rating.cost_rating,
                 friendly_rating: this.props.rating.friendly_rating,
                 reconmend_rating: this.props.rating.reconmend_rating,
-            },  
+            },
         })
-        alert('Thank you for Adding a New Location!')
-        this.props.history.push("home")
+        Swal.fire(
+            'Thank you!'
+        )
+         this.props.history.push("home")
 
         // Send information to Reducer
         // this.props.dispatch({ type: 'SET_NEW_POST', payload: this.state })
@@ -80,7 +95,7 @@ class AddTravel extends React.Component {
         // this.props.history.push("/addnewreview")
     }
 
-    preFillHandler = () =>{
+    preFillHandler = () => {
         this.setState({
             city: 'Pangasinan',
             country: 'Philippines',
@@ -92,7 +107,7 @@ class AddTravel extends React.Component {
             coworking_space_country: '',
             coworking_space_zip: 0,
             experience_zip: '',
-            experience_comment: 'Awesome place! Did not get much work done.'
+            experience_comment: ''
         })
     }
 
@@ -161,7 +176,6 @@ class AddTravel extends React.Component {
     }
 
     render() {
-        console.log('Review Page', this.props.rating.safety_rating);
         console.log('state', this.state);
         const style = this.props.classes
 
@@ -169,29 +183,42 @@ class AddTravel extends React.Component {
         return (
             <div>
                 <div>
-                    <h3 onClick={this.preFillHandler}> Review New Travel Destination</h3>
-                    <input value={this.state.city} onChange={this.cityChangeHandler} type="text" placeholder="City" />
-                    <input value={this.state.country} onChange={this.countryChangeHandler} type="text" placeholder="Country" />
-                    <input value={this.state.image} onChange={this.imageHandler} type="text" placeholder="img url" />
-                    {/* <select onChange={this.continentChangeHandler} >
-                        <option>Continent</option>
-                        <option>North America </option>
-                        <option>Asia </option>
-                    </select> */}
-                    {/* <button onClick={this.addTravelLocation} >Add Travel</button> */}
-                </div>
-                <div>
-                    <div>
-                        <h3> Any CoWorking Spaces? </h3>
-                        <input  onChange={this.workSpaceName} type="text" placeholder="Name" />
-                        <input onChange={this.workSpaceAddress} type="text" placeholder="Address" />
-                        <input onChange={this.workSpaceCity} type="text" placeholder="City" />
-                        <input  onChange={this.workSpaceCountry} type="text" placeholder="Country" />
-                        <input onChange={this.workSpaceZip} type="text" placeholder="Zip Code" />
-                        <div>
-                            <h3>Experience</h3>
+                    <div className={style.inputFields}>
+                        <h3 onClick={this.preFillHandler}> Review New Travel Destination</h3>
+                        <TextField value={this.state.city} onChange={this.cityChangeHandler} type="text" placeholder="City" />
+                        <TextField value={this.state.country} onChange={this.countryChangeHandler} type="text" placeholder="Country" />
+                        <TextField value={this.state.image} onChange={this.imageHandler} type="text" placeholder="img url" />
+                        <NativeSelect onChange={this.continentChangeHandler} >
+                            <option>Continent</option>
+                            <option>Central America </option>
+                            <option>Asia </option>
+                            <option>Europe </option>
+                            <option>North America  </option>
 
-                            <input onChange={this.workSpaceComment} className="experienceBox" type="text" />
+                        </NativeSelect>
+                    </div>
+                    <div>
+                        <div className={style.inputFields}>
+                            <h3> Any CoWorking Spaces? </h3>
+                            <TextField onChange={this.workSpaceName} type="text" placeholder="Name" />
+                            <TextField onChange={this.workSpaceAddress} type="text" placeholder="Address" />
+                            <TextField onChange={this.workSpaceCity} type="text" placeholder="City" />
+                            <TextField onChange={this.workSpaceCountry} type="text" placeholder="Country" />
+                            <TextField onChange={this.workSpaceZip} type="text" placeholder="Zip Code" />
+                            <div>
+                                <h3>Experience</h3>
+                                {/* <input onChange={this.workSpaceComment} className="experienceBox" type="text" /> */}
+                                <TextField
+                                    onChange={this.workSpaceComment}
+                                    id="filled-multiline-flexible"
+                                    label="Review"
+                                    multiline
+                                    rowsMax="8"
+                                    margin="normal"
+                                    helperText="Experience"
+                                    variant="filled"
+                                />
+                            </div>
                         </div>
                         <Grid
                             container
@@ -199,26 +226,26 @@ class AddTravel extends React.Component {
                             justify="flex-start"
                             alignItems="flex-end"
                         >
-                        <Grid item xs={6} className={style.rating}>
-                            <h2>Safety</h2>
-                            <SafeStarRatings />
-                            <h2>English</h2>
-                            <EnlgishStarRating />
-                            <h2>Cost</h2>
-                            <CostStarRating />
-                            <h2>Frendly</h2>
-                            <FriendlyStarRatings />
-                            <h2>Recommend</h2>
-                            <ReconmendStarRatings />
+                            <Grid item xs={6} className={style.rating}>
+                                <h2>Safety</h2>
+                                <SafeStarRatings />
+                                <h2>English</h2>
+                                <EnlgishStarRating />
+                                <h2>Cost</h2>
+                                <CostStarRating />
+                                <h2>Friendliness</h2>
+                                <FriendlyStarRatings />
+                                <h2>Recommend</h2>
+                                <ReconmendStarRatings />
                             </Grid>
                         </Grid>
                         <div>
-                            <Button variant="contained" color="secondary" onClick={this.addTravelLocation}>Submit</Button>
+                            <Button className={style.button} variant="contained" color="secondary" onClick={this.addTravelLocation}>Submit</Button>
                         </div>
                     </div>
 
                 </div>
-                
+
             </div>
         )
     }
@@ -226,7 +253,7 @@ class AddTravel extends React.Component {
 
 const mapReduState = (reduxState) => {
     return {
-        rating: reduxState.ratingeReducer,
+        rating: reduxState.ratingReducer,
     }
 }
 

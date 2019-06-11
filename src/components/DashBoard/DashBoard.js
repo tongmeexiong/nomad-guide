@@ -76,7 +76,6 @@ const styles = theme => ({
   }
 })
 
-const SweetAlert = withSwalInstance(swal);
 
 class Dashboard extends React.Component {
 
@@ -115,8 +114,7 @@ class Dashboard extends React.Component {
           'success'
         )
       swal.fire(
-        'Cancelled!',
-        'success'
+        'Deleted!',
       )
       
     })
@@ -245,7 +243,7 @@ class Dashboard extends React.Component {
                               className={style.rating}
                             />
                           </div>
-                          Reconmmened 
+                          Recommend 
                           <div>
                             <Rating
                               initialRating={items.reconmend_rating}
