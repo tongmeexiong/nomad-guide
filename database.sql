@@ -15,7 +15,7 @@ CREATE TABLE "travel_page_reviews"
     "cost_rating" INT NOT NULL,
     "friendly_rating" INT NOT NULL,
     "reconmend_rating" INT NOT NULL,
-    "places_id" INT REFERENCES  "travel_page",
+    "travel_page_id" INT REFERENCES  "travel_page",
     "user_id" INT REFERENCES  "user",
     "coworking_space_name" VARCHAR (30),
     "coworking_space_address" VARCHAR (50),
@@ -30,8 +30,10 @@ CREATE TABLE "travel_page"
     "city" VARCHAR(20),
     "country" VARCHAR(20),
     "continent" VARCHAR(20),
+    "user_id" INT REFERENCES  "user",
     "image" VARCHAR(255)
 );
+
 
 CREATE TABLE "favorites"
 (
@@ -40,8 +42,3 @@ CREATE TABLE "favorites"
     "user_id" INT REFERENCES "user"
 );
 
-CREATE TABLE "image_header"
-(
-    "id" SERIAL PRIMARY KEY,
-    "image_url" VARCHAR(255)
-);
