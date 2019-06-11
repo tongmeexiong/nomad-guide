@@ -4,7 +4,7 @@ import loginMode from './loginModeReducer';
 import user from './userReducer';
 import exploreReducer from './exploreReducer'
 import reviewReducer from './reviewReducer'
-import ratingeReducer from './ratingReducer'
+import ratingReducer from './ratingReducer'
 import userReviewReducer from'./userReviewReducer'
 import travelPageReviewReducer from './travelPageReviewReducer'
 import updateReviewGetReducer from './updateReviewGetReducer'
@@ -14,6 +14,9 @@ import averageReducer from './averageReducer'
 import postReviewReducer from './postReviewReducer'
 import addReviewDetailReducer from './addReviewDetailReducer'
 import getFavoriteReducer from './getFavoriteReducer'
+import exploreEuropeReducer from './exploreEurope'
+import exploreCentralReducer from './exploreCentralReducer'
+import commentReducer from './commentReducer'
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -26,7 +29,7 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
   exploreReducer,
   reviewReducer,
-  ratingeReducer,
+  ratingReducer,
   userReviewReducer,
   travelPageReviewReducer,
   updateReviewGetReducer,
@@ -35,7 +38,10 @@ const rootReducer = combineReducers({
   averageReducer,
   postReviewReducer,
   addReviewDetailReducer,
-  getFavoriteReducer
+  getFavoriteReducer,
+  exploreEuropeReducer,
+  exploreCentralReducer,
+  commentReducer
 });
 
 export default rootReducer;

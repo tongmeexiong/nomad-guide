@@ -36,8 +36,9 @@ const styles = theme => ({
   locationName: {
     fontSize: '20px',
     textAlign: 'center',
-    marginTop: '7px',
-    marginBottom: '7px'
+    marginTop: '0px',
+    marginBottom: '7px',
+    marginLeft: '20px'
 
   },
   expand: {

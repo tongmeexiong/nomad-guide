@@ -11,6 +11,9 @@ import ReconmendStarRatings from '../StarRatings/ReconmendStarRating'
 //Material-UI
 import { Grid, Button } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField';
+import Swal from 'sweetalert2';
+
 
 //CSS
 import './AddReview.css'
@@ -66,8 +69,11 @@ window.scrollTo(0,0)
     submitPageHandler = () => {
         console.log('Clicked');
         
-        alert('Thank you for your review!')
+            
         this.props.dispatch({ type: 'POST_CURRENT_REVIEW', payload: this.props.ratingReview })
+        Swal.fire(
+            'Thank you for the Review!'
+        )   
         this.props.history.push("/home")
     }
 
@@ -130,11 +136,11 @@ window.scrollTo(0,0)
               
                 <div>
                     <h3> Any CoWorking Spaces? </h3>
-                    <input onChange={this.workSpaceName} type="text" placeholder="CoWorking Space Name" />
-                    <input onChange={this.workSpaceAddress} type="text" placeholder="CoWorking Space Address" />
-                    <input onChange={this.workSpaceCity} type="text" placeholder="City" />
-                    <input onChange={this.workSpaceCountry} type="text" placeholder="Country" />
-                    <input onChange={this.workSpaceZip} type="text" placeholder="Zip Code" />
+                        <TextField onChange={this.workSpaceName} type="text" placeholder="Name" />
+                        <TextField onChange={this.workSpaceAddress} type="text" placeholder="Address" />
+                        <TextField onChange={this.workSpaceCity} type="text" placeholder="City" />
+                        <TextField onChange={this.workSpaceCountry} type="text" placeholder="Country" />
+                        <TextField onChange={this.workSpaceZip} type="text" placeholder="Zip Code" />
                 </div>
                 </Grid>
                 <Grid
@@ -146,7 +152,17 @@ window.scrollTo(0,0)
                 >
                 <div>
                     <h3>Experience</h3>
-                    <input onChange={this.workSpaceComment} className="experienceBox" type="text" />
+                    {/* <input onChange={this.workSpaceComment} className="experienceBox" type="text" /> */}
+                        <TextField
+                            id="filled-multiline-flexible"
+                            label="Review"
+                            multiline
+                            rowsMax="4"
+                            margin="normal"
+                            helperText="Experience"
+                            variant="filled"
+                            onChange={this.workSpaceComment}
+                        />
                     </div>
                     <div>
                         {/* Button will capture id for POSTING */}
@@ -168,7 +184,7 @@ window.scrollTo(0,0)
                             <EnlgishStarRating />
                             <h2>Cost</h2>
                             <CostStarRating />
-                            <h2>Frendly</h2>
+                        <h2>Friendliness</h2>
                             <FriendlyStarRatings />
                             <h2>Recommend</h2>
                             <ReconmendStarRatings />
