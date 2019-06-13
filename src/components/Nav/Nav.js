@@ -32,18 +32,6 @@ const Nav = (props) => (
       <h2 className="nav-title">NomadGuide</h2>
     </Link>
     <input type="text" placeholder="search"/>
-
-
-    {/* <TextField
-      id="outlined-search"
-      label="Search field"
-      type="search"
-      // className={classes.textField}
-      margin="normal"
-      variant="outlined"
-    /> */}
-
-
     <div className="nav-right">
       <Link className="nav-link" to="/home">
        

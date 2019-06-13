@@ -1,9 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
-function* reviewSaga() {
-    yield takeLatest('FETCH_REVIEW', fetchReviewData);
-}
+
 
 function* fetchReviewData(action) {
     try {
@@ -16,6 +14,9 @@ function* fetchReviewData(action) {
     }
 }
 
+function* reviewSaga() {
+    yield takeLatest('FETCH_REVIEW', fetchReviewData);
+}
 
 
 export default reviewSaga;

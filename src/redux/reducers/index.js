@@ -10,19 +10,18 @@ import travelPageReviewReducer from './travelPageReviewReducer'
 import updateReviewGetReducer from './updateReviewGetReducer'
 import travelPageDetailReducer from './travelPageDetailReducer'
 import travelPageStarReviews from './travelPageStarReviewReducer'
-import averageReducer from './averageReducer'
 import postReviewReducer from './postReviewReducer'
 import addReviewDetailReducer from './addReviewDetailReducer'
 import getFavoriteReducer from './getFavoriteReducer'
 import exploreEuropeReducer from './exploreEurope'
 import exploreCentralReducer from './exploreCentralReducer'
 import commentReducer from './commentReducer'
+
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
 
-// Lets make a bigger object for our store, with the objects from our reducers.
-// This is what we get when we use 'state' inside of 'mapStateToProps'
+
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   loginMode, // will have a value of 'login' or 'registration' to control which screen is shown
@@ -35,7 +34,6 @@ const rootReducer = combineReducers({
   updateReviewGetReducer,
   travelPageDetailReducer,
   travelPageStarReviews,
-  averageReducer,
   postReviewReducer,
   addReviewDetailReducer,
   getFavoriteReducer,

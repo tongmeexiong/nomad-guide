@@ -24,6 +24,7 @@ import AddTravel from '../AddTravel/AddTravel'
 
 import './App.css';
 
+
 class App extends Component {
   componentDidMount() {
     this.props.dispatch({ type: 'FETCH_USER' })
@@ -67,10 +68,7 @@ class App extends Component {
               exact
               path="/addreview/:id"
               component={AddReview}
-            />
-
-            {/* Adding New Travel Review from Adding New Location  */}
-            
+            />            
 
             {/*  Travel Page Route with Match Id */}
             <Route
@@ -94,6 +92,7 @@ class App extends Component {
               path="/home"
               component={DashBoard}
             />
+            
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
             

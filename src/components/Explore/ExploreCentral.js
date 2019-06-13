@@ -21,7 +21,6 @@ const styles = {
     },
     card: {
         margin: '20px',
-        // height: '400px',
         width: '300px'
     },
     locationName: {
@@ -40,7 +39,6 @@ const styles = {
 
 class ExploreCentral extends React.Component {
 
-
     // Click image and send to Travel Page
     imageClickHandler = (id) => {
         console.log('Clicked Image', id);
@@ -48,8 +46,8 @@ class ExploreCentral extends React.Component {
     }
 
     render() {
-
         const style = this.props.classes
+
         return (
             <>
                 <div>
@@ -61,7 +59,6 @@ class ExploreCentral extends React.Component {
                         direction="row"
                         alignItems="center"
                     >
-
                         {this.props.explore.map((items => {
                             return (
                                 <Grid item xs={3}>
@@ -75,16 +72,11 @@ class ExploreCentral extends React.Component {
                                                     </Typography>
                                                 </CardMedia>
                                                 <CardContent className="cardBody">
-
                                                     <Typography gutterBottom variant="h5" component="h2">
                                                     </Typography>
-
                                                 </CardContent>
                                             </CardActionArea>
-
                                             <CardActions className="cardActions">
-
-                                                {/* {items.count} Nomads */}
                                                 Reconmmend:<Rating initialRating={items.avg}
                                                     start={0}
                                                     stop={5}
@@ -107,13 +99,13 @@ class ExploreCentral extends React.Component {
 }
 
 
-const mapReduState = (reduxState) => {
+const mapReduxState = (reduxState) => {
     return {
         explore: reduxState.exploreCentralReducer
 
     }
 }
 
-export default withStyles(styles)(connect(mapReduState)(withRouter(ExploreCentral)));
+export default withStyles(styles)(connect(mapReduxState)(withRouter(ExploreCentral)));
 
 

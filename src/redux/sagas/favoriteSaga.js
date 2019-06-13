@@ -1,12 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
-function* travelFavoritePostSaga() {
-    yield takeLatest('POST_FAVORITE', postFavoriteTravelData);
-    yield takeLatest('DELETE_FAVORITE', deleteFavoriteTravelData);
 
-
-}
 
 function* postFavoriteTravelData(action) {
     try {
@@ -25,6 +20,11 @@ function* deleteFavoriteTravelData(action) {
     } catch (error) {
         console.log('User Review Saga DELETE request failed', error);
     }
+}
+
+function* travelFavoritePostSaga() {
+    yield takeLatest('POST_FAVORITE', postFavoriteTravelData);
+    yield takeLatest('DELETE_FAVORITE', deleteFavoriteTravelData);
 }
 
 

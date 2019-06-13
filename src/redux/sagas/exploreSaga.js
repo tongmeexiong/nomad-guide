@@ -53,7 +53,6 @@ function* exploreSaga() {
     yield takeLatest('FETCH_EXPLORE_EUROPE', fetchEurope)
     yield takeLatest('FETCH_EXPLORE_CENTRAL', fetchCentral)
     yield takeLatest('FETCH_COMMENT', fetchComment)
-
 }
 
 

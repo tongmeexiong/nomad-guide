@@ -4,8 +4,6 @@ import Rating from 'react-rating';
 import { Star, StarBorder } from '@material-ui/icons';
 
 
-
-
 class CostStarRatings extends React.Component {
 
     state = {

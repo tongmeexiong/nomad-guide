@@ -1,10 +1,6 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
-function* userReviewSaga() {
-    yield takeLatest('FETCH_USER_REVIEWS', fetchUserReviewData);
-    yield takeLatest('AVERAGE_RATING', fetchAverageRating) 
-}
 
 function* fetchUserReviewData() {
     try {
@@ -26,6 +22,12 @@ function* fetchAverageRating() {
     } catch (error) {
         console.log('User Review Saga GET request failed', error);
     }
+}
+
+
+function* userReviewSaga() {
+    yield takeLatest('FETCH_USER_REVIEWS', fetchUserReviewData);
+    yield takeLatest('AVERAGE_RATING', fetchAverageRating)
 }
 
 

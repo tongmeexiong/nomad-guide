@@ -13,7 +13,6 @@ import { Star, StarBorder } from '@material-ui/icons';
 import { withRouter } from "react-router";
 
 
-
 const styles = {
     img: {
         height: '200px',
@@ -21,7 +20,6 @@ const styles = {
     },
     card: {
         margin: '20px',
-        // height: '400px',
         width: '300px'
     },
     locationName: {
@@ -29,13 +27,11 @@ const styles = {
         textAlign: 'center',
         marginTop: '7px',
         marginBottom: '-40px'
-
     },
     title: {
         marginLeft: '15px'
     }
 }
-
 
 
 class Explore extends React.Component {
@@ -74,16 +70,11 @@ class Explore extends React.Component {
                                                     </Typography>
                                                 </CardMedia>
                                                 <CardContent className="cardBody">
-
                                                     <Typography gutterBottom variant="h5" component="h2">
                                                     </Typography>
-
                                                 </CardContent>
                                             </CardActionArea>
-
                                             <CardActions className="cardActions">
-
-                                                {/* {items.count} Nomads */}
                                                 Reconmmend:<Rating initialRating={items.avg}
                                                     start={0}
                                                     stop={5}
@@ -106,13 +97,12 @@ class Explore extends React.Component {
 }
 
 
-const mapReduState = (reduxState) => {
+const mapReduxState = (reduxState) => {
     return {
         explore: reduxState.exploreReducer
-
     }
 }
 
-export default withStyles(styles)(connect(mapReduState)(withRouter(Explore)));
+export default withStyles(styles)(connect(mapReduxState)(withRouter(Explore)));
 
 

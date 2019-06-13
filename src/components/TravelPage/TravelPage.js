@@ -1,27 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux'
+
+//Components
 import TravelSafeRating from '../TravelPageRating/SafeTravelRating'
 import EnglishStarRatings from '../TravelPageRating/EnglishTravelRating'
 import CostStarRatings from '../TravelPageRating/CostTravelRating'
 import FriendStarRatings from '../TravelPageRating/FriendlyTravelRating'
 import ReconmendStarRatings from '../TravelPageRating/ReconmendTravelPage'
+
+// Material UI
 import { Grid, Button } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
-
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import Avatar from '@material-ui/core/Avatar';
 
 
-
+// Tabs Material UI 
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
-
-
-
 
 const styles = theme => ({
     rating: {
@@ -52,7 +52,6 @@ const styles = theme => ({
     bigAvatar: {
         margin: '5px',
         marginTop: '-30px'
-
     },
     reviewComment: {
         marginLeft: '30px'
@@ -60,7 +59,6 @@ const styles = theme => ({
     username: {
         marginLeft: '7px',
         marginTop: '-5px'
-
     },
     comment: {
         marginLeft: '100px'
@@ -70,14 +68,12 @@ const styles = theme => ({
     },
     workSpace: {
         marginTop: '-15px',
-        textAlign: 'flex-start', 
+        textAlign: 'flex-start',
         marginBottom: '-10px'
     },
-   
 });
 
-
-
+// Function for tab 
 function TabContainer(props) {
     return (
         <Typography component="div" style={{ padding: 8 * 3 }}>
@@ -90,22 +86,21 @@ function TabContainer(props) {
 class TravelPage extends React.Component {
 
 
-
-
     state = {
         heartToggle: false,
         value: 0
     }
+
     // Send Match ID to GET Route for specific information. Reviews and Travel Destinations.  
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_TRAVEL_PAGE_REVIEWS', payload: this.props.match.params.id })
         this.props.dispatch({ type: 'FETCH_TRAVEL_PAGE_DETAILS', payload: this.props.match.params.id })
         this.props.dispatch({ type: 'FETCH_FAVORITE' })
         this.props.dispatch({ type: 'FETCH_COMMENT', payload: this.props.match.params.id })
-
         window.scrollTo(0, 0)
     }
 
+    // Heart button Toggle
     handleChange = (event, value) => {
         this.setState({ value });
     };
@@ -147,7 +142,6 @@ class TravelPage extends React.Component {
         console.log('Checking', this.props.favorite.travel_page_id);
         const { value } = this.state;
 
-
         return (
             <div>
 
@@ -158,7 +152,7 @@ class TravelPage extends React.Component {
                         justify="flex-start"
                         alignItems="flex-start"
                     >
-                                                {this.props.travelDetail.map((detail => {
+                        {this.props.travelDetail.map((detail => {
                             return (
                                 <div key={detail.id}>
                                     <div>
@@ -190,14 +184,10 @@ class TravelPage extends React.Component {
                                                                     </div>
                                                                     <div>
                                                                         <Avatar alt="user" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQznbX_RRa464XPVEEz2UlxBKdu6mt6tgvIkakuNS8OoccPxvN" className={style.bigAvatar} />
-                                                                        {/* <div className={style.username}> {comment.username} </div> */}
                                                                     </div>
-
                                                                 </div>
-
                                                             </TabContainer>}
                                                             {value === 1 && <TabContainer>
-                                                                
                                                                 <div>
                                                                     <div className={style.workSpace}>
                                                                         <h3> {comment.coworking_space_name}</h3>
@@ -208,17 +198,11 @@ class TravelPage extends React.Component {
                                                                         {comment.coworking_space_country},
                                                                         {comment.coworking_space_zip}
 
-                                                                    </div>
-                                                                    {/* <div>
-                                                                        <Avatar alt="user" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQznbX_RRa464XPVEEz2UlxBKdu6mt6tgvIkakuNS8OoccPxvN" className={style.bigAvatar} />
-                                                                    </div> */}
-
+                                                                    </div>                                                              
                                                                 </div>
-                                                                
                                                             </TabContainer>}
                                                         </div>)
                                                 }))}
-
                                             </div>
                                             <Button className={style.button} variant="contained" color="secondary" onClick={() => this.reviewPageHandler(detail.id)}>Review</Button>
                                         </div>
@@ -227,7 +211,6 @@ class TravelPage extends React.Component {
                             )
                         }))}
                     </Grid>
-
                     <Grid
                         container
                         direction="column"
@@ -237,29 +220,19 @@ class TravelPage extends React.Component {
                         {this.props.travelReviews.map((items => {
                             return (
                                 <div key={items.id}>
-
                                     <Grid item xs={6} className={style.rating}>
                                         <h2>Saftey</h2>
                                         <TravelSafeRating rating={items} />
-                                        {/* </Grid>
-                                <Grid item xs={6}> */}
                                         <h2>English</h2>
                                         <EnglishStarRatings rating={items} />
-                                        {/* </Grid>
-                                <Grid item xs={6}> */}
                                         <h2>Cost</h2>
-                                        <CostStarRatings rating={items} />
-                                        {/* </Grid>
-                                <Grid item xs={6}> */}
+                                        <CostStarRatings rating={items} />                                   
                                         <h2>Friendliness</h2>
                                         <FriendStarRatings rating={items} />
-                                        {/* </Grid>
-                                <Grid item xs={6}> */}
                                         <h2>Recommend</h2>
                                         <ReconmendStarRatings rating={items} />
                                     </Grid>
                                 </div>
-
                             )
                         }))}
                     </Grid>
@@ -269,7 +242,7 @@ class TravelPage extends React.Component {
     }
 }
 
-const mapReduState = (reduxState) => {
+const mapReduxState = (reduxState) => {
     return {
         travelReviews: reduxState.travelPageReviewReducer,
         travelDetail: reduxState.travelPageDetailReducer,
@@ -278,4 +251,4 @@ const mapReduState = (reduxState) => {
     }
 }
 
-export default withStyles(styles)(connect(mapReduState)(TravelPage));
+export default withStyles(styles)(connect(mapReduxState)(TravelPage));

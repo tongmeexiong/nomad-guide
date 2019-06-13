@@ -1,4 +1,4 @@
-
+-- Database name: prime_app
 
 CREATE TABLE "user" (
     "id" SERIAL PRIMARY KEY,

@@ -11,17 +11,15 @@ class Explore extends React.Component {
     this.getExploreList()
   }
 
+  // GET all travel location on page. 
   getExploreList = () => {
     this.props.dispatch({ type: 'FETCH_EXPLORE' })
     this.props.dispatch({ type: 'FETCH_EXPLORE_EUROPE' })
     this.props.dispatch({ type: 'FETCH_EXPLORE_CENTRAL' })
-
-
   }
 
 
   render() {
-
     return (
       <div>
         <div>
@@ -32,7 +30,7 @@ class Explore extends React.Component {
         </div>
         <EuropeCard />
         <div>
-          <ExploreCentral/>
+          <ExploreCentral />
         </div>
       </div>
     )

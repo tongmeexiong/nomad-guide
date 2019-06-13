@@ -11,7 +11,6 @@ class UpdateFriendlyStarRatings extends React.Component {
 
     clickRatingHandler = (event) => {
         console.log('Click', event);
-
         this.props.dispatch({ type: 'SET_FRIENDLY_RATING', payload: event })
     }
 
@@ -27,10 +26,7 @@ class UpdateFriendlyStarRatings extends React.Component {
                     fullSymbol={<Star />}
                     start={0}
                     stop={5}
-
                 />
-
-
             </div>
         )
     }

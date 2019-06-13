@@ -13,9 +13,6 @@ class ReconmendStarRatings extends React.Component {
 
         return (
             <div>
-                {/* {this.props.reviews.map((rating=>{
-                    <h3>{rating.safety_rating}</h3> */}
-                {/* <div> */}
                 <Rating
                     initialRating={this.props.rating.reconmend_rating}
                     // onChange={this.clickRatingHandler}
@@ -25,20 +22,9 @@ class ReconmendStarRatings extends React.Component {
                     stop={5}
                     readonly
                 />
-
-
             </div>
         )
     }
 }
 
-const mapReduState = (reduxState) => {
-    return {
-        explore: reduxState.exploreReducer,
-        exploreId: reduxState.idReducer,
-        reviews: reduxState.reviewReducer,
-        user: reduxState.user
-    }
-}
-
-export default connect(mapReduState)(ReconmendStarRatings);
+export default connect()(ReconmendStarRatings);

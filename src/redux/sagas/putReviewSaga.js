@@ -1,9 +1,6 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
-function* putReviewSaga() {
-    yield takeLatest('PUT_REVIEW', putReviewData);
-}
 
 function* putReviewData(action) {
     try {
@@ -16,6 +13,9 @@ function* putReviewData(action) {
     }
 }
 
+function* putReviewSaga() {
+    yield takeLatest('PUT_REVIEW', putReviewData);
+}
 
 
 export default putReviewSaga;

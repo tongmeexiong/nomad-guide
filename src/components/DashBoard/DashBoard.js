@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
+// Material UI
 import Card from '@material-ui/core/Card';
 import Rating from 'react-rating';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -8,22 +10,18 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles'
-import { withSwalInstance } from 'sweetalert2-react';
 import swal from 'sweetalert2';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 
-
-
-// Expand
+// Expand of Material UI
 import IconButton from "@material-ui/core/IconButton";
-import { Grid, Button } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import { Star, StarBorder } from '@material-ui/icons'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import clsx from 'clsx';
 import Collapse from '@material-ui/core/Collapse';
 
-// import './DashBoard.css'
 
 
 const styles = theme => ({
@@ -57,7 +55,7 @@ const styles = theme => ({
   rating: {
     marginLeft: '-5px'
   },
-  buttonDelete : {
+  buttonDelete: {
     margin: '10px',
     padding: '10px',
     marginLeft: '250px',
@@ -67,8 +65,8 @@ const styles = theme => ({
     }
   },
   buttonEdit: {
-        margin: '10px',
-        marginTop:'-52px',
+    margin: '10px',
+    marginTop: '-52px',
     margin: theme.spacing(1),
     '&:hover': {
       color: 'DeepSkyBlue ',
@@ -79,26 +77,20 @@ const styles = theme => ({
 
 class Dashboard extends React.Component {
 
-
   state = {
     expanded: false
-
   }
 
-  expandHandleClick = () => {
-    this.setState(state => ({ expanded: !state.expanded }));
-  }
+
   // GET User's Reviews
   componentDidMount() {
-    this.getUserReview()
-  }
-  getUserReview = () => {
     this.props.dispatch({ type: 'FETCH_USER_REVIEWS' })
   }
 
+
   // Delete Review
   deleteHandler = (id) => {
- swal.fire({
+    swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
       type: 'warning',
@@ -107,19 +99,22 @@ class Dashboard extends React.Component {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!'
     }).then(() => {
-          this.props.dispatch({ type: 'DELETE_REVIEW', payload: id })
-        swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
+      this.props.dispatch({ type: 'DELETE_REVIEW', payload: id })
+      swal.fire(
+        'Deleted!',
+        'Your file has been deleted.',
+        'success'
+      )
       swal.fire(
         'Deleted!',
       )
-      
+
     })
-    // console.log('Delete Click', id);
-    // this.props.dispatch({ type: 'DELETE_REVIEW', payload: id })
+  }
+
+  // Expand card
+  expandHandleClick = () => {
+    this.setState(state => ({ expanded: !state.expanded }));
   }
 
   // Update Review & Send to Update page 
@@ -153,22 +148,17 @@ class Dashboard extends React.Component {
             {this.props.userReview.map((items => {
               return (
                 <Grid item xs={3} key={items.id} >
-
                   <div>
                     <Card className={style.card}>
                       <CardActionArea>
                         <CardMedia onClick={() => this.imageClickHandler(items.travel_page_id)}>
                           <img src={items.image} alt="travel" className={style.img} />
-
                         </CardMedia>
                         <CardContent className="cardBody">
-
                           <Typography gutterBottom variant="h5" component="h2">
                           </Typography>
-
                         </CardContent>
                       </CardActionArea>
-
                       <CardActions className="cardActions">
                         <Typography variant="body2" color="textPrimary" component="p" className={style.locationName}>
                           <div>
@@ -180,7 +170,6 @@ class Dashboard extends React.Component {
                             </div>
                           </div>
                         </Typography>
-
                         <IconButton
                           className={clsx(style.expand, {
                             [style.expandOpen]: this.state.expanded,
@@ -192,7 +181,6 @@ class Dashboard extends React.Component {
                           <ExpandMoreIcon />
                         </IconButton>
                       </CardActions>
-
                       <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
                         <CardContent>
                           Safety:
@@ -243,7 +231,7 @@ class Dashboard extends React.Component {
                               className={style.rating}
                             />
                           </div>
-                          Recommend 
+                          Recommend
                           <div>
                             <Rating
                               initialRating={items.reconmend_rating}
@@ -254,17 +242,16 @@ class Dashboard extends React.Component {
                               readonly
                               className={style.rating}
                             />
-                          </div>             
+                          </div>
                         </CardContent>
                       </Collapse>
                       <div>
-                      <div className={style.buttonDelete}>
-                        <DeleteIcon onClick={() => this.deleteHandler(items.id)} className={style.iconHover} />
+                        <div className={style.buttonDelete}>
+                          <DeleteIcon onClick={() => this.deleteHandler(items.id)} className={style.iconHover} />
                         </div>
-                        
-                      <div className={style.buttonEdit}>
-                          <EditIcon className={style.iconHoverEdit} onClick={() => this.updateHandler(items.travel_page_id)}/>
-                      </div>
+                        <div className={style.buttonEdit}>
+                          <EditIcon className={style.iconHoverEdit} onClick={() => this.updateHandler(items.travel_page_id)} />
+                        </div>
                       </div>
                     </Card>
                   </div>

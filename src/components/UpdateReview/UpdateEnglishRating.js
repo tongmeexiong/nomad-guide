@@ -8,16 +8,13 @@ import { Star, StarBorder } from '@material-ui/icons';
 class UpdateEnglishStarRatings extends React.Component {
 
 
-
     clickRatingHandler = (event) => {
         console.log('Click', event);
-
         this.props.dispatch({ type: 'SET_ENGLISH_RATING', payload: event })
     }
 
     render() {
         console.log('Rating', this.state);
-        console.log('Safe Rating Prop', this.props.rating.saftey_rating);
 
         return (
             <div>
@@ -29,10 +26,7 @@ class UpdateEnglishStarRatings extends React.Component {
                     fullSymbol={<Star />}
                     start={0}
                     stop={5}
-
                 />
-
-
             </div>
         )
     }

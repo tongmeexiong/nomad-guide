@@ -2,14 +2,15 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
+// GET REQUESTS //
 
 
+// GET FOR ASIA 
 router.get('/asia', (req, res) => {
     const sqlQuery = `SELECT "travel_page".image,"travel_page".city,"travel_page".id,"travel_page".country,"travel_page".continent,  AVG("travel_page_reviews".reconmend_rating), COUNT("travel_page_reviews".reconmend_rating) AS "count" FROM "travel_page"
 JOIN "travel_page_reviews" ON "travel_page_reviews".travel_page_id = "travel_page".id
 WHERE "travel_page".continent LIKE 'Asia'
 GROUP BY "travel_page".image, "travel_page".city,"travel_page".country, "travel_page".id, "travel_page";`
-
     pool.query(sqlQuery).then(result => {
         console.log('Result', result.rows);
         res.send(result.rows)
@@ -19,6 +20,7 @@ GROUP BY "travel_page".image, "travel_page".city,"travel_page".country, "travel_
     })
 });
 
+// GET FOR EUROPE
 router.get('/europe', (req, res) => {
     const sqlQuery = `SELECT "travel_page".image,"travel_page".city,"travel_page".id,"travel_page".country,"travel_page".continent,  AVG("travel_page_reviews".reconmend_rating), COUNT("travel_page_reviews".reconmend_rating) AS "count" FROM "travel_page"
 JOIN "travel_page_reviews" ON "travel_page_reviews".travel_page_id = "travel_page".id
@@ -34,6 +36,7 @@ GROUP BY "travel_page".image, "travel_page".city,"travel_page".country, "travel_
     })
 });
 
+// GET FOR CENTRAL AMERICA 
 router.get('/central', (req, res) => {
     const sqlQuery = `SELECT "travel_page".image,"travel_page".city,"travel_page".id,"travel_page".country,"travel_page".continent,  AVG("travel_page_reviews".reconmend_rating), COUNT("travel_page_reviews".reconmend_rating) AS "count" FROM "travel_page"
 JOIN "travel_page_reviews" ON "travel_page_reviews".travel_page_id = "travel_page".id
@@ -49,22 +52,24 @@ GROUP BY "travel_page".image, "travel_page".city,"travel_page".country, "travel_
     })
 });
 
+
+// GET FOR FAVOVORITES LIST
 router.get('/favorites', (req, res) => {
     if (req.isAuthenticated()) {
         console.log('is authenticated?', req.isAuthenticated());
         console.log('user', req.user);
         console.log('req.user:', req.user);
-    const sqlQuery = `SELECT * FROM "favorites"
+        const sqlQuery = `SELECT * FROM "favorites"
 JOIN "travel_page" ON "travel_page".id = "favorites".travel_page_id
 JOIN "user" ON "user".id = "favorites".user_id
 AND "user".id= $1;`;
-    pool.query(sqlQuery, [req.user.id]).then(result => {
-        console.log('Result', result.rows);
-        res.send(result.rows)
-    }).catch(err => {
-        console.log('Error in GET', err);
-        res.SendStatus(500)
-    });
+        pool.query(sqlQuery, [req.user.id]).then(result => {
+            console.log('Result', result.rows);
+            res.send(result.rows)
+        }).catch(err => {
+            console.log('Error in GET', err);
+            res.SendStatus(500)
+        });
     }
     else {
         res.sendStatus(403)
@@ -72,18 +77,8 @@ AND "user".id= $1;`;
 });
 
 
-router.get('/average', (req, res) => {
-    const sqlQuery = `SELECT AVG("reconmend_rating") FROM "travel_page_reviews"
-`;
-    pool.query(sqlQuery).then(result => {
-        console.log('Result', result.rows);
-        res.send(result.rows)
-    }).catch(err => {
-        console.log('Error in GET', err);
-        res.SendStatus(500)
-    })
-});
 
+// GET FOR TRAVEL DETAILS ON TRAVEL PAGE
 router.get("/travelreviewdetails/:id", (req, res) => {
     let travelPageId = req.params.id
     const sqlQuery = `SELECT AVG("travel_page_reviews".english_rating) AS "english_rating", AVG("travel_page_reviews".safety_rating) AS "safety_rating", AVG("travel_page_reviews".friendly_rating) AS "friendly_rating", AVG("travel_page_reviews".reconmend_rating) AS "reconmend_rating" ,AVG("travel_page_reviews".cost_rating) AS "cost_rating" FROM "travel_page"
@@ -115,18 +110,16 @@ WHERE "travel_page".id = $1`;
     })
 });
 
-
+// GET TRAVEL COMMENTS WITH MATCH ROUTER ON TRAVEL PAGE
 router.get("/comment/:id", (req, res) => {
     let travelPageId = req.params.id
     console.log('travelPageId', travelPageId);
-
     const sqlQuery = `SELECT "travel_page_reviews".experience_comment, "user".username, "travel_page_reviews".coworking_space_address, "travel_page_reviews".coworking_space_country,
 "travel_page_reviews".coworking_space_city, "travel_page_reviews".coworking_space_zip, "travel_page_reviews".coworking_space_name
 FROM "travel_page"
 JOIN "travel_page_reviews" ON "travel_page_reviews".travel_page_id = "travel_page".id
 JOIN "user" ON "user".id = "travel_page".user_id
 WHERE "travel_page".id = $1`;
-
     pool.query(sqlQuery, [travelPageId]).then(result => {
         console.log('Result', result.rows);
         res.send(result.rows)
@@ -137,7 +130,7 @@ WHERE "travel_page".id = $1`;
 });
 
 
-
+// GET TRAVEL RATINGS WITH MATCH ROUTER
 router.get("/addreviewpage/:id", (req, res) => {
     let travelPageId = req.params.id
     console.log('travelPageId', travelPageId);
@@ -154,6 +147,7 @@ WHERE id = $1;`;
 });
 
 
+// GET TRAVEL DETAILS WITH MATCH ROUTER FOR UPDATE PAGE
 router.get("/updatetraveldetails/:id", (req, res) => {
     if (req.isAuthenticated()) {
         console.log('is authenticated?', req.isAuthenticated());
@@ -179,7 +173,7 @@ AND "user".id = $2;`;
 });
 
 
-
+// GET Reviews
 router.get('/reviews', (req, res) => {
     let placeID = req.query.id
     console.log('REVIEWS', placeID);
@@ -195,6 +189,8 @@ JOIN "travel_page_reviews" ON "travel_page_reviews".travel_page_id = "travel_pag
     })
 });
 
+
+// GET USER REVIEWS ON DASHBOARD
 router.get('/userreview', (req, res) => {
     if (req.isAuthenticated()) {
         console.log('is authenticated?', req.isAuthenticated());
@@ -218,10 +214,13 @@ WHERE "user".id = $1 ; ;
     }
 });
 
-/**
- * POST route template
- */
+// END OF GET REQUESTS //
 
+
+
+// POST REQUESTS // 
+
+// POST RATINGS 
 router.post('/', (req, res) => {
     if (req.isAuthenticated()) {
         console.log('is authenticated?', req.isAuthenticated());
@@ -273,7 +272,7 @@ VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13);`
     }
 });
 
-
+// ADD NEW TRAVEL PAGE 
 router.post('/addtravel', (req, res) => {
     if (req.isAuthenticated()) {
         console.log('is authenticated?', req.isAuthenticated());
@@ -333,13 +332,15 @@ VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13);`
     }
 });
 
+
+// ADD NEW FAVORITES 
 router.post('/favorite', (req, res) => {
     if (req.isAuthenticated()) {
         console.log('is authenticated?', req.isAuthenticated());
         console.log('user', req.user);
         console.log('req.user:', req.user);
         let favoriteId = req.body
-        console.log('POST HEART', favoriteId, req.user.id );
+        console.log('POST HEART', favoriteId, req.user.id);
         const sqlQuery = `
          INSERT INTO "favorites" ("travel_page_id", "user_id") 
 VALUES ($1, $2);
@@ -358,8 +359,9 @@ VALUES ($1, $2);
     }
 });
 
+// END POST ROUTES // 
 
-router.delete ('/favorite/:id', (req, res) => {
+router.delete('/favorite/:id', (req, res) => {
     let deleteId = req.params.id
     console.log('DELETE', deleteId);
     const sqlQuery = `
@@ -375,8 +377,9 @@ AND "favorites".user_id = $2;`
     })
 });
 
-            
 
+
+// DELETE REVIEW 
 router.delete('/:id', (req, res) => {
 
     let deleteId = req.params.id
@@ -394,6 +397,8 @@ AND "travel_page_reviews".user_id = $2;
     })
 });
 
+
+// EDIT REVIEW
 router.put('/:id', (req, res) => {
 
     let putId = req.params.id

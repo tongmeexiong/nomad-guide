@@ -23,8 +23,7 @@ const styles = {
     },
     inputs: {
         marginLeft: '100px',
-        // height: '500px',
-        // width: '900px',
+
         marginTop: '-10px'
     },
     inputFields: {
@@ -34,23 +33,17 @@ const styles = {
 
 class UpdateReview extends React.Component {
 
-    
-
+// Get information on update page 
     componentDidMount() {
-        this.getExploreListReviews()
         this.props.dispatch({ type: 'GET_UPDATE_TRAVEL_REVIEW', payload: this.props.match.params.id })
         this.props.dispatch({ type: 'SET_TRAVEL_ID', payload: this.props.match.params.id })
-    }
-
-    getExploreListReviews = () => {
         this.props.dispatch({ type: 'FETCH_REVIEW', payload: this.props.exploreId })
     }
 
 
-
     submitPageHandler = (id) => {
         console.log('Submit');
-        this.props.dispatch({ type: 'PUT_REVIEW', payload: {id: id, rating: this.props.rating }})
+        this.props.dispatch({ type: 'PUT_REVIEW', payload: { id: id, rating: this.props.rating } })
         Swal.fire(
             'Thank you for the Edit!'
         )
@@ -62,18 +55,14 @@ class UpdateReview extends React.Component {
     experienceHandler = (event) => {
         console.log('experience', event.target.value);
         this.props.dispatch({ type: 'SET_EXPERIENCE_COMMENT', payload: event.target.value })
-
-        
     }
+
 
     render() {
         console.log('ID Update', this.props.match.params.id);
         const style = this.props.classes
-        console.log('hello', this.props.updateReview.experience_comment);
-
-
+ 
         return (
-            
             <div className={style.inputFields}>
                 <Grid
                     container
@@ -102,7 +91,6 @@ class UpdateReview extends React.Component {
                                     label="Review"
                                     multiline
                                     onChange={this.experienceHandler}
-                                    // value={items.experience_comment}
                                     rowsMax="4"
                                     margin="normal"
                                     helperText="Experience"
@@ -111,7 +99,7 @@ class UpdateReview extends React.Component {
                             </div>
                             <div>
                                 <Button variant="contained" color="secondary" onClick={() => this.submitPageHandler(items.travel_page_id)}>Submit</Button>
-                                </div>
+                            </div>
                             <div>
                                 <Grid
                                     container
@@ -120,20 +108,18 @@ class UpdateReview extends React.Component {
                                     alignItems="flex-end"
                                 >
                                     <Grid item xs={6} className={style.rating}>
-
-                                <h2>Safety</h2>
-                                <UpdateSafeStarRatings rating={items} />
-                                <h2>English</h2>
-                                <UpdateEnglishStarRatings rating={items}/>
-                                <h2>Cost</h2>
-                                <UpdateCostStarRatings rating={items}/>
-                                <h2>Friendliness</h2>
-                                <UpdateFriendlyStarRatings rating={items}/>
+                                        <h2>Safety</h2>
+                                        <UpdateSafeStarRatings rating={items} />
+                                        <h2>English</h2>
+                                        <UpdateEnglishStarRatings rating={items} />
+                                        <h2>Cost</h2>
+                                        <UpdateCostStarRatings rating={items} />
+                                        <h2>Friendliness</h2>
+                                        <UpdateFriendlyStarRatings rating={items} />
                                         <h2>Recommend</h2>
-                                <UpdateReconmmendStarRatings rating={items}/>
-                           </Grid>
+                                        <UpdateReconmmendStarRatings rating={items} />
+                                    </Grid>
                                 </Grid>
-
                             </div>
                         </div>
                     )
@@ -144,7 +130,7 @@ class UpdateReview extends React.Component {
 }
 
 
-const mapReduState = (reduxState) => {
+const mapReduxState = (reduxState) => {
     return {
         explore: reduxState.exploreReducer,
         reviews: reduxState.reviewReducer,
@@ -154,5 +140,5 @@ const mapReduState = (reduxState) => {
     }
 }
 
-export default withStyles(styles)(connect(mapReduState)(UpdateReview));
+export default withStyles(styles)(connect(mapReduxState)(UpdateReview));
 

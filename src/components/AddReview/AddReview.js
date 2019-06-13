@@ -196,7 +196,7 @@ window.scrollTo(0,0)
 }
 
 
-const mapReduState = (reduxState) => {
+const mapReduxState = (reduxState) => {
     return {
 
         reviewDetail: reduxState.addReviewDetailReducer,
@@ -204,4 +204,4 @@ const mapReduState = (reduxState) => {
     }
 }
 
-export default withStyles(styles)(connect(mapReduState)(AddReview));
+export default withStyles(styles)(connect(mapReduxState)(AddReview));

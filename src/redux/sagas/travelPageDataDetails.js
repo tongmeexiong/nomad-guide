@@ -1,10 +1,6 @@
 import axios from 'axios';
 import {put, takeLatest } from 'redux-saga/effects';
 
-function* travelPageGetDetailsSaga() {
-    yield takeLatest('FETCH_TRAVEL_PAGE_DETAILS', travelPageDataDetails);
-}
-
 
 
 function* travelPageDataDetails(action) {
@@ -18,6 +14,8 @@ function* travelPageDataDetails(action) {
     }
 }
 
-
+function* travelPageGetDetailsSaga() {
+    yield takeLatest('FETCH_TRAVEL_PAGE_DETAILS', travelPageDataDetails);
+}
 
 export default travelPageGetDetailsSaga;

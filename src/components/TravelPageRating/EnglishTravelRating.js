@@ -13,32 +13,18 @@ class EnglishStarRatings extends React.Component {
 
         return (
             <div>
-                {/* {this.props.reviews.map((rating=>{
-                    <h3>{rating.safety_rating}</h3> */}
-                {/* <div> */}
                 <Rating
                     initialRating={this.props.rating.english_rating}
-                    // onChange={this.clickRatingHandler}
                     emptySymbol={<StarBorder />}
                     fullSymbol={<Star />}
                     start={0}
                     stop={5}
                     readonly
                 />
-
-
             </div>
         )
     }
 }
 
-const mapReduState = (reduxState) => {
-    return {
-        explore: reduxState.exploreReducer,
-        exploreId: reduxState.idReducer,
-        reviews: reduxState.reviewReducer,
-        user: reduxState.user
-    }
-}
 
-export default connect(mapReduState)(EnglishStarRatings);
+export default connect()(EnglishStarRatings);

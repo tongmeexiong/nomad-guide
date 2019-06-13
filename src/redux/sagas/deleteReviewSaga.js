@@ -1,9 +1,7 @@
 import axios from 'axios';
 import {put, takeLatest } from 'redux-saga/effects';
 
-function* deleteReviewSaga() {
-    yield takeLatest('DELETE_REVIEW', travelPageData);
-}
+
 
 function* travelPageData(action) {
     try {
@@ -16,6 +14,8 @@ function* travelPageData(action) {
     }
 }
 
-
+function* deleteReviewSaga() {
+    yield takeLatest('DELETE_REVIEW', travelPageData);
+}
 
 export default deleteReviewSaga;

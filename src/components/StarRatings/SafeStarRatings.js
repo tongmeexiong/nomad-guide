@@ -2,22 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import Rating from 'react-rating';
 import { Star, StarBorder } from '@material-ui/icons'
-import { withStyles } from '@material-ui/core/styles'
 
-
-const styles = {
-    rating: {
-        height: '30px',
-        width: '300px',
-        marginRight: '100px',
-        marginTop: '-630px',
-        fontSize: '14.7px'
-    },
-    star: {
-        Color: 'gold'
-    },
-
-}
 
 
 
@@ -35,7 +20,6 @@ class SafeStarRatings extends React.Component {
 
     render() {
         console.log('Rating', this.state);
-let style = this.props.classes
         return (
             <div >
 
@@ -53,4 +37,4 @@ let style = this.props.classes
 }
 
 
-export default withStyles(styles)(connect()(SafeStarRatings));
+export default connect()(SafeStarRatings);

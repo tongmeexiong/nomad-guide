@@ -11,7 +11,6 @@ class UpdateReconmmendStarRatings extends React.Component {
 
     clickRatingHandler = (event) => {
         console.log('Click', event);
-
         this.props.dispatch({ type: 'SET_RECONMEND_RATING', payload: event })
     }
 
@@ -19,7 +18,6 @@ class UpdateReconmmendStarRatings extends React.Component {
 
         return (
             <div>
-
                 <Rating
                     initialRating={this.props.rating.reconmend_rating}
                     onChange={this.clickRatingHandler}
@@ -27,10 +25,7 @@ class UpdateReconmmendStarRatings extends React.Component {
                     fullSymbol={<Star />}
                     start={0}
                     stop={5}
-
                 />
-
-
             </div>
         )
     }

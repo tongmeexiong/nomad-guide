@@ -7,18 +7,14 @@ import { Star, StarBorder } from '@material-ui/icons';
 
 class updateSafeStarRatings extends React.Component {
 
-
-
     clickRatingHandler = (event) => {
         console.log('Click', event);
-     
         this.props.dispatch({ type: 'SET_SAFTEY_RATING', payload: event })
     }
 
     render() {
         console.log('Rating', this.state);
-        console.log('Safe Rating Prop', this.props.rating.saftey_rating);
-            
+
         return (
             <div>
                
@@ -29,10 +25,7 @@ class updateSafeStarRatings extends React.Component {
                     fullSymbol={<Star />}
                     start={0}
                     stop={5}
-
                 />
-               
-
             </div>
         )
     }

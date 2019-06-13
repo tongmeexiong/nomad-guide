@@ -1,21 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
-
+// Ratings
 import SafeStarRatings from '../StarRatings/SafeStarRatings'
 import EnlgishStarRating from '../StarRatings/EnglishStarRating'
 import CostStarRating from '../StarRatings/CostRating'
 import FriendlyStarRatings from '../StarRatings/FriendlyStarRatings'
 import ReconmendStarRatings from '../StarRatings/ReconmendStarRating'
+
+//Material-UI 
 import { Grid, Button } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import Swal from 'sweetalert2';
-
-
-
-
 
 const styles = {
     rating: {
@@ -65,7 +63,6 @@ class AddTravel extends React.Component {
 
     }
 
-
     addTravelLocation = () => {
         console.log('Clicked Add Location');
         // Send Post Information to Database
@@ -86,30 +83,11 @@ class AddTravel extends React.Component {
         Swal.fire(
             'Thank you!'
         )
-         this.props.history.push("home")
+        this.props.history.push("home")
 
-        // Send information to Reducer
-        // this.props.dispatch({ type: 'SET_NEW_POST', payload: this.state })
 
-        //Go to Review Page
-        // this.props.history.push("/addnewreview")
     }
 
-    preFillHandler = () => {
-        this.setState({
-            city: 'Pangasinan',
-            country: 'Philippines',
-            continent: 'Asia',
-            image: 'https://i.pinimg.com/originals/02/7d/de/027dde196f4c6dd564a83e68457d7658.jpg',
-            coworking_space_name: '',
-            coworking_space_address: '',
-            coworking_space_city: '',
-            coworking_space_country: '',
-            coworking_space_zip: 0,
-            experience_zip: '',
-            experience_comment: ''
-        })
-    }
 
     //Capture value of city input
     cityChangeHandler = (event) => {
@@ -144,36 +122,37 @@ class AddTravel extends React.Component {
     }
 
 
-
+    // Inputs to dispatch
     workSpaceName = (event) => {
         console.log('Name', event.target.value);
         this.props.dispatch({ type: 'SET_COWORKING_SPACE_NAME', payload: event.target.value })
     }
+
     workSpaceAddress = (event) => {
         console.log('Address', event.target.value);
         this.props.dispatch({ type: 'SET_COWORKING_SPACE_ADDRESS', payload: event.target.value })
-
     }
+
     workSpaceCity = (event) => {
         console.log('City', event.target.value);
         this.props.dispatch({ type: 'SET_COWORKING_SPACE_CITY', payload: event.target.value })
-
     }
+
     workSpaceCountry = (event) => {
         console.log('Country', event.target.value);
         this.props.dispatch({ type: 'SET_COWORKING_SPACE_COUNTRY', payload: event.target.value })
-
     }
+
     workSpaceZip = (event) => {
         console.log('Zip ', event.target.value);
         this.props.dispatch({ type: 'SET_COWORKING_SPACE_ZIP', payload: event.target.value })
-
     }
+
     workSpaceComment = (event) => {
         console.log('Comment', event.target.value);
         this.props.dispatch({ type: 'SET_EXPERIENCE_COMMENT', payload: event.target.value })
-
     }
+    // End of Inputs to dispatch
 
     render() {
         console.log('state', this.state);
@@ -184,7 +163,7 @@ class AddTravel extends React.Component {
             <div>
                 <div>
                     <div className={style.inputFields}>
-                        <h3 onClick={this.preFillHandler}> Review New Travel Destination</h3>
+                        <h3> Review New Travel Destination</h3>
                         <TextField value={this.state.city} onChange={this.cityChangeHandler} type="text" placeholder="City" />
                         <TextField value={this.state.country} onChange={this.countryChangeHandler} type="text" placeholder="Country" />
                         <TextField value={this.state.image} onChange={this.imageHandler} type="text" placeholder="img url" />
@@ -194,7 +173,6 @@ class AddTravel extends React.Component {
                             <option>Asia </option>
                             <option>Europe </option>
                             <option>North America  </option>
-
                         </NativeSelect>
                     </div>
                     <div>
@@ -207,7 +185,6 @@ class AddTravel extends React.Component {
                             <TextField onChange={this.workSpaceZip} type="text" placeholder="Zip Code" />
                             <div>
                                 <h3>Experience</h3>
-                                {/* <input onChange={this.workSpaceComment} className="experienceBox" type="text" /> */}
                                 <TextField
                                     onChange={this.workSpaceComment}
                                     id="filled-multiline-flexible"
@@ -243,19 +220,17 @@ class AddTravel extends React.Component {
                             <Button className={style.button} variant="contained" color="secondary" onClick={this.addTravelLocation}>Submit</Button>
                         </div>
                     </div>
-
                 </div>
-
             </div>
         )
     }
 }
 
-const mapReduState = (reduxState) => {
+const mapReduxState = (reduxState) => {
     return {
         rating: reduxState.ratingReducer,
     }
 }
 
-export default withStyles(styles)(connect(mapReduState)(AddTravel));
+export default withStyles(styles)(connect(mapReduxState)(AddTravel));
 

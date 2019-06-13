@@ -9,10 +9,8 @@ import { Star, StarBorder } from '@material-ui/icons';
 class UpdateCostStarRatings extends React.Component {
 
 
-
     clickRatingHandler = (event) => {
         console.log('Click', event);
-
         this.props.dispatch({ type: 'SET_COST_RATING', payload: event })
     }
 
@@ -20,7 +18,6 @@ class UpdateCostStarRatings extends React.Component {
 
         return (
             <div>
-
                 <Rating
                     initialRating={this.props.rating.cost_rating}
                     onChange={this.clickRatingHandler}
@@ -28,10 +25,7 @@ class UpdateCostStarRatings extends React.Component {
                     fullSymbol={<Star />}
                     start={0}
                     stop={5}
-
                 />
-
-
             </div>
         )
     }
