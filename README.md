@@ -1,7 +1,7 @@
 
 ## Nomad Guide
 
-This application is a disscuion, review and rating platform for Digital Nomads. Digital Nomads are people who travel while working remotely. This application was built because of the rising trend in remote work, it will help users find helpful information about travel destinations that would be important to a digital nomad. 
+This application is a disscuion, review and rating platform for Digital Nomads. Digital Nomads are people who travel while working remotely. This application was built because of the rising trend in remote work, it will help users find helpful information about travel destinations that would be important to a digital nomad. From my experience traveling around the workd, this application would be helpful. 
 
 ## Build With 
 This built with Javascript, Express, Node.js & postgreSQL, Passport, React, Redux, Redux Saga & Material-UI. 
